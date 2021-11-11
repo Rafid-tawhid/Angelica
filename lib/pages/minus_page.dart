@@ -71,11 +71,11 @@ class _MinusPageState extends State<MinusPage> {
   Widget build(BuildContext context) {
     //initial call
     _rollTheDice();
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Plus'),
         centerTitle: true,
-
       ),
       body: ListView(
         children: [
@@ -389,11 +389,20 @@ class _MinusPageState extends State<MinusPage> {
       }
     }
     // _saveLastScore(_higestScore);
-
     setState(() {
       _index1 = _random.nextInt(9);
-
       _index2 = _random.nextInt(9);
+      if(_index2>_index1)
+        {
+          setState(() {
+            _index2 = _index2-_index1;
+            _index1=_index1+1;
+          });
+        }
+      print(_index1.toString()+"=="+_index2.toString());
+
+
+
 
 
       _rand1 = _random.nextInt(9);
