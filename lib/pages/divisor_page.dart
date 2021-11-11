@@ -6,21 +6,20 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class MinusPage extends StatefulWidget {
-  static const String routeName = '/minus_page';
-
+class DivisorPage extends StatefulWidget {
+  static const String routeName = '/divisor_page';
   @override
-  _MinusPageState createState() => _MinusPageState();
+  _DivisorPageState createState() => _DivisorPageState();
 }
 
-class _MinusPageState extends State<MinusPage> {
-// late Timer _timer;
+class _DivisorPageState extends State<DivisorPage> {
+  // late Timer _timer;
   int _start = 120;
   int _score = 0;
   int _higestScore = 0;
-  var _min = 0;
-  var _index1 = 0;
-  var _index2 = 0;
+  int _div = 0;
+  int _index1 = 0;
+  int _index2 = 0;
   var _rand1 = 0;
   var _rand2 = 0;
   var _rand3 = 0;
@@ -41,7 +40,10 @@ class _MinusPageState extends State<MinusPage> {
   DateTime now = DateTime.now();
   AudioPlayer player = AudioPlayer(mode: PlayerMode.LOW_LATENCY);
 
-
+  String nameS = "Bot User",
+      idS = "00",
+      mailS = "user@",
+      emailFromLogin = "email@from_user";
   List<int> list = [];
   final _random = Random.secure();
   final _diceList = <String>[
@@ -57,25 +59,26 @@ class _MinusPageState extends State<MinusPage> {
   ];
 
   ///
-
+  ///
+  ///
   late FToast fToast;
 
   @override
   void initState() {
+    super.initState();
     fToast = FToast();
     fToast.init(context);
     fetchHigestScoreFromSharedPref();
-    super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
-    //initial call
     _rollTheDice();
-
     return Scaffold(
       appBar: AppBar(
-        title: Text('Plus'),
+        title: Text('Division'),
         centerTitle: true,
+
       ),
       body: ListView(
         children: [
@@ -156,7 +159,7 @@ class _MinusPageState extends State<MinusPage> {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Image.asset(
-                            'img/min.png',
+                            'img/div.png',
                             height: 60,
                             width: 60,
                           ),
@@ -371,7 +374,7 @@ class _MinusPageState extends State<MinusPage> {
           ),
         ],
       ),
-    );
+    );;
   }
   void _rollTheDice() {
     // _fetchUserInfo();
@@ -389,28 +392,31 @@ class _MinusPageState extends State<MinusPage> {
       }
     }
     // _saveLastScore(_higestScore);
+
     setState(() {
-      _index1 = _random.nextInt(9);
-      _index2 = _random.nextInt(9);
-      if(_index2>_index1)
-        {
-          setState(() {
-           _index1=_index2;
-           _index2=_index1-1;
-          });
-        }
-      print(_index1.toString()+"=="+_index2.toString());
+        int aa = (_random.nextInt(8) & -2)+1;
+        int bb = (_random.nextInt(8) & -2)+1;
+        if(aa<bb)
+          {
+            bb=aa;
+            aa=bb;
+          }
+        _index1=aa;
+        _index2=bb;
+        if(_index1%_index2==0)
+          {
+            _div=_index1~/_index2;
+          }
 
+      _rand1 = _random.nextInt(5);
+      _rand2 = _random.nextInt(5);
+      _rand3 = _random.nextInt(6);
 
-      _rand1 = _random.nextInt(9);
-      _rand2 = _random.nextInt(9);
-      _rand3 = _random.nextInt(9);
-
-      _min = _index1 - _index2 ;
+      // _div = (_index1 % _index2 ) ;
 
       // _score =_score +_index1 + _index2 + 2;
 
-      suffle(_rand1, _rand2, _rand3, _min);
+      suffle(_rand1, _rand2, _rand3, _div);
     });
   }
 
@@ -444,7 +450,7 @@ class _MinusPageState extends State<MinusPage> {
   checkRes(int a) {
     // print(a);
     int aa = a;
-    if (aa == _min) {
+    if (aa == _div) {
       final player = AudioCache();
       // congrats sound
       player.play('play.wav');
@@ -603,17 +609,16 @@ class _MinusPageState extends State<MinusPage> {
 
   void saveHigestScoreToSharedPref(int higest) async {
     var sharedPreferences = await SharedPreferences.getInstance();
-    sharedPreferences.setInt("min", higest);
-    print("minus");
+    sharedPreferences.setInt("div", higest);
+    print("savedd div ");
 
   }
   Future<int> fetchHigestScoreFromSharedPref() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
-      _higestScore = prefs.getInt("min")!;
+      _higestScore = prefs.getInt("div")!;
 
     });
     return _higestScore;
   }
-
 }

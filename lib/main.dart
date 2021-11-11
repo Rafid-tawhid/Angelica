@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:random_game_new_version/pages/divisor_page.dart';
 import 'package:random_game_new_version/pages/minus_page.dart';
 import 'package:random_game_new_version/pages/multiplication_page.dart';
 import 'package:random_game_new_version/pages/plus_page.dart';
 import 'package:random_game_new_version/pages/splash_screen.dart';
 
 import 'custom_widget/custom_drawer.dart';
+import 'pages/minus_page.dart';
+import 'pages/multiplication_page.dart';
+import 'pages/plus_page.dart';
+import 'pages/splash_screen.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -16,6 +21,7 @@ void main() {
       PlusPage.routeName: (context) => PlusPage(),
       MinusPage.routeName: (context) => MinusPage(),
       MultiplicationPage.routeName: (context) => MultiplicationPage(),
+      DivisorPage.routeName: (context) => DivisorPage(),
     },
   ));
 }
@@ -125,19 +131,24 @@ class _HomePageState extends State<HomePage> {
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                        height: 200,
-                        width: 150,
-                        decoration: BoxDecoration(
-                            color: Colors.deepOrange,
-                            border: Border.all(
-                              color: Colors.red,
-                            ),
-                            borderRadius: BorderRadius.all(Radius.circular(20))
-                        ),
-                        child: Center(
-                          child: Text("/",style: TextStyle(fontSize: 100,color: Colors.white),),
-                        )
+                    child: GestureDetector(
+                      onTap: (){
+                        Navigator.pushNamed(context, DivisorPage.routeName);
+                      },
+                      child: Container(
+                          height: 200,
+                          width: 150,
+                          decoration: BoxDecoration(
+                              color: Colors.deepOrange,
+                              border: Border.all(
+                                color: Colors.red,
+                              ),
+                              borderRadius: BorderRadius.all(Radius.circular(20))
+                          ),
+                          child: Center(
+                            child: Text("/",style: TextStyle(fontSize: 100,color: Colors.white),),
+                          )
+                      ),
                     ),
                   ),
                 ),
