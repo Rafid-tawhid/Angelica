@@ -396,6 +396,7 @@ class _DivisorPageState extends State<DivisorPage> {
     setState(() {
         int aa = (_random.nextInt(8) & -2)+1;
         int bb = (_random.nextInt(8) & -2)+1;
+
         if(aa<bb)
           {
             bb=aa;
@@ -403,11 +404,18 @@ class _DivisorPageState extends State<DivisorPage> {
           }
         _index1=aa;
         _index2=bb;
-        if(_index1%_index2==0)
-          {
-            _div=_index1~/_index2;
-          }
+        while(_index1 % _index2 != 0)
+        {
+          _index2 = _random.nextInt(4);
+        }
 
+        if(_div==(1/0))
+          {
+            _div=1;
+          }
+        _div = ((_index1+1) ~/ (_index2+1));
+
+        print('$_index1+": "+$_index2 " : "$_div');
       _rand1 = _random.nextInt(5);
       _rand2 = _random.nextInt(5);
       _rand3 = _random.nextInt(6);
