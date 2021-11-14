@@ -4,6 +4,7 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MultiplicationPage extends StatefulWidget {
@@ -595,9 +596,13 @@ class _MultiplicationPageState extends State<MultiplicationPage> {
 
 
   void saveHigestScoreToSharedPref(int higest) async {
+    var now = new DateTime.now();
+    var formatter = new DateFormat('MMM-dd / h:mm');
+    String formattedDate = formatter.format(now);
     var sharedPreferences = await SharedPreferences.getInstance();
     sharedPreferences.setInt("mup", higest);
-    print("savedd mup");
+    sharedPreferences.setString("mupDt", formattedDate);
+    print("savedd mup"+formattedDate);
 
   }
   Future<int> fetchHigestScoreFromSharedPref() async {

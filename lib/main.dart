@@ -3,6 +3,7 @@ import 'package:random_game_new_version/pages/divisor_page.dart';
 import 'package:random_game_new_version/pages/minus_page.dart';
 import 'package:random_game_new_version/pages/multiplication_page.dart';
 import 'package:random_game_new_version/pages/plus_page.dart';
+import 'package:random_game_new_version/pages/score_board.dart';
 import 'package:random_game_new_version/pages/splash_screen.dart';
 
 import 'custom_widget/custom_drawer.dart';
@@ -22,6 +23,7 @@ void main() {
       MinusPage.routeName: (context) => MinusPage(),
       MultiplicationPage.routeName: (context) => MultiplicationPage(),
       DivisorPage.routeName: (context) => DivisorPage(),
+      ScoreBoard.routeName: (context) => ScoreBoard(),
     },
   ));
 }
@@ -37,125 +39,151 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: Drawer(
-        child: CustomDrawer(),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primaryColor: Colors.pinkAccent,
       ),
-        appBar: AppBar(
-          title: Text("HomePage"),
+      home: Scaffold(
+        drawer: Drawer(
+          child: CustomDrawer(),
         ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Row(
-              children: [
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: GestureDetector(
-                      onTap: (){
-                        Navigator.pushNamed(context, PlusPage.routeName);
+          appBar: AppBar(
+            title: Text("Honey Bunny"),
+            centerTitle: true,
+            backgroundColor: Color(0xffF61ABC),
 
-                      },
-                      child: Container(
-                        height: 200,
-                          width: 150,
-                          decoration: BoxDecoration(
-                              color: Colors.deepOrange,
-                              border: Border.all(
-                                color: Colors.red,
-                              ),
-                              borderRadius: BorderRadius.all(Radius.circular(20))
-                          ),
-                          child: Center(
-                            child: Text("+",style: TextStyle(fontSize: 100,color: Colors.white),),
-                          )
-                      ),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: GestureDetector(
-                      onTap: (){
-                        Navigator.pushNamed(context, MinusPage.routeName);
-                      },
-                      child: Container(
-                        height: 200,
-                          width: 150,
-                          decoration: BoxDecoration(
-                              color: Colors.deepOrange,
-                              border: Border.all(
-                                color: Colors.red,
-                              ),
-                              borderRadius: BorderRadius.all(Radius.circular(20))
-                          ),
-                          child: Center(
-                            child: Text("-",style: TextStyle(fontSize: 100,color: Colors.white),),
-                          )
-                      ),
-                    ),
-                  ),
-                ),
+          ),
+        body: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: ExactAssetImage("img/bg.jpg",),
+              fit: BoxFit.fill,
 
-              ],
             ),
-            Row(
-              children: [
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: GestureDetector(
-                      onTap: (){
-                        Navigator.pushNamed(context, MultiplicationPage.routeName);
-                      },
-                      child: Container(
-                          height: 200,
-                          width: 150,
-                          decoration: BoxDecoration(
-                              color: Colors.deepOrange,
-                              border: Border.all(
-                                color: Colors.red,
-                              ),
-                              borderRadius: BorderRadius.all(Radius.circular(20))
-                          ),
-                          child: Center(
-                            child: Text("*",style: TextStyle(fontSize: 100,color: Colors.white),),
-                          )
-                      ),
-                    ),
-                  ),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Expanded(
+                flex: 1,
+                child: Container(
+                  padding: EdgeInsets.only(top: 10),
+                  margin: EdgeInsets.only(left: 20,right: 20),
+                  child: Image.asset('img/title.png'),
                 ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: GestureDetector(
-                      onTap: (){
-                        Navigator.pushNamed(context, DivisorPage.routeName);
-                      },
-                      child: Container(
-                          height: 200,
-                          width: 150,
-                          decoration: BoxDecoration(
-                              color: Colors.deepOrange,
-                              border: Border.all(
-                                color: Colors.red,
-                              ),
-                              borderRadius: BorderRadius.all(Radius.circular(20))
-                          ),
-                          child: Center(
-                            child: Text("/",style: TextStyle(fontSize: 100,color: Colors.white),),
-                          )
-                      ),
-                    ),
-                  ),
-                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Expanded(
+                  flex: 1,
+                  child: Container(
+                    margin: EdgeInsets.all(5),
 
-              ],
-            ),
-          ],
+                    child: Image.asset('img/angle.png'),
+                  ),
+                ),
+              ),
+              Expanded(
+                flex: 1,
+                child: Container(
+
+                  padding: EdgeInsets.only(left: 50,right: 50),
+                  child: Row(
+
+                    children: [
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: GestureDetector(
+                            onTap: (){
+                              Navigator.pushNamed(context, PlusPage.routeName);
+
+                            },
+                            child: Container(
+                                height: 200,
+                                width: 150,
+                                child: Center(
+                                  child: Image.asset('img/plus.png'),
+                                )
+                            ),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: GestureDetector(
+                            onTap: (){
+                              Navigator.pushNamed(context, MinusPage.routeName);
+                            },
+                            child: Container(
+                                height: 200,
+                                width: 150,
+                                child: Center(
+                                  child: Image.asset('img/min.png'),
+                                )
+                            ),
+                          ),
+                        ),
+                      ),
+
+                    ],
+                  ),
+                ),
+              ),
+              Expanded(
+                flex: 1,
+                child: Container(
+                  padding: EdgeInsets.only(left: 50,right: 50),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: GestureDetector(
+                            onTap: (){
+                              Navigator.pushNamed(context, MultiplicationPage.routeName);
+                            },
+                            child: Container(
+                                height: 200,
+                                width: 150,
+                                child: Center(
+                                  child: Image.asset('img/mup.png'),
+                                )
+                            ),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: GestureDetector(
+                            onTap: (){
+                              Navigator.pushNamed(context, DivisorPage.routeName);
+                            },
+                            child: Container(
+                                height: 200,
+                                width: 150,
+                                child: Center(
+                                  child: Image.asset('img/div.png'),
+                                )
+                            ),
+                          ),
+                        ),
+                      ),
+
+                    ],
+                  ),
+                ),
+              ),
+              Expanded(
+                  flex: 1,
+                  child: Container(
+
+                  ))
+            ],
+          ),
         ),
       ),
     );

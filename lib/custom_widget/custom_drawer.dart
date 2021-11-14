@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:random_game_new_version/pages/score_board.dart';
 
 class CustomDrawer extends StatefulWidget {
 
@@ -13,15 +14,18 @@ class _CustomDrawerState extends State<CustomDrawer> {
       // Important: Remove any padding from the ListView.
       padding: EdgeInsets.zero,
       children: <Widget>[
-        UserAccountsDrawerHeader(
-          accountName: Text("Rafid Tawhid"),
-          accountEmail:
-          Text("rafid@pencilbox.edu.bd"),
-          currentAccountPicture: CircleAvatar(
-            backgroundColor: Colors.orange,
-            child: Text(
-              "PB",
-              style: TextStyle(fontSize: 30.0),
+        Container(
+          color: Color(0xffF61ABC),
+          child: UserAccountsDrawerHeader(
+            accountName: Text("Rafid Tawhid"),
+            accountEmail:
+            Text("rafid@pencilbox.edu.bd"),
+            currentAccountPicture: CircleAvatar(
+              backgroundColor: Colors.white,
+              child: Container(
+                child: Image.asset('img/angle.png'),
+                padding: EdgeInsets.all(5),
+              ),
             ),
           ),
         ),
@@ -45,11 +49,12 @@ class _CustomDrawerState extends State<CustomDrawer> {
           leading: Icon(Icons.settings),
           title: Text("Players Profile"),
           onTap: () {
-            // Navigator.push(
-            //     context,
-            //     MaterialPageRoute(
-            //         builder: (context) =>
-            //             PlayerDashboard()));
+            // Navigator.pushNamed(context, ScoreBoard.routeName);
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        ScoreBoard()));
           },
         ),
         ListTile(

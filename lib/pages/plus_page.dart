@@ -5,6 +5,7 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PlusPage extends StatefulWidget {
@@ -161,7 +162,7 @@ class _PlusPageState extends State<PlusPage> {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Image.asset(
-                            'img/plus.JPG',
+                            'img/plus.png',
                             height: 60,
                             width: 60,
                           ),
@@ -383,6 +384,8 @@ class _PlusPageState extends State<PlusPage> {
   void _rollTheDice() {
     // _fetchUserInfo();
 
+
+
     if (_score > _higestScore) {
       _higestScore = _score;
       if (_score > 5) {
@@ -460,6 +463,7 @@ class _PlusPageState extends State<PlusPage> {
       _score++;
     } else {
       print("ERROR");
+
       showToast();
     }
   }
@@ -600,8 +604,13 @@ class _PlusPageState extends State<PlusPage> {
 
 
   void saveHigestScoreToSharedPref(int higest) async {
+    var now = new DateTime.now();
+    var formatter = new DateFormat('MMM-dd / h:mm');
+    String formattedDate = formatter.format(now);
+
     var sharedPreferences = await SharedPreferences.getInstance();
     sharedPreferences.setInt("high", higest);
+    sharedPreferences.setString("highDt", formattedDate);
     print("savedd");
 
   }
@@ -609,7 +618,6 @@ class _PlusPageState extends State<PlusPage> {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
       _higestScore = prefs.getInt("high")!;
-
     });
     return _higestScore;
   }

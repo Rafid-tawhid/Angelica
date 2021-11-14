@@ -4,6 +4,7 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MinusPage extends StatefulWidget {
@@ -602,9 +603,13 @@ class _MinusPageState extends State<MinusPage> {
 
 
   void saveHigestScoreToSharedPref(int higest) async {
+    var now = new DateTime.now();
+    var formatter = new DateFormat('MMM-dd / h:mm');
+    String formattedDate = formatter.format(now);
+
     var sharedPreferences = await SharedPreferences.getInstance();
     sharedPreferences.setInt("min", higest);
-    print("minus");
+    sharedPreferences.setString("minDt", formattedDate);
 
   }
   Future<int> fetchHigestScoreFromSharedPref() async {
