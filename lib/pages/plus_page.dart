@@ -49,15 +49,15 @@ class _PlusPageState extends State<PlusPage> {
   List<int> list = [];
   final _random = Random.secure();
   final _diceList = <String>[
-    'img/nm1.JPG',
-    'img/nm2.JPG',
-    'img/nm3.JPG',
-    'img/nm4.JPG',
-    'img/nm5.JPG',
-    'img/nm6.JPG',
-    'img/nm7.JPG',
-    'img/nm8.JPG',
-    'img/nm9.JPG',
+    'img/nm1.png',
+    'img/nm2.png',
+    'img/nm3.png',
+    'img/nm4.png',
+    'img/nm5.png',
+    'img/nm6.png',
+    'img/nm7.png',
+    'img/nm8.png',
+    'img/nm9.png',
   ];
 
   ///
@@ -99,14 +99,195 @@ class _PlusPageState extends State<PlusPage> {
           child: Center(
             child: Stack(
               children: [
+                Image.asset('img/angle_drag.png',fit: BoxFit.cover,filterQuality: FilterQuality.high),
 
-                Image.asset('img/angle_drag.png',fit: BoxFit.cover,),
                 Container(
                   padding: EdgeInsets.only(top: 150),
+                  child: Stack(
+                    children: [
+                      Image.asset('img/number_bg.png',fit: BoxFit.cover,filterQuality: FilterQuality.high),
+                      Padding(
+                        padding:
+                        const EdgeInsets.only(left: 27.0, right: 27,top: 30),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Higest Score :$_higestScore',
+                              style: TextStyle(
+                                fontSize: 20,color: Colors.pinkAccent
+                              ),
+                            ),
+                            Text(
+                              "Hello..!!",
 
-                  child: Image.asset('img/number_bg.png',fit: BoxFit.cover,),
+                              style: TextStyle(
+                                fontSize: 20,color: Colors.pinkAccent
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Center(
+                      child:Container(
+                        height: 40,
+                        width: 149,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(25),
+                          image: DecorationImage(
+
+                              image: AssetImage('img/score_btn.png',),
+                              fit: BoxFit.cover,filterQuality: FilterQuality.high),
+                        ),
+                        child: Center(child: Text('Score : $_score',style: TextStyle(color: Colors.white,fontSize: 18),)),
+
+                      ),),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Container(
+                                margin: EdgeInsets.all(15),
+                                child: Row(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Image.asset(
+                                        _diceList[_index1],
+                                        height: 80,
+                                        width: 80,
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Image.asset(
+                                        'img/plus.png',
+                                        height: 80,
+                                        width: 80,
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Image.asset(
+                                        _diceList[_index2],
+                                        height: 80,
+                                        width: 80,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    GestureDetector(
+                                      child: Container(
+                                        height: 42,
+                                        width: 135,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(25),
+                                          image: DecorationImage(
+
+                                              image: AssetImage('img/score_btn.png',),
+                                              fit: BoxFit.cover,filterQuality: FilterQuality.high),
+                                        ),
+                                        child: Center(child: Text('$a',style: TextStyle(color: Colors.white,fontSize: 18),)),
+
+                                      ),
+                                      onTap: (){
+                                        checkRes(a);
+                                      },
+                                    ),
+                                    SizedBox(width: 10,),
+                                    GestureDetector(
+                                      child: Container(
+                                        height: 42,
+                                        width: 135,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(25),
+                                          image: DecorationImage(
+
+                                              image: AssetImage('img/score_btn.png',),
+                                              fit: BoxFit.cover,filterQuality: FilterQuality.high),
+                                        ),
+                                        child: Center(child: Text('$b',style: TextStyle(color: Colors.white,fontSize: 18),)),
+
+                                      ),
+                                      onTap: (){
+                                        checkRes(b);
+                                      },
+                                    ),
+                                  ],
+                                ),
+
+                              ),//buttns1,2
+                              Padding(
+                                 padding: const EdgeInsets.only(left: 8.0,right: 8),
+                                 child: Row(
+                                   mainAxisSize: MainAxisSize.max,
+                                   mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    GestureDetector(
+                                      child: Container(
+                                        height: 42,
+                                        width: 135,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(25),
+                                          image: DecorationImage(
+
+                                              image: AssetImage('img/score_btn.png',),
+                                              fit: BoxFit.cover,filterQuality: FilterQuality.high),
+                                        ),
+                                        child: Center(child: Text('$c',style: TextStyle(color: Colors.white,fontSize: 18),)),
+
+                                      ),
+                                      onTap: (){
+                                        checkRes(c);
+                                      },
+                                    ),
+                                    SizedBox(width: 10,),
+                                    GestureDetector(
+                                      child: Container(
+                                        height: 42,
+                                        width: 135,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(25),
+                                          image: DecorationImage(
+
+                                              image: AssetImage('img/score_btn.png',),
+                                              fit: BoxFit.cover,filterQuality: FilterQuality.high),
+                                        ),
+                                        child: Center(child: Text('$d',style: TextStyle(color: Colors.white,fontSize: 18),)),
+
+                                      ),
+                                      onTap: (){
+                                        checkRes(d);
+                                      },
+                                    ),
+                                  ],
+                              ),
+                               ), //buttns3,4
+
+                            ],
+                          ),
+                          SizedBox(height: 60,)
+                        ],
+                      )
+                    ],
+                  ),
+
 
                 ),
+
                 Center(
                   child: Align(
                     alignment: Alignment.bottomCenter,
@@ -129,11 +310,12 @@ class _PlusPageState extends State<PlusPage> {
                       ),
                       // ),
                       onPressed: () {
-
+                        _rollTheDice();
                       },
                     ),
                   ),
                 ),
+
               ],
             ),
 
@@ -217,17 +399,19 @@ class _PlusPageState extends State<PlusPage> {
       final player = AudioCache();
       // congrats sound
       player.play('play.wav');
-
       setState(() {
-        showMsg = true;
-        hideNumber = false;
-        Future.delayed(const Duration(milliseconds: 500), () {
-          setState(() {
-            showMsg = false;
-            hideNumber = true;
-          });
-        });
+
       });
+      // setState(() {
+      //   showMsg = true;
+      //   hideNumber = false;
+      //   Future.delayed(const Duration(milliseconds: 500), () {
+      //     setState(() {
+      //       showMsg = false;
+      //       hideNumber = true;
+      //     });
+      //   });
+      // });
       _score++;
     } else {
       print("ERROR");
