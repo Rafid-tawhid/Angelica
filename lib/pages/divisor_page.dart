@@ -405,21 +405,25 @@ class _DivisorPageState extends State<DivisorPage> {
           }
         _index1=aa;
         _index2=bb;
-        while(_index1 % _index2 != 0)
-        {
-          _index2 = _random.nextInt(4);
+        try {
+          while(_index1 % _index2 != 0)
+          {
+            _index2 = _random.nextInt(4);
+          }
+          print(_index1.toString()+" : "+_index2.toString());
+        } on IntegerDivisionByZeroException {
+          _div=1;
+          print("Cannot divide by Zero");
         }
 
-        if(_div==(1/0))
-          {
-            _div=1;
-          }
+
+
         _div = ((_index1+1) ~/ (_index2+1));
 
         print('$_index1+": "+$_index2 " : "$_div');
-      _rand1 = _random.nextInt(5);
-      _rand2 = _random.nextInt(5);
-      _rand3 = _random.nextInt(6);
+      _rand1 = _random.nextInt(9);
+      _rand2 = _random.nextInt(8);
+      _rand3 = _random.nextInt(9);
 
       // _div = (_index1 % _index2 ) ;
 

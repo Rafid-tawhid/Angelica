@@ -78,304 +78,72 @@ class _PlusPageState extends State<PlusPage> {
     //initial call
     _rollTheDice();
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Plus'),
-        centerTitle: true,
+      // appBar: AppBar(
+      //   title: Text('Plus'),
+      //   centerTitle: true,
+      //   backgroundColor: Color(0xffF61ABC),
+      //   elevation: 0,
+      // ),
+      body: Container(
 
-      ),
-      body: ListView(
-        children: [
-          Column(
-            children: [
-              Padding(
-                padding:
-                const EdgeInsets.only(left: 12.0, right: 12,top: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Higest Score :$_higestScore',
-                      style: TextStyle(
-                        fontSize: 18,
-                      ),
-                    ),
-                    Text(
-                      "Hello..!!",
-
-                      style: TextStyle(
-                        fontSize: 18,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-
-              SizedBox(
-                height: 50,
-              ),
-              Container(
-                child: Column(
-                  children: [
-                    Text(
-                      'Score :$_score',
-                      style: TextStyle(fontSize: 24),
-                    ),
-                    SizedBox(
-                      height: 50,
-                    ),
-                    if (showMsg == true)
-                      Center(
-                        child: Image.asset(
-                          'img/anim2.gif',
-                          height: 150,
-                          width: 200,
-                        ),
-                      )
-                    // showCongoMsg()
-                    else
-                      Center(
-                        child: Image.asset(
-                          'img/anim3.gif',
-                          height: 150,
-                          width: 200,
-                        ),
-                      ),
-                  ],
-                ),
-              ),
-
-              if(hideNumber)Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Container(
-                    margin: EdgeInsets.all(15),
-                    child: Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Image.asset(
-                            _diceList[_index1],
-                            height: 70,
-                            width: 70,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Image.asset(
-                            'img/plus.png',
-                            height: 60,
-                            width: 60,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Image.asset(
-                            _diceList[_index2],
-                            height: 70,
-                            width: 70,
-                          ),
-                        ),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-              // Text('sum :$_sum',style: TextStyle(fontSize: 20),),
-              const SizedBox(
-                height: 20,
-              ),
-              if(hideNumber) Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Container(
-                            height: 35.0,
-                            child: RaisedButton(
-                              onPressed: () {
-                                checkRes(a);
-                              },
-                              shape: RoundedRectangleBorder(
-                                  borderRadius:
-                                  BorderRadius.circular(80.0)),
-                              padding: EdgeInsets.all(0.0),
-                              child: Ink(
-                                decoration: BoxDecoration(
-                                    gradient: const LinearGradient(
-                                      colors: [
-                                        Color(0xff374ABE),
-                                        Color(0xff64B6FF)
-                                      ],
-                                      begin: Alignment.centerLeft,
-                                      end: Alignment.centerRight,
-                                    ),
-                                    borderRadius:
-                                    BorderRadius.circular(30.0)),
-                                child: Container(
-                                  constraints: const BoxConstraints(
-                                      maxWidth: 250.0,
-                                      minHeight: 50.0),
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    "$a",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 15),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 8,
-                        ),
-                        Expanded(
-                          child: Container(
-                            height: 35.0,
-                            child: RaisedButton(
-                              onPressed: () {
-                                checkRes(b);
-                              },
-                              shape: RoundedRectangleBorder(
-                                  borderRadius:
-                                  BorderRadius.circular(80.0)),
-                              padding: EdgeInsets.all(0.0),
-                              child: Ink(
-                                decoration: BoxDecoration(
-                                    gradient: const LinearGradient(
-                                      colors: [
-                                        Color(0xff374ABE),
-                                        Color(0xff64B6FF)
-                                      ],
-                                      begin: Alignment.centerLeft,
-                                      end: Alignment.centerRight,
-                                    ),
-                                    borderRadius:
-                                    BorderRadius.circular(30.0)),
-                                child: Container(
-                                  constraints: const BoxConstraints(
-                                      maxWidth: 250.0,
-                                      minHeight: 50.0),
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    "$b",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 15),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  //buttns1,2
-
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Container(
-                            height: 35.0,
-                            child: RaisedButton(
-                              onPressed: () {
-                                checkRes(c);
-                              },
-                              shape: RoundedRectangleBorder(
-                                  borderRadius:
-                                  BorderRadius.circular(80.0)),
-                              padding: EdgeInsets.all(0.0),
-                              child: Ink(
-                                decoration: BoxDecoration(
-                                    gradient: const LinearGradient(
-                                      colors: [
-                                        Color(0xff374ABE),
-                                        Color(0xff64B6FF)
-                                      ],
-                                      begin: Alignment.centerLeft,
-                                      end: Alignment.centerRight,
-                                    ),
-                                    borderRadius:
-                                    BorderRadius.circular(30.0)),
-                                child: Container(
-                                  constraints: const BoxConstraints(
-                                      maxWidth: 250.0,
-                                      minHeight: 50.0),
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    "$c",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 15),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 8,
-                        ),
-                        Expanded(
-                          child: Container(
-                            height: 35.0,
-                            child: RaisedButton(
-                              onPressed: () {
-                                checkRes(d);
-                              },
-                              shape: RoundedRectangleBorder(
-                                  borderRadius:
-                                  BorderRadius.circular(80.0)),
-                              padding: EdgeInsets.all(0.0),
-                              child: Ink(
-                                decoration: BoxDecoration(
-                                    gradient: const LinearGradient(
-                                      colors: [
-                                        Color(0xff374ABE),
-                                        Color(0xff64B6FF)
-                                      ],
-                                      begin: Alignment.centerLeft,
-                                      end: Alignment.centerRight,
-                                    ),
-                                    borderRadius:
-                                    BorderRadius.circular(30.0)),
-                                child: Container(
-                                  constraints: BoxConstraints(
-                                      maxWidth: 250.0,
-                                      minHeight: 50.0),
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    "$d",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 15),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  //buttns3,4
-                  ElevatedButton(
-                      onPressed: _rollTheDice, child: Text("Roll")),
-                ],
-              ),
-            ],
+        height: double.maxFinite,
+        padding: EdgeInsets.only(top: 80,left: 10,right: 10),
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: ExactAssetImage('img/game_bg.png',),
+            fit: BoxFit.fill,
           ),
-        ],
+        ),
+        child: Container(
+          width: double.maxFinite,
+          child: Center(
+            child: Stack(
+              children: [
+
+                Image.asset('img/angle_drag.png',fit: BoxFit.cover,),
+                Container(
+                  padding: EdgeInsets.only(top: 150),
+
+                  child: Image.asset('img/number_bg.png',fit: BoxFit.cover,),
+
+                ),
+                Center(
+                  child: Align(
+                    alignment: Alignment.bottomCenter,
+                    child: MaterialButton(
+                      padding: const EdgeInsets.all(18.0),
+                      textColor: Colors.white,
+                      splashColor: Colors.greenAccent,
+                      elevation: 8.0,
+                      child: Container(
+                        height: 45,
+                        width: 120,
+                        decoration: BoxDecoration(
+
+                          image: DecorationImage(
+
+                              image: AssetImage('img/skip_btn.png',),
+                              fit: BoxFit.cover,filterQuality: FilterQuality.high),
+                        ),
+
+                      ),
+                      // ),
+                      onPressed: () {
+
+                      },
+                    ),
+                  ),
+                ),
+              ],
+            ),
+
+          ),
+        )
+
+
+
+
+
       ),
     );
   }

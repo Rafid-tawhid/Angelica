@@ -54,6 +54,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   ),
                   // ),
                   onPressed: () {
+
                     Navigator.pushNamed(context, HomePage.routeName);
                   },
                 ),
