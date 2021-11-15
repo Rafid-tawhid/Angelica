@@ -47,15 +47,15 @@ class _MinusPageState extends State<MinusPage> {
   List<int> list = [];
   final _random = Random.secure();
   final _diceList = <String>[
-    'img/nm1.png',
-    'img/nm2.png',
-    'img/nm3.png',
-    'img/nm4.png',
-    'img/nm5.png',
-    'img/nm6.png',
-    'img/nm7.png',
-    'img/nm8.png',
-    'img/nm9.png',
+    'img/nm1.JPG',
+    'img/nm2.JPG',
+    'img/nm3.JPG',
+    'img/nm4.JPG',
+    'img/nm5.JPG',
+    'img/nm6.JPG',
+    'img/nm7.JPG',
+    'img/nm8.JPG',
+    'img/nm9.JPG',
   ];
 
   ///
@@ -75,7 +75,6 @@ class _MinusPageState extends State<MinusPage> {
     _rollTheDice();
 
     return Scaffold(
-
       body: Container(
 
           height: double.maxFinite,
@@ -105,17 +104,17 @@ class _MinusPageState extends State<MinusPage> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                ' Higest Score :$_higestScore',
-                                style: GoogleFonts.bubblegumSans(
+                                'Higest Score :$_higestScore',
+                                style: TextStyle(
                                     fontSize: 20,color: Colors.pinkAccent
                                 ),
                               ),
                               Text(
-                                "Hello..!! ",
+                                "Hello..!!",
 
-                                  style:  GoogleFonts.bubblegumSans(
-                                      fontSize: 20,color: Colors.pinkAccent
-                                  ),
+                                style: TextStyle(
+                                    fontSize: 20,color: Colors.pinkAccent
+                                ),
                               ),
                             ],
                           ),
@@ -134,7 +133,7 @@ class _MinusPageState extends State<MinusPage> {
                                       image: AssetImage('img/score_btn.png',),
                                       fit: BoxFit.cover,filterQuality: FilterQuality.high),
                                 ),
-                                child: Center(child: Text('Score : $_score',style: GoogleFonts.bubblegumSans(color: Colors.white,fontSize: 20),)),
+                                child: Center(child: Text('Score : $_score',style: TextStyle(color: Colors.white,fontSize: 18),)),
 
                               ),),
                             Row(
@@ -155,7 +154,7 @@ class _MinusPageState extends State<MinusPage> {
                                       Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: Image.asset(
-                                          'img/min.png',
+                                          'img/plus.png',
                                           height: 80,
                                           width: 80,
                                         ),
@@ -192,7 +191,7 @@ class _MinusPageState extends State<MinusPage> {
                                                 image: AssetImage('img/score_btn.png',),
                                                 fit: BoxFit.cover,filterQuality: FilterQuality.high),
                                           ),
-                                          child: Center(child: Text('$a',style: GoogleFonts.bubblegumSans(color: Colors.white,fontSize: 20),)),
+                                          child: Center(child: Text('$a',style: TextStyle(color: Colors.white,fontSize: 18),)),
 
                                         ),
                                         onTap: (){
@@ -211,7 +210,7 @@ class _MinusPageState extends State<MinusPage> {
                                                 image: AssetImage('img/score_btn.png',),
                                                 fit: BoxFit.cover,filterQuality: FilterQuality.high),
                                           ),
-                                          child: Center(child: Text('$b',style: GoogleFonts.bubblegumSans(color: Colors.white,fontSize: 20),)),
+                                          child: Center(child: Text('$b',style: TextStyle(color: Colors.white,fontSize: 18),)),
 
                                         ),
                                         onTap: (){
@@ -239,7 +238,7 @@ class _MinusPageState extends State<MinusPage> {
                                                 image: AssetImage('img/score_btn.png',),
                                                 fit: BoxFit.cover,filterQuality: FilterQuality.high),
                                           ),
-                                          child: Center(child: Text('$c',style: GoogleFonts.bubblegumSans(color: Colors.white,fontSize: 20),)),
+                                          child: Center(child: Text('$c',style: TextStyle(color: Colors.white,fontSize: 18),)),
 
                                         ),
                                         onTap: (){
@@ -258,7 +257,7 @@ class _MinusPageState extends State<MinusPage> {
                                                 image: AssetImage('img/score_btn.png',),
                                                 fit: BoxFit.cover,filterQuality: FilterQuality.high),
                                           ),
-                                          child: Center(child: Text('$d',style: GoogleFonts.bubblegumSans(color: Colors.white,fontSize: 20),)),
+                                          child: Center(child: Text('$d',style: TextStyle(color: Colors.white,fontSize: 18),)),
 
                                         ),
                                         onTap: (){
@@ -341,12 +340,12 @@ class _MinusPageState extends State<MinusPage> {
       _index1 = _random.nextInt(9);
       _index2 = _random.nextInt(9);
       if(_index2>_index1)
-        {
-          setState(() {
-           _index1=_index2;
-           _index2=_index1-1;
-          });
-        }
+      {
+        setState(() {
+          _index1=_index2;
+          _index2=_index1-1;
+        });
+      }
       print(_index1.toString()+"=="+_index2.toString());
 
 
@@ -396,19 +395,17 @@ class _MinusPageState extends State<MinusPage> {
       final player = AudioCache();
       // congrats sound
       player.play('play.wav');
-      setState(() {
 
+      setState(() {
+        showMsg = true;
+        hideNumber = false;
+        Future.delayed(const Duration(milliseconds: 500), () {
+          setState(() {
+            showMsg = false;
+            hideNumber = true;
+          });
+        });
       });
-      // setState(() {
-      //   showMsg = true;
-      //   hideNumber = false;
-      //   Future.delayed(const Duration(milliseconds: 500), () {
-      //     setState(() {
-      //       showMsg = false;
-      //       hideNumber = true;
-      //     });
-      //   });
-      // });
       _score++;
     } else {
       print("ERROR");

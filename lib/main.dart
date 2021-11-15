@@ -6,6 +6,7 @@ import 'package:random_game_new_version/pages/multiplication_page.dart';
 import 'package:random_game_new_version/pages/plus_page.dart';
 import 'package:random_game_new_version/pages/score_board.dart';
 import 'package:random_game_new_version/pages/splash_screen.dart';
+import 'package:random_game_new_version/pages/substract_page.dart';
 
 import 'custom_widget/custom_drawer.dart';
 import 'pages/minus_page.dart';
@@ -25,6 +26,7 @@ void main() {
       MultiplicationPage.routeName: (context) => MultiplicationPage(),
       DivisorPage.routeName: (context) => DivisorPage(),
       ScoreBoard.routeName: (context) => ScoreBoard(),
+      SubPage.routeName: (context) => SubPage(),
     },
   ));
 }
@@ -121,7 +123,7 @@ class _HomePageState extends State<HomePage> {
                           padding: const EdgeInsets.all(8.0),
                           child: GestureDetector(
                             onTap: (){
-                              Navigator.pushNamed(context, MinusPage.routeName);
+                              Navigator.pushNamed(context, SubPage.routeName);
                             },
                             child: Container(
                                 height: 200,
