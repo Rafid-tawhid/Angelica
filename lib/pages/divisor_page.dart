@@ -48,15 +48,15 @@ class _DivisorPageState extends State<DivisorPage> {
   List<int> list = [];
   final _random = Random.secure();
   final _diceList = <String>[
-    'img/nm1.JPG',
-    'img/nm2.JPG',
-    'img/nm3.JPG',
-    'img/nm4.JPG',
-    'img/nm5.JPG',
-    'img/nm6.JPG',
-    'img/nm7.JPG',
-    'img/nm8.JPG',
-    'img/nm9.JPG',
+    'img/nm1.png',
+    'img/nm2.png',
+    'img/nm3.png',
+    'img/nm4.png',
+    'img/nm5.png',
+    'img/nm6.png',
+    'img/nm7.png',
+    'img/nm8.png',
+    'img/nm9.png',
   ];
 
   ///
@@ -76,306 +76,251 @@ class _DivisorPageState extends State<DivisorPage> {
   Widget build(BuildContext context) {
     _rollTheDice();
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Division'),
-        centerTitle: true,
 
-      ),
-      body: ListView(
-        children: [
-          Column(
-            children: [
-              Padding(
-                padding:
-                const EdgeInsets.only(left: 12.0, right: 12,top: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Higest Score :$_higestScore',
-                      style: TextStyle(
-                        fontSize: 18,
-                      ),
-                    ),
-                    Text(
-                      "Hello..!!",
+      body: Container(
 
-                      style: TextStyle(
-                        fontSize: 18,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-
-              SizedBox(
-                height: 50,
-              ),
-              Container(
-                child: Column(
-                  children: [
-                    Text(
-                      'Score :$_score',
-                      style: TextStyle(fontSize: 24),
-                    ),
-                    SizedBox(
-                      height: 50,
-                    ),
-                    if (showMsg == true)
-                      Center(
-                        child: Image.asset(
-                          'img/anim2.gif',
-                          height: 150,
-                          width: 200,
-                        ),
-                      )
-                    // showCongoMsg()
-                    else
-                      Center(
-                        child: Image.asset(
-                          'img/anim3.gif',
-                          height: 150,
-                          width: 200,
-                        ),
-                      ),
-                  ],
-                ),
-              ),
-
-              if(hideNumber)Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Container(
-                    margin: EdgeInsets.all(15),
-                    child: Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Image.asset(
-                            _diceList[_index1],
-                            height: 70,
-                            width: 70,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Image.asset(
-                            'img/div.png',
-                            height: 60,
-                            width: 60,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Image.asset(
-                            _diceList[_index2],
-                            height: 70,
-                            width: 70,
-                          ),
-                        ),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-              // Text('sum :$_sum',style: TextStyle(fontSize: 20),),
-              const SizedBox(
-                height: 20,
-              ),
-              if(hideNumber) Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Container(
-                            height: 35.0,
-                            child: RaisedButton(
-                              onPressed: () {
-                                checkRes(a);
-                              },
-                              shape: RoundedRectangleBorder(
-                                  borderRadius:
-                                  BorderRadius.circular(80.0)),
-                              padding: EdgeInsets.all(0.0),
-                              child: Ink(
-                                decoration: BoxDecoration(
-                                    gradient: const LinearGradient(
-                                      colors: [
-                                        Color(0xff374ABE),
-                                        Color(0xff64B6FF)
-                                      ],
-                                      begin: Alignment.centerLeft,
-                                      end: Alignment.centerRight,
-                                    ),
-                                    borderRadius:
-                                    BorderRadius.circular(30.0)),
-                                child: Container(
-                                  constraints: const BoxConstraints(
-                                      maxWidth: 250.0,
-                                      minHeight: 50.0),
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    "$a",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 15),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 8,
-                        ),
-                        Expanded(
-                          child: Container(
-                            height: 35.0,
-                            child: RaisedButton(
-                              onPressed: () {
-                                checkRes(b);
-                              },
-                              shape: RoundedRectangleBorder(
-                                  borderRadius:
-                                  BorderRadius.circular(80.0)),
-                              padding: EdgeInsets.all(0.0),
-                              child: Ink(
-                                decoration: BoxDecoration(
-                                    gradient: const LinearGradient(
-                                      colors: [
-                                        Color(0xff374ABE),
-                                        Color(0xff64B6FF)
-                                      ],
-                                      begin: Alignment.centerLeft,
-                                      end: Alignment.centerRight,
-                                    ),
-                                    borderRadius:
-                                    BorderRadius.circular(30.0)),
-                                child: Container(
-                                  constraints: const BoxConstraints(
-                                      maxWidth: 250.0,
-                                      minHeight: 50.0),
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    "$b",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 15),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  //buttns1,2
-
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Container(
-                            height: 35.0,
-                            child: RaisedButton(
-                              onPressed: () {
-                                checkRes(c);
-                              },
-                              shape: RoundedRectangleBorder(
-                                  borderRadius:
-                                  BorderRadius.circular(80.0)),
-                              padding: EdgeInsets.all(0.0),
-                              child: Ink(
-                                decoration: BoxDecoration(
-                                    gradient: const LinearGradient(
-                                      colors: [
-                                        Color(0xff374ABE),
-                                        Color(0xff64B6FF)
-                                      ],
-                                      begin: Alignment.centerLeft,
-                                      end: Alignment.centerRight,
-                                    ),
-                                    borderRadius:
-                                    BorderRadius.circular(30.0)),
-                                child: Container(
-                                  constraints: const BoxConstraints(
-                                      maxWidth: 250.0,
-                                      minHeight: 50.0),
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    "$c",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 15),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 8,
-                        ),
-                        Expanded(
-                          child: Container(
-                            height: 35.0,
-                            child: RaisedButton(
-                              onPressed: () {
-                                checkRes(d);
-                              },
-                              shape: RoundedRectangleBorder(
-                                  borderRadius:
-                                  BorderRadius.circular(80.0)),
-                              padding: EdgeInsets.all(0.0),
-                              child: Ink(
-                                decoration: BoxDecoration(
-                                    gradient: const LinearGradient(
-                                      colors: [
-                                        Color(0xff374ABE),
-                                        Color(0xff64B6FF)
-                                      ],
-                                      begin: Alignment.centerLeft,
-                                      end: Alignment.centerRight,
-                                    ),
-                                    borderRadius:
-                                    BorderRadius.circular(30.0)),
-                                child: Container(
-                                  constraints: BoxConstraints(
-                                      maxWidth: 250.0,
-                                      minHeight: 50.0),
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    "$d",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 15),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  //buttns3,4
-                  ElevatedButton(
-                      onPressed: _rollTheDice, child: Text("Roll")),
-                ],
-              ),
-            ],
+          height: double.maxFinite,
+          padding: EdgeInsets.only(top: 80,left: 10,right: 10),
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: ExactAssetImage('img/game_bg.png',),
+              fit: BoxFit.fill,
+            ),
           ),
-        ],
+          child: Container(
+            width: double.maxFinite,
+            child: Center(
+              child: Stack(
+                children: [
+                  Image.asset('img/angle_drag.png',fit: BoxFit.cover,filterQuality: FilterQuality.high),
+                  Container(
+                    padding: EdgeInsets.only(top: 147),
+                    child: Stack(
+                      children: [
+
+                        Image.asset('img/number_bg.png',fit: BoxFit.cover,filterQuality: FilterQuality.high),
+                        Padding(
+                          padding:
+                          const EdgeInsets.only(left: 27.0, right: 27,top: 30),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Higest Score :$_higestScore',
+                                style: TextStyle(
+                                    fontSize: 20,color: Colors.pinkAccent
+                                ),
+                              ),
+                              Text(
+                                "Hello..!!",
+
+                                style: TextStyle(
+                                    fontSize: 20,color: Colors.pinkAccent
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Center(
+                              child:Container(
+                                height: 40,
+                                width: 149,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(25),
+                                  image: DecorationImage(
+
+                                      image: AssetImage('img/score_btn.png',),
+                                      fit: BoxFit.cover,filterQuality: FilterQuality.high),
+                                ),
+                                child: Center(child: Text('Score : $_score',style: TextStyle(color: Colors.white,fontSize: 18),)),
+
+                              ),),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Container(
+                                  margin: EdgeInsets.all(15),
+                                  child: Row(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Image.asset(
+                                          _diceList[_index1],
+                                          height: 80,
+                                          width: 80,
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Image.asset(
+                                          'img/div.png',
+                                          height: 80,
+                                          width: 80,
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Image.asset(
+                                          _diceList[_index2],
+                                          height: 80,
+                                          width: 80,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      GestureDetector(
+                                        child: Container(
+                                          height: 42,
+                                          width: 135,
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(25),
+                                            image: DecorationImage(
+
+                                                image: AssetImage('img/score_btn.png',),
+                                                fit: BoxFit.cover,filterQuality: FilterQuality.high),
+                                          ),
+                                          child: Center(child: Text('$a',style: TextStyle(color: Colors.white,fontSize: 18),)),
+
+                                        ),
+                                        onTap: (){
+                                          checkRes(a);
+                                        },
+                                      ),
+                                      SizedBox(width: 10,),
+                                      GestureDetector(
+                                        child: Container(
+                                          height: 42,
+                                          width: 135,
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(25),
+                                            image: DecorationImage(
+
+                                                image: AssetImage('img/score_btn.png',),
+                                                fit: BoxFit.cover,filterQuality: FilterQuality.high),
+                                          ),
+                                          child: Center(child: Text('$b',style: TextStyle(color: Colors.white,fontSize: 18),)),
+
+                                        ),
+                                        onTap: (){
+                                          checkRes(b);
+                                        },
+                                      ),
+                                    ],
+                                  ),
+
+                                ),//buttns1,2
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 8.0,right: 8),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      GestureDetector(
+                                        child: Container(
+                                          height: 42,
+                                          width: 135,
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(25),
+                                            image: DecorationImage(
+
+                                                image: AssetImage('img/score_btn.png',),
+                                                fit: BoxFit.cover,filterQuality: FilterQuality.high),
+                                          ),
+                                          child: Center(child: Text('$c',style: TextStyle(color: Colors.white,fontSize: 18),)),
+
+                                        ),
+                                        onTap: (){
+                                          checkRes(c);
+                                        },
+                                      ),
+                                      SizedBox(width: 10,),
+                                      GestureDetector(
+                                        child: Container(
+                                          height: 42,
+                                          width: 135,
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(25),
+                                            image: DecorationImage(
+
+                                                image: AssetImage('img/score_btn.png',),
+                                                fit: BoxFit.cover,filterQuality: FilterQuality.high),
+                                          ),
+                                          child: Center(child: Text('$d',style: TextStyle(color: Colors.white,fontSize: 18),)),
+
+                                        ),
+                                        onTap: (){
+                                          checkRes(d);
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                ), //buttns3,4
+
+                              ],
+                            ),
+                            SizedBox(height: 60,)
+                          ],
+                        )
+                      ],
+                    ),
+
+
+                  ),
+
+                  Center(
+                    child: Align(
+                      alignment: Alignment.bottomCenter,
+                      child: MaterialButton(
+                        padding: const EdgeInsets.all(18.0),
+                        textColor: Colors.white,
+                        splashColor: Colors.greenAccent,
+                        elevation: 8.0,
+                        child: Container(
+                          height: 45,
+                          width: 120,
+                          decoration: BoxDecoration(
+
+                            image: DecorationImage(
+
+                                image: AssetImage('img/skip_btn.png',),
+                                fit: BoxFit.cover,filterQuality: FilterQuality.high),
+                          ),
+
+                        ),
+                        // ),
+                        onPressed: () {
+                          _rollTheDice();
+                        },
+                      ),
+                    ),
+                  ),
+
+                ],
+              ),
+
+            ),
+          )
+
+
+
+
+
       ),
-    );;
+    );
   }
   void _rollTheDice() {
     // _fetchUserInfo();
@@ -467,17 +412,19 @@ class _DivisorPageState extends State<DivisorPage> {
       final player = AudioCache();
       // congrats sound
       player.play('play.wav');
-
       setState(() {
-        showMsg = true;
-        hideNumber = false;
-        Future.delayed(const Duration(milliseconds: 500), () {
-          setState(() {
-            showMsg = false;
-            hideNumber = true;
-          });
-        });
+
       });
+      // setState(() {
+      //   showMsg = true;
+      //   hideNumber = false;
+      //   Future.delayed(const Duration(milliseconds: 500), () {
+      //     setState(() {
+      //       showMsg = false;
+      //       hideNumber = true;
+      //     });
+      //   });
+      // });
       _score++;
     } else {
       print("ERROR");

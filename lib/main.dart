@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:random_game_new_version/pages/divisor_page.dart';
 import 'package:random_game_new_version/pages/minus_page.dart';
 import 'package:random_game_new_version/pages/multiplication_page.dart';
@@ -49,7 +50,12 @@ class _HomePageState extends State<HomePage> {
           child: CustomDrawer(),
         ),
           appBar: AppBar(
-            title: Text("Honey Bunny"),
+            title: Text("Honey Bunny",style: GoogleFonts.bubblegumSans(
+              fontWeight: FontWeight.w900,
+              fontStyle: FontStyle.normal,
+              fontSize: 26,
+              letterSpacing: 1
+            ),),
             centerTitle: true,
             backgroundColor: Color(0xffF61ABC),
 
@@ -80,7 +86,7 @@ class _HomePageState extends State<HomePage> {
                   child: Container(
                     margin: EdgeInsets.all(5),
 
-                    child: Image.asset('img/angle.png'),
+                    child: Image.asset('img/angle.png',filterQuality: FilterQuality.high,),
                   ),
                 ),
               ),
