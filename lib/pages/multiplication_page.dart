@@ -4,6 +4,7 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -73,250 +74,265 @@ class _MultiplicationPageState extends State<MultiplicationPage> {
   @override
   Widget build(BuildContext context) {
     _rollTheDice();
-    return Scaffold(
-      body: Container(
+    return Container(
 
-          height: double.maxFinite,
-          padding: EdgeInsets.only(top: 80,left: 10,right: 10),
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: ExactAssetImage('img/game_bg.png',),
-              fit: BoxFit.fill,
-            ),
-          ),
-          child: Container(
-            width: double.maxFinite,
-            child: Center(
+      width: double.maxFinite,
+      height: double.maxFinite,
+      padding: EdgeInsets.only(top: 100,left: 10,right: 10),
+      decoration: BoxDecoration(
+        image: DecorationImage(
+            image: ExactAssetImage('img/game_bg2.png',),
+            fit: BoxFit.fill,
+            filterQuality: FilterQuality.high
+        ),
+      ),
+      child: Container(
+        width: double.maxFinite,
+        height: double.infinity,
+
+        child: Stack(
+
+          children: [
+
+            Container(
+              // padding: EdgeInsets.only(top: 131),
               child: Stack(
+
                 children: [
-                  Image.asset('img/angle_drag.png',fit: BoxFit.cover,filterQuality: FilterQuality.high),
+                  // Image.asset('img/number_bg.png',fit: BoxFit.cover,filterQuality: FilterQuality.high),
+                  Align(
+                    alignment: Alignment.center,
+                    child:  Image.asset('img/number_bg.png',fit: BoxFit.cover,filterQuality: FilterQuality.high),
+                  ),
 
-                  Container(
-                    padding: EdgeInsets.only(top: 147),
-                    child: Stack(
-                      children: [
-                        Image.asset('img/number_bg.png',fit: BoxFit.cover,filterQuality: FilterQuality.high),
-                        Padding(
-                          padding:
-                          const EdgeInsets.only(left: 27.0, right: 27,top: 30),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Higest Score :$_higestScore',
-                                style: TextStyle(
-                                    fontSize: 20,color: Colors.pinkAccent
-                                ),
-                              ),
-                              Text(
-                                "Hello..!!",
-
-                                style: TextStyle(
-                                    fontSize: 20,color: Colors.pinkAccent
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Center(
+                        child:Column(
                           children: [
-                            Center(
-                              child:Container(
-                                height: 40,
-                                width: 149,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(25),
-                                  image: DecorationImage(
+                            Container(
+                              child:  Padding(
+                                padding:
+                                const EdgeInsets.only(left: 27.0, right: 27,top: 40),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      ' Higest Score :$_higestScore',
+                                      style: GoogleFonts.bubblegumSans(
+                                          fontSize: 20,color: Colors.pinkAccent
+                                      ),
+                                    ),
+                                    Text(
+                                      "Hello..!!  ",
 
-                                      image: AssetImage('img/score_btn.png',),
-                                      fit: BoxFit.cover,filterQuality: FilterQuality.high),
+                                      style: GoogleFonts.bubblegumSans(
+                                          fontSize: 20,color: Colors.pinkAccent
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                                child: Center(child: Text('Score : $_score',style: TextStyle(color: Colors.white,fontSize: 18),)),
-
-                              ),),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Container(
-                                  margin: EdgeInsets.all(15),
-                                  child: Row(
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Image.asset(
-                                          _diceList[_index1],
-                                          height: 80,
-                                          width: 80,
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Image.asset(
-                                          'img/mup.png',
-                                          height: 80,
-                                          width: 80,
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Image.asset(
-                                          _diceList[_index2],
-                                          height: 80,
-                                          width: 80,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                )
-                              ],
+                              ),
                             ),
-                            Column(
+                            SizedBox(height: 15,),
+                            Container(
+                              height: 40,
+                              width: 149,
+
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(25),
+                                image: DecorationImage(
+
+                                    image: AssetImage('img/score_btn.png',),
+                                    fit: BoxFit.cover,filterQuality: FilterQuality.high),
+                              ),
+                              child: Center(child: Text('Score : $_score',style: GoogleFonts.bubblegumSans(color: Colors.white,fontSize: 20),)),
+
+                            ),
+                          ],
+                        ),),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Container(
+                            margin: EdgeInsets.all(15),
+                            child: Row(
                               children: [
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      GestureDetector(
-                                        child: Container(
-                                          height: 42,
-                                          width: 135,
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(25),
-                                            image: DecorationImage(
-
-                                                image: AssetImage('img/score_btn.png',),
-                                                fit: BoxFit.cover,filterQuality: FilterQuality.high),
-                                          ),
-                                          child: Center(child: Text('$a',style: TextStyle(color: Colors.white,fontSize: 18),)),
-
-                                        ),
-                                        onTap: (){
-                                          checkRes(a);
-                                        },
-                                      ),
-                                      SizedBox(width: 10,),
-                                      GestureDetector(
-                                        child: Container(
-                                          height: 42,
-                                          width: 135,
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(25),
-                                            image: DecorationImage(
-
-                                                image: AssetImage('img/score_btn.png',),
-                                                fit: BoxFit.cover,filterQuality: FilterQuality.high),
-                                          ),
-                                          child: Center(child: Text('$b',style: TextStyle(color: Colors.white,fontSize: 18),)),
-
-                                        ),
-                                        onTap: (){
-                                          checkRes(b);
-                                        },
-                                      ),
-                                    ],
+                                  child: Image.asset(
+                                    _diceList[_index1],
+                                    height: 80,
+                                    width: 80,
                                   ),
-
-                                ),//buttns1,2
+                                ),
                                 Padding(
-                                  padding: const EdgeInsets.only(left: 8.0,right: 8),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      GestureDetector(
-                                        child: Container(
-                                          height: 42,
-                                          width: 135,
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(25),
-                                            image: DecorationImage(
-
-                                                image: AssetImage('img/score_btn.png',),
-                                                fit: BoxFit.cover,filterQuality: FilterQuality.high),
-                                          ),
-                                          child: Center(child: Text('$c',style: TextStyle(color: Colors.white,fontSize: 18),)),
-
-                                        ),
-                                        onTap: (){
-                                          checkRes(c);
-                                        },
-                                      ),
-                                      SizedBox(width: 10,),
-                                      GestureDetector(
-                                        child: Container(
-                                          height: 42,
-                                          width: 135,
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(25),
-                                            image: DecorationImage(
-
-                                                image: AssetImage('img/score_btn.png',),
-                                                fit: BoxFit.cover,filterQuality: FilterQuality.high),
-                                          ),
-                                          child: Center(child: Text('$d',style: TextStyle(color: Colors.white,fontSize: 18),)),
-
-                                        ),
-                                        onTap: (){
-                                          checkRes(d);
-                                        },
-                                      ),
-                                    ],
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Image.asset(
+                                    'img/mup.png',
+                                    height: 80,
+                                    width: 80,
                                   ),
-                                ), //buttns3,4
-
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Image.asset(
+                                    _diceList[_index2],
+                                    height: 80,
+                                    width: 80,
+                                  ),
+                                ),
                               ],
                             ),
-                            SizedBox(height: 60,)
-                          ],
-                        )
-                      ],
-                    ),
-
-
-                  ),
-
-                  Center(
-                    child: Align(
-                      alignment: Alignment.bottomCenter,
-                      child: MaterialButton(
-                        padding: const EdgeInsets.all(18.0),
-                        textColor: Colors.white,
-                        splashColor: Colors.greenAccent,
-                        elevation: 8.0,
-                        child: Container(
-                          height: 45,
-                          width: 120,
-                          decoration: BoxDecoration(
-
-                            image: DecorationImage(
-
-                                image: AssetImage('img/skip_btn.png',),
-                                fit: BoxFit.cover,filterQuality: FilterQuality.high),
-                          ),
-
-                        ),
-                        // ),
-                        onPressed: () {
-                          _rollTheDice();
-                        },
+                          )
+                        ],
                       ),
-                    ),
-                  ),
+                      Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                GestureDetector(
+                                  child: Container(
+                                    height: 42,
+                                    width: 135,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(25),
+                                      image: DecorationImage(
+
+                                          image: AssetImage('img/score_btn.png',),
+                                          fit: BoxFit.cover,filterQuality: FilterQuality.high),
+                                    ),
+                                    child: Center(child: Text('$a',style: GoogleFonts.bubblegumSans(color: Colors.white,fontSize: 20),)),
+
+                                  ),
+                                  onTap: (){
+                                    checkRes(a);
+                                  },
+                                ),
+                                SizedBox(width: 10,),
+                                GestureDetector(
+                                  child: Container(
+                                    height: 42,
+                                    width: 135,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(25),
+                                      image: DecorationImage(
+
+                                          image: AssetImage('img/score_btn.png',),
+                                          fit: BoxFit.cover,filterQuality: FilterQuality.high),
+                                    ),
+                                    child: Center(child: Text('$b',style: GoogleFonts.bubblegumSans(color: Colors.white,fontSize: 20),)),
+
+                                  ),
+                                  onTap: (){
+                                    checkRes(b);
+                                  },
+                                ),
+                              ],
+                            ),
+
+                          ),//buttns1,2
+                          Padding(
+                            padding: const EdgeInsets.only(left: 8.0,right: 8),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                GestureDetector(
+                                  child: Container(
+                                    height: 42,
+                                    width: 135,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(25),
+                                      image: DecorationImage(
+
+                                          image: AssetImage('img/score_btn.png',),
+                                          fit: BoxFit.cover,filterQuality: FilterQuality.high),
+                                    ),
+                                    child: Center(child: Text('$c',style: GoogleFonts.bubblegumSans(color: Colors.white,fontSize: 20),)),
+
+                                  ),
+                                  onTap: (){
+                                    checkRes(c);
+                                  },
+                                ),
+                                SizedBox(width: 10,),
+                                GestureDetector(
+                                  child: Container(
+                                    height: 42,
+                                    width: 135,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(25),
+                                      image: DecorationImage(
+
+                                          image: AssetImage('img/score_btn.png',),
+                                          fit: BoxFit.cover,filterQuality: FilterQuality.high),
+                                    ),
+                                    child: Center(child: Text('$d',style: GoogleFonts.bubblegumSans(color: Colors.white,fontSize: 20),)),
+
+                                  ),
+                                  onTap: (){
+                                    checkRes(d);
+                                  },
+                                ),
+                              ],
+                            ),
+                          ), //buttns3,4
+
+                        ],
+                      ),
+                      SizedBox(height: 60,)
+                    ],
+                  )
 
                 ],
               ),
 
+
             ),
-          )
 
 
+            Center(
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: MaterialButton(
+                  padding: const EdgeInsets.all(18.0),
+                  textColor: Colors.white,
+                  splashColor: Colors.greenAccent,
+                  elevation: 8.0,
+                  child: Container(
+                    height: 45,
+                    width: 120,
+                    decoration: BoxDecoration(
 
+                      image: DecorationImage(
 
+                          image: AssetImage('img/skip_btn.png',),
+                          fit: BoxFit.cover,filterQuality: FilterQuality.high),
+                    ),
 
+                  ),
+                  // ),
+                  onPressed: () {
+                    _rollTheDice();
+                  },
+                ),
+              ),
+            ),
+
+          ],
+        ),
       ),
+
+
+
+
+
     );
   }
 

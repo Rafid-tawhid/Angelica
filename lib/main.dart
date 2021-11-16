@@ -38,7 +38,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  Image? image1;
 
+  @override
+  void initState() {
+    image1 = Image.asset("img/angle.png",fit: BoxFit.cover,filterQuality: FilterQuality.high);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,150 +53,133 @@ class _HomePageState extends State<HomePage> {
       theme: ThemeData(
         primaryColor: Colors.pinkAccent,
       ),
-      home: Scaffold(
-        drawer: Drawer(
-          child: CustomDrawer(),
-        ),
-          appBar: AppBar(
-            title: Text("Honey Bunny",style: GoogleFonts.bubblegumSans(
-              fontWeight: FontWeight.w900,
-              fontStyle: FontStyle.normal,
-              fontSize: 26,
-              letterSpacing: 1
-            ),),
-            centerTitle: true,
-            backgroundColor: Color(0xffF61ABC),
-
+      home: SafeArea(
+        child: Scaffold(
+          drawer: Drawer(
+            child: CustomDrawer(),
           ),
-        body: Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: ExactAssetImage("img/bg.jpg",),
-              fit: BoxFit.fill,
+            // appBar: AppBar(
+            //   title: Text("Honey Bunny",style: GoogleFonts.bubblegumSans(
+            //     fontWeight: FontWeight.w900,
+            //     fontStyle: FontStyle.normal,
+            //     fontSize: 26,
+            //     letterSpacing: 1
+            //   ),),
+            //   centerTitle: true,
+            //   backgroundColor: Color(0xffF61ABC),
+            //
+            // ),
+          body: Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: ExactAssetImage("img/bg.jpg"),
+                fit: BoxFit.fill,
+                filterQuality: FilterQuality.high
 
-            ),
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Expanded(
-                flex: 1,
-                child: Container(
-                  padding: EdgeInsets.only(top: 10),
-                  margin: EdgeInsets.only(left: 20,right: 20),
-                  child: Image.asset('img/title.png'),
-                ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Expanded(
-                  flex: 1,
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Expanded(
+
+                  child: Container(
+                    padding: EdgeInsets.only(top: 30),
+                    margin: EdgeInsets.only(left: 20,right: 20),
+                    child: Image.asset('img/title.png',filterQuality: FilterQuality.high,fit: BoxFit.contain,),
+                  ),
+                ),
+                Expanded(
                   child: Container(
                     margin: EdgeInsets.all(5),
 
-                    child: Image.asset('img/angle.png',filterQuality: FilterQuality.high,),
+                    child: image1,
                   ),
                 ),
-              ),
-              Expanded(
-                flex: 1,
-                child: Container(
-
-                  padding: EdgeInsets.only(left: 50,right: 50),
-                  child: Row(
-
+                Container(
+                  padding: EdgeInsets.only(left: 60,right: 60,bottom: 60),
+                  child: Column(
                     children: [
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: GestureDetector(
-                            onTap: (){
-                              Navigator.pushNamed(context, PlusPage.routeName);
+                      Row(
 
-                            },
-                            child: Container(
-                                height: 200,
-                                width: 150,
-                                child: Center(
-                                  child: Image.asset('img/plus.png'),
-                                )
+                        children: [
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: GestureDetector(
+                                onTap: (){
+                                  Navigator.pushNamed(context, PlusPage.routeName);
+
+                                },
+                                child: Container(
+                                   
+                                    child: Center(
+                                      child: Image.asset('img/plus.png'),
+                                    )
+                                ),
+                              ),
                             ),
                           ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: GestureDetector(
-                            onTap: (){
-                              Navigator.pushNamed(context, SubPage.routeName);
-                            },
-                            child: Container(
-                                height: 200,
-                                width: 150,
-                                child: Center(
-                                  child: Image.asset('img/min.png'),
-                                )
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: GestureDetector(
+                                onTap: (){
+                                  Navigator.pushNamed(context, SubPage.routeName);
+                                },
+                                child: Container(
+
+                                    child: Center(
+                                      child: Image.asset('img/min.png'),
+                                    )
+                                ),
+                              ),
                             ),
                           ),
-                        ),
-                      ),
 
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: GestureDetector(
+                                onTap: (){
+                                  Navigator.pushNamed(context, MultiplicationPage.routeName);
+                                },
+                                child: Container(
+                                    child: Center(
+                                      child: Image.asset('img/mup.png'),
+                                    )
+                                ),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: GestureDetector(
+                                onTap: (){
+                                  Navigator.pushNamed(context, DivisorPage.routeName);
+                                },
+                                child: Container(
+                                    child: Center(
+                                      child: Image.asset('img/div.png'),
+                                    )
+                                ),
+                              ),
+                            ),
+                          ),
+
+                        ],
+                      ),
                     ],
                   ),
-                ),
-              ),
-              Expanded(
-                flex: 1,
-                child: Container(
-                  padding: EdgeInsets.only(left: 50,right: 50),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: GestureDetector(
-                            onTap: (){
-                              Navigator.pushNamed(context, MultiplicationPage.routeName);
-                            },
-                            child: Container(
-                                height: 200,
-                                width: 150,
-                                child: Center(
-                                  child: Image.asset('img/mup.png'),
-                                )
-                            ),
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: GestureDetector(
-                            onTap: (){
-                              Navigator.pushNamed(context, DivisorPage.routeName);
-                            },
-                            child: Container(
-                                height: 200,
-                                width: 150,
-                                child: Center(
-                                  child: Image.asset('img/div.png'),
-                                )
-                            ),
-                          ),
-                        ),
-                      ),
+                )
 
-                    ],
-                  ),
-                ),
-              ),
-              Expanded(
-                  flex: 1,
-                  child: Container(
-
-                  ))
-            ],
+              ],
+            ),
           ),
         ),
       ),

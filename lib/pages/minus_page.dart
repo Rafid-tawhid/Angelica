@@ -74,15 +74,22 @@ class _MinusPageState extends State<MinusPage> {
     //initial call
     _rollTheDice();
 
-    return Scaffold(
+     return Scaffold(
+      // appBar: AppBar(
+      //   title: Text('Plus'),
+      //   centerTitle: true,
+      //   backgroundColor: Color(0xffF61ABC),
+      //   elevation: 0,
+      // ),
       body: Container(
 
           height: double.maxFinite,
           padding: EdgeInsets.only(top: 80,left: 10,right: 10),
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: ExactAssetImage('img/game_bg.png',),
-              fit: BoxFit.fill,
+                image: ExactAssetImage('img/game_bg2.png',),
+                fit: BoxFit.fill,
+                filterQuality: FilterQuality.high
             ),
           ),
           child: Container(
@@ -90,10 +97,10 @@ class _MinusPageState extends State<MinusPage> {
             child: Center(
               child: Stack(
                 children: [
-                  Image.asset('img/angle_drag.png',fit: BoxFit.cover,filterQuality: FilterQuality.high),
 
+                  // Image.asset('img/angle_drag.png',fit: BoxFit.cover,filterQuality: FilterQuality.high),
                   Container(
-                    padding: EdgeInsets.only(top: 147),
+                    padding: EdgeInsets.only(top: 131),
                     child: Stack(
                       children: [
                         Image.asset('img/number_bg.png',fit: BoxFit.cover,filterQuality: FilterQuality.high),
@@ -104,15 +111,15 @@ class _MinusPageState extends State<MinusPage> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                'Higest Score :$_higestScore',
-                                style: TextStyle(
+                                ' Higest Score :$_higestScore',
+                                style: GoogleFonts.bubblegumSans(
                                     fontSize: 20,color: Colors.pinkAccent
                                 ),
                               ),
                               Text(
-                                "Hello..!!",
+                                "Hello..!!  ",
 
-                                style: TextStyle(
+                                style: GoogleFonts.bubblegumSans(
                                     fontSize: 20,color: Colors.pinkAccent
                                 ),
                               ),
@@ -133,7 +140,7 @@ class _MinusPageState extends State<MinusPage> {
                                       image: AssetImage('img/score_btn.png',),
                                       fit: BoxFit.cover,filterQuality: FilterQuality.high),
                                 ),
-                                child: Center(child: Text('Score : $_score',style: TextStyle(color: Colors.white,fontSize: 18),)),
+                                child: Center(child: Text('Score : $_score',style: GoogleFonts.bubblegumSans(color: Colors.white,fontSize: 20),)),
 
                               ),),
                             Row(
@@ -191,7 +198,7 @@ class _MinusPageState extends State<MinusPage> {
                                                 image: AssetImage('img/score_btn.png',),
                                                 fit: BoxFit.cover,filterQuality: FilterQuality.high),
                                           ),
-                                          child: Center(child: Text('$a',style: TextStyle(color: Colors.white,fontSize: 18),)),
+                                          child: Center(child: Text('$a',style: GoogleFonts.bubblegumSans(color: Colors.white,fontSize: 20),)),
 
                                         ),
                                         onTap: (){
@@ -210,7 +217,7 @@ class _MinusPageState extends State<MinusPage> {
                                                 image: AssetImage('img/score_btn.png',),
                                                 fit: BoxFit.cover,filterQuality: FilterQuality.high),
                                           ),
-                                          child: Center(child: Text('$b',style: TextStyle(color: Colors.white,fontSize: 18),)),
+                                          child: Center(child: Text('$b',style: GoogleFonts.bubblegumSans(color: Colors.white,fontSize: 20),)),
 
                                         ),
                                         onTap: (){
@@ -238,7 +245,7 @@ class _MinusPageState extends State<MinusPage> {
                                                 image: AssetImage('img/score_btn.png',),
                                                 fit: BoxFit.cover,filterQuality: FilterQuality.high),
                                           ),
-                                          child: Center(child: Text('$c',style: TextStyle(color: Colors.white,fontSize: 18),)),
+                                          child: Center(child: Text('$c',style: GoogleFonts.bubblegumSans(color: Colors.white,fontSize: 20),)),
 
                                         ),
                                         onTap: (){
@@ -257,7 +264,7 @@ class _MinusPageState extends State<MinusPage> {
                                                 image: AssetImage('img/score_btn.png',),
                                                 fit: BoxFit.cover,filterQuality: FilterQuality.high),
                                           ),
-                                          child: Center(child: Text('$d',style: TextStyle(color: Colors.white,fontSize: 18),)),
+                                          child: Center(child: Text('$d',style: GoogleFonts.bubblegumSans(color: Colors.white,fontSize: 20),)),
 
                                         ),
                                         onTap: (){
