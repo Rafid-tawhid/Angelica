@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:random_game_new_version/custom_widget/animation_toast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DivisorPage extends StatefulWidget {
@@ -430,6 +431,12 @@ class _DivisorPageState extends State<DivisorPage> {
       final player = AudioCache();
       // congrats sound
       player.play('play.wav');
+      Widget toast= CustomCongoToast.showCongratsMsg();
+      fToast.showToast(
+        child: toast,
+        gravity: ToastGravity.CENTER,
+        toastDuration: Duration(milliseconds: 500),
+      );
       setState(() {
 
       });
@@ -591,7 +598,7 @@ class _DivisorPageState extends State<DivisorPage> {
     String formattedDate = formatter.format(now);
     var sharedPreferences = await SharedPreferences.getInstance();
     sharedPreferences.setInt("div", higest);
-    sharedPreferences.setString("divDt", formattedDate);
+    // sharedPreferences.setString("divDt", formattedDate);
     print("savedd div ");
 
   }

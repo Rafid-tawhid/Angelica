@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 class CustomCongoToast{
 
   static Widget showCongratsMsg(){
-    return Text("Congratulations",style: TextStyle(fontSize: 30,color: Colors.red),);
+    return Center(
+      child: Image.asset('img/congrats.png',fit: BoxFit.cover,),
+    );
   }
 
 

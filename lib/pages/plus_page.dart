@@ -421,17 +421,18 @@ class _PlusPageState extends State<PlusPage> {
 
     //show congratulations toast
 
-    Widget toast= CustomCongoToast.showCongratsMsg();
-    fToast.showToast(
-      child: toast,
-      gravity: ToastGravity.CENTER,
-      toastDuration: Duration(milliseconds: 500),
-    );
+
 
     if (aa == _sum) {
       final player = AudioCache();
       // congrats sound
       player.play('play.wav');
+      Widget toast= CustomCongoToast.showCongratsMsg();
+      fToast.showToast(
+        child: toast,
+        gravity: ToastGravity.CENTER,
+        toastDuration: Duration(milliseconds: 500),
+      );
       setState(() {
 
       });
@@ -595,7 +596,7 @@ class _PlusPageState extends State<PlusPage> {
 
     var sharedPreferences = await SharedPreferences.getInstance();
     sharedPreferences.setInt("high", higest);
-    sharedPreferences.setString("highDt", formattedDate);
+    // sharedPreferences.setString("highDt", formattedDate);
     print("savedd");
 
   }

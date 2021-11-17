@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:random_game_new_version/custom_widget/animation_toast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SubPage extends StatefulWidget {
@@ -419,6 +420,12 @@ class SubPage extends StatefulWidget {
        final player = AudioCache();
        // congrats sound
        player.play('play.wav');
+       Widget toast= CustomCongoToast.showCongratsMsg();
+       fToast.showToast(
+         child: toast,
+         gravity: ToastGravity.CENTER,
+         toastDuration: Duration(milliseconds: 500),
+       );
        setState(() {
 
        });
@@ -582,7 +589,7 @@ class SubPage extends StatefulWidget {
 
      var sharedPreferences = await SharedPreferences.getInstance();
      sharedPreferences.setInt("min", higest);
-     sharedPreferences.setString("minDt", formattedDate);
+     // sharedPreferences.setString("minDt", formattedDate);
 
    }
    Future<int> fetchHigestScoreFromSharedPref() async {
