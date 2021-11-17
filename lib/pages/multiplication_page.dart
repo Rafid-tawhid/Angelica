@@ -415,7 +415,7 @@ class _MultiplicationPageState extends State<MultiplicationPage> {
       fToast.showToast(
         child: toast,
         gravity: ToastGravity.CENTER,
-        toastDuration: Duration(milliseconds: 500),
+        toastDuration: const Duration(milliseconds: 900),
       );
       setState(() {
 

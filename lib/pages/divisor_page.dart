@@ -398,13 +398,14 @@ class _DivisorPageState extends State<DivisorPage> {
   }
 
   void suffle(int rand1, int rand2, int rand3, int sum) {
-    if (rand1 == rand2) {
+    if (rand1 == rand2||rand2==rand3) {
       _rand2 = _rand2 + 1;
+
     }
-    if (rand1 == rand3) {
+    if (rand1 == rand3||rand3==rand2) {
       _rand3 = _rand3 + 1;
     }
-    if (rand1 == rand3) {
+    if (rand1 == rand3||rand1==rand2) {
       _rand1 = _rand1 + 1;
     }
     if (_rand1 == sum || _rand2 == sum || _rand3 == sum) {
@@ -435,7 +436,7 @@ class _DivisorPageState extends State<DivisorPage> {
       fToast.showToast(
         child: toast,
         gravity: ToastGravity.CENTER,
-        toastDuration: Duration(milliseconds: 500),
+        toastDuration: Duration(milliseconds: 900),
       );
       setState(() {
 
