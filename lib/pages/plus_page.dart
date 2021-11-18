@@ -314,29 +314,59 @@ class _PlusPageState extends State<PlusPage> {
 
 
               Center(
-                child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: MaterialButton(
-                    padding: const EdgeInsets.all(18.0),
-                    textColor: Colors.white,
-                    splashColor: Colors.greenAccent,
-                    elevation: 8.0,
-                    child: Container(
-                      height: 45,
-                      width: 120,
-                      decoration: BoxDecoration(
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 10.0),
+                  child: Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          MaterialButton(
+                            padding: const EdgeInsets.all(18.0),
+                            textColor: Colors.white,
+                            splashColor: Colors.greenAccent,
+                            elevation: 8.0,
+                            child: Container(
+                              height: 45,
+                              width: 120,
+                              decoration: BoxDecoration(
 
-                        image: DecorationImage(
+                                image: DecorationImage(
+                                    image: AssetImage('img/back.png',),
+                                    fit: BoxFit.cover,filterQuality: FilterQuality.high),
+                              ),
 
-                            image: AssetImage('img/skip_btn.png',),
-                            fit: BoxFit.cover,filterQuality: FilterQuality.high),
-                      ),
+                            ),
+                            // ),
+                            onPressed: () {
+                              saveHigestScoreToSharedPref(_higestScore);
+                              Navigator.pop(context);
+                            },
+                          ),
+                          MaterialButton(
+                            padding: const EdgeInsets.all(18.0),
+                            textColor: Colors.white,
+                            splashColor: Colors.greenAccent,
+                            elevation: 8.0,
+                            child: Container(
+                              height: 45,
+                              width: 120,
+                              decoration: BoxDecoration(
 
-                    ),
-                    // ),
-                    onPressed: () {
-                      _rollTheDice();
-                    },
+                                image: DecorationImage(
+
+                                    image: AssetImage('img/skip.png',),
+                                    fit: BoxFit.cover,filterQuality: FilterQuality.high),
+                              ),
+
+                            ),
+                            // ),
+                            onPressed: () {
+                              _rollTheDice();
+                            },
+                          ),
+                        ],
+                      )
                   ),
                 ),
               ),
@@ -405,7 +435,7 @@ class _PlusPageState extends State<PlusPage> {
       _rand3 = _rand3 + 1;
     }
 
-    list = [rand1, rand2, rand3, sum];
+    list = [_rand1, _rand2, _rand3, sum];
     list.shuffle();
     // print(list);
 
@@ -460,117 +490,6 @@ class _PlusPageState extends State<PlusPage> {
     final player = AudioCache();
     player.play('buzzer.wav');
 
-    // Widget toast = Container(
-    //   height: 320,
-    //   width: 300,
-    //   decoration: BoxDecoration(
-    //       borderRadius: BorderRadius.circular(15.0),
-    //       color: Colors.white,
-    //       border: Border.all(
-    //         color: Colors.grey, //                   <--- border color
-    //         width: 1.0,
-    //       )),
-    //   child: Column(
-    //     children: [
-    //       Container(
-    //         height: 70,
-    //         decoration: BoxDecoration(
-    //           borderRadius: BorderRadius.only(
-    //               topLeft: Radius.circular(15), topRight: Radius.circular(15)),
-    //           color: Colors.red,
-    //         ),
-    //         child: Row(
-    //           crossAxisAlignment: CrossAxisAlignment.stretch,
-    //           mainAxisAlignment: MainAxisAlignment.center,
-    //           children: [
-    //             Icon(
-    //               Icons.error,
-    //               color: Colors.white,
-    //               size: 30,
-    //             ),
-    //             SizedBox(
-    //               width: 14.0,
-    //             ),
-    //             Center(
-    //                 child: Text(
-    //                   "Wrong Answer",
-    //                   style: TextStyle(fontSize: 24, color: Colors.white),
-    //                 )),
-    //           ],
-    //         ),
-    //       ),
-    //       Container(
-    //         height: 180,
-    //         child: Center(
-    //           child: Column(
-    //             mainAxisAlignment: MainAxisAlignment.center,
-    //             children: [
-    //               Text(
-    //                 "Better Luck Next Time",
-    //                 style: TextStyle(fontSize: 20),
-    //               ),
-    //               SizedBox(
-    //                 height: 14.0,
-    //               ),
-    //               Text(
-    //                 "Do You Want to Play Again ?",
-    //                 style: TextStyle(fontSize: 20),
-    //               ),
-    //             ],
-    //           ),
-    //         ),
-    //       ),
-    //       Container(
-    //         child: Row(
-    //           mainAxisAlignment: MainAxisAlignment.center,
-    //           children: [
-    //             FlatButton(
-    //               color: Colors.grey,
-    //               shape: RoundedRectangleBorder(
-    //                   borderRadius: BorderRadius.circular(18.0)),
-    //               child: new Text(
-    //                 'Exit',
-    //                 style: TextStyle(color: Colors.white),
-    //               ),
-    //               onPressed: () {
-    //                 _date =
-    //                 "${now.year.toString()}-${now.month.toString().padLeft(
-    //                     2, '0')}-${now.day.toString().padLeft(2, '0')} ${now
-    //                     .hour.toString().padLeft(2, '0')}-${now.minute
-    //                     .toString().padLeft(2, '0')}";
-    //                 saveHigestScoreToSharedPref(_higestScore);
-    //                 fToast.removeCustomToast();
-    //                 Navigator.pop(context);
-    //               }),
-    //             SizedBox(
-    //               width: 14.0,
-    //             ),
-    //             FlatButton(
-    //               color: Colors.red,
-    //               shape: RoundedRectangleBorder(
-    //                   borderRadius: BorderRadius.circular(18.0)),
-    //               child: new Text(
-    //                 'Play',
-    //                 style: TextStyle(color: Colors.white),
-    //               ),
-    //               onPressed: () {
-    //                 customToastShow();
-    //                 _date =
-    //                 "${now.year.toString()}-${now.month.toString().padLeft(
-    //                     2, '0')}-${now.day.toString().padLeft(2, '0')} ${now
-    //                     .hour.toString().padLeft(2, '0')}-${now.minute
-    //                     .toString().padLeft(2, '0')}";
-    //                 setState(() {
-    //                   _score=0;
-    //                 });
-    //               },
-    //             ),
-    //           ],
-    //         ),
-    //       ),
-    //     ],
-    //   ),
-    // );
     Widget toast=Container(
       alignment: Alignment.bottomCenter,
       height: MediaQuery.of(context).size.height/2,
@@ -584,25 +503,30 @@ class _PlusPageState extends State<PlusPage> {
       child: Container(
         height: 80,
         width: MediaQuery.of(context).size.width,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
+        child: Padding(
+          padding: const EdgeInsets.only(bottom: 28.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              SizedBox(width: 10,),
+              GestureDetector(child: Image.asset("img/no.png",fit: BoxFit.cover,width: 120,),onTap: (){
+                saveHigestScoreToSharedPref(_higestScore);
+                fToast.removeCustomToast();
+                Navigator.pop(context);
+              },),
+              GestureDetector(child: Image.asset("img/yes.png",fit: BoxFit.cover,width: 120,),onTap: (){
+                saveHigestScoreToSharedPref(_higestScore);
+                fToast.removeCustomToast();
+                setState(() {
+                  _score=0;
+                });
 
-            GestureDetector(child: Image.asset("img/no.png",fit: BoxFit.cover,width: 120,),onTap: (){
-           saveHigestScoreToSharedPref(_higestScore);
-           fToast.removeCustomToast();
-           Navigator.pop(context);
-            },),
-            GestureDetector(child: Image.asset("img/yes.png",fit: BoxFit.cover,width: 120,),onTap: (){
-              saveHigestScoreToSharedPref(_higestScore);
-              fToast.removeCustomToast();
-              setState(() {
-                _score=0;
-              });
 
-            },),
+              },),
+              SizedBox(width: 10,)
 
-          ],
+            ],
+          ),
         ),
       ),
     );

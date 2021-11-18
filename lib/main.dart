@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:random_game_new_version/pages/divisor_page.dart';
-import 'package:random_game_new_version/pages/minus_page.dart';
 import 'package:random_game_new_version/pages/multiplication_page.dart';
 import 'package:random_game_new_version/pages/plus_page.dart';
 import 'package:random_game_new_version/pages/score_board.dart';
 import 'package:random_game_new_version/pages/splash_screen.dart';
 import 'package:random_game_new_version/pages/substract_page.dart';
-
-import 'custom_widget/custom_drawer.dart';
-import 'pages/minus_page.dart';
 import 'pages/multiplication_page.dart';
 import 'pages/plus_page.dart';
 import 'pages/splash_screen.dart';
@@ -22,7 +18,6 @@ void main() {
       SplashScreen.routeName: (context) => SplashScreen(),
       HomePage.routeName: (context) => HomePage(),
       PlusPage.routeName: (context) => PlusPage(),
-      MinusPage.routeName: (context) => MinusPage(),
       MultiplicationPage.routeName: (context) => MultiplicationPage(),
       DivisorPage.routeName: (context) => DivisorPage(),
       ScoreBoard.routeName: (context) => ScoreBoard(),
@@ -56,7 +51,7 @@ class _HomePageState extends State<HomePage> {
       home: SafeArea(
         child: Scaffold(
           drawer: Drawer(
-            child: CustomDrawer(),
+
           ),
             // appBar: AppBar(
             //   title: Text("Honey Bunny",style: GoogleFonts.bubblegumSans(

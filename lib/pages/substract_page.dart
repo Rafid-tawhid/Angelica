@@ -305,29 +305,59 @@ class SubPage extends StatefulWidget {
 
 
                Center(
-                 child: Align(
-                   alignment: Alignment.bottomCenter,
-                   child: MaterialButton(
-                     padding: const EdgeInsets.all(18.0),
-                     textColor: Colors.white,
-                     splashColor: Colors.greenAccent,
-                     elevation: 8.0,
-                     child: Container(
-                       height: 45,
-                       width: 120,
-                       decoration: BoxDecoration(
+                 child: Padding(
+                   padding: const EdgeInsets.only(bottom: 10.0),
+                   child: Align(
+                       alignment: Alignment.bottomCenter,
+                       child: Row(
+                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                         children: [
+                           MaterialButton(
+                             padding: const EdgeInsets.all(18.0),
+                             textColor: Colors.white,
+                             splashColor: Colors.greenAccent,
+                             elevation: 8.0,
+                             child: Container(
+                               height: 45,
+                               width: 120,
+                               decoration: BoxDecoration(
 
-                         image: DecorationImage(
+                                 image: DecorationImage(
+                                     image: AssetImage('img/back.png',),
+                                     fit: BoxFit.cover,filterQuality: FilterQuality.high),
+                               ),
 
-                             image: AssetImage('img/skip_btn.png',),
-                             fit: BoxFit.cover,filterQuality: FilterQuality.high),
-                       ),
+                             ),
+                             // ),
+                             onPressed: () {
+                               saveHigestScoreToSharedPref(_higestScore);
+                               Navigator.pop(context);
+                             },
+                           ),
+                           MaterialButton(
+                             padding: const EdgeInsets.all(18.0),
+                             textColor: Colors.white,
+                             splashColor: Colors.greenAccent,
+                             elevation: 8.0,
+                             child: Container(
+                               height: 45,
+                               width: 120,
+                               decoration: BoxDecoration(
 
-                     ),
-                     // ),
-                     onPressed: () {
-                       _rollTheDice();
-                     },
+                                 image: DecorationImage(
+
+                                     image: AssetImage('img/skip.png',),
+                                     fit: BoxFit.cover,filterQuality: FilterQuality.high),
+                               ),
+
+                             ),
+                             // ),
+                             onPressed: () {
+                               _rollTheDice();
+                             },
+                           ),
+                         ],
+                       )
                    ),
                  ),
                ),
@@ -403,7 +433,7 @@ class SubPage extends StatefulWidget {
        _rand3 = _rand3 + 1;
      }
 
-     list = [rand1, rand2, rand3, sum];
+     list = [_rand1, _rand2, _rand3, sum];
      list.shuffle();
      // print(list);
 
@@ -466,25 +496,30 @@ class SubPage extends StatefulWidget {
        child: Container(
          height: 80,
          width: MediaQuery.of(context).size.width,
-         child: Row(
-           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-           children: [
+         child: Padding(
+           padding: const EdgeInsets.only(bottom: 28.0),
+           child: Row(
+             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+             children: [
+               SizedBox(width: 10,),
+               GestureDetector(child: Image.asset("img/no.png",fit: BoxFit.cover,width: 120,),onTap: (){
+                 saveHigestScoreToSharedPref(_higestScore);
+                 fToast.removeCustomToast();
+                 Navigator.pop(context);
+               },),
+               GestureDetector(child: Image.asset("img/yes.png",fit: BoxFit.cover,width: 120,),onTap: (){
+                 saveHigestScoreToSharedPref(_higestScore);
+                 fToast.removeCustomToast();
+                 setState(() {
+                   _score=0;
+                 });
 
-             GestureDetector(child: Image.asset("img/no.png",fit: BoxFit.cover,width: 120,),onTap: (){
-               saveHigestScoreToSharedPref(_higestScore);
-               fToast.removeCustomToast();
-               Navigator.pop(context);
-             },),
-             GestureDetector(child: Image.asset("img/yes.png",fit: BoxFit.cover,width: 120,),onTap: (){
-               saveHigestScoreToSharedPref(_higestScore);
-               fToast.removeCustomToast();
-               setState(() {
-                 _score=0;
-               });
 
-             },),
+               },),
+               SizedBox(width: 10,)
 
-           ],
+             ],
+           ),
          ),
        ),
      );
