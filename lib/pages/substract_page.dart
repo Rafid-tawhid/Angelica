@@ -387,13 +387,14 @@ class SubPage extends StatefulWidget {
    }
 
    void suffle(int rand1, int rand2, int rand3, int sum) {
-     if (rand1 == rand2) {
+     if (rand1 == rand2||rand2==rand3) {
        _rand2 = _rand2 + 1;
+
      }
-     if (rand1 == rand3) {
+     if (rand1 == rand3||rand3==rand2) {
        _rand3 = _rand3 + 1;
      }
-     if (rand1 == rand3) {
+     if (rand1 == rand3||rand1==rand2) {
        _rand1 = _rand1 + 1;
      }
      if (_rand1 == sum || _rand2 == sum || _rand3 == sum) {
@@ -443,6 +444,7 @@ class SubPage extends StatefulWidget {
      } else {
        print("ERROR");
        showToast();
+
      }
    }
 
@@ -451,115 +453,39 @@ class SubPage extends StatefulWidget {
      final player = AudioCache();
      player.play('buzzer.wav');
 
-     Widget toast = Container(
-       height: 320,
-       width: 300,
+     Widget toast =Container(
+       alignment: Alignment.bottomCenter,
+       height: MediaQuery.of(context).size.height/2,
+       width: MediaQuery.of(context).size.width,
        decoration: BoxDecoration(
-           borderRadius: BorderRadius.circular(15.0),
-           color: Colors.white,
-           border: Border.all(
-             color: Colors.grey, //                   <--- border color
-             width: 1.0,
-           )),
-       child: Column(
-         children: [
-           Container(
-             height: 70,
-             decoration: BoxDecoration(
-               borderRadius: BorderRadius.only(
-                   topLeft: Radius.circular(15), topRight: Radius.circular(15)),
-               color: Colors.red,
-             ),
-             child: Row(
-               crossAxisAlignment: CrossAxisAlignment.stretch,
-               mainAxisAlignment: MainAxisAlignment.center,
-               children: [
-                 Icon(
-                   Icons.error,
-                   color: Colors.white,
-                   size: 30,
-                 ),
-                 SizedBox(
-                   width: 14.0,
-                 ),
-                 Center(
-                     child: Text(
-                       "Wrong Answer",
-                       style: TextStyle(fontSize: 24, color: Colors.white),
-                     )),
-               ],
-             ),
-           ),
-           Container(
-             height: 180,
-             child: Center(
-               child: Column(
-                 mainAxisAlignment: MainAxisAlignment.center,
-                 children: [
-                   Text(
-                     "Better Luck Next Time",
-                     style: TextStyle(fontSize: 20),
-                   ),
-                   SizedBox(
-                     height: 14.0,
-                   ),
-                   Text(
-                     "Do You Want to Play Again ?",
-                     style: TextStyle(fontSize: 20),
-                   ),
-                 ],
-               ),
-             ),
-           ),
-           Container(
-             child: Row(
-               mainAxisAlignment: MainAxisAlignment.center,
-               children: [
-                 FlatButton(
-                     color: Colors.grey,
-                     shape: RoundedRectangleBorder(
-                         borderRadius: BorderRadius.circular(18.0)),
-                     child: new Text(
-                       'Exit',
-                       style: TextStyle(color: Colors.white),
-                     ),
-                     onPressed: () {
-                       _date =
-                       "${now.year.toString()}-${now.month.toString().padLeft(
-                           2, '0')}-${now.day.toString().padLeft(2, '0')} ${now
-                           .hour.toString().padLeft(2, '0')}-${now.minute
-                           .toString().padLeft(2, '0')}";
-                       saveHigestScoreToSharedPref(_higestScore);
-                       fToast.removeCustomToast();
-                       Navigator.pop(context);
-                     }),
-                 SizedBox(
-                   width: 14.0,
-                 ),
-                 FlatButton(
-                   color: Colors.red,
-                   shape: RoundedRectangleBorder(
-                       borderRadius: BorderRadius.circular(18.0)),
-                   child: new Text(
-                     'Play',
-                     style: TextStyle(color: Colors.white),
-                   ),
-                   onPressed: () {
-                     customToastShow();
-                     _date =
-                     "${now.year.toString()}-${now.month.toString().padLeft(
-                         2, '0')}-${now.day.toString().padLeft(2, '0')} ${now
-                         .hour.toString().padLeft(2, '0')}-${now.minute
-                         .toString().padLeft(2, '0')}";
-                     setState(() {
-                       _score=0;
-                     });
-                   },
-                 ),
-               ],
-             ),
-           ),
-         ],
+         image: DecorationImage(
+           image: AssetImage("img/wrng.png",),
+           fit: BoxFit.fill,
+         ),
+       ),
+       child: Container(
+         height: 80,
+         width: MediaQuery.of(context).size.width,
+         child: Row(
+           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+           children: [
+
+             GestureDetector(child: Image.asset("img/no.png",fit: BoxFit.cover,width: 120,),onTap: (){
+               saveHigestScoreToSharedPref(_higestScore);
+               fToast.removeCustomToast();
+               Navigator.pop(context);
+             },),
+             GestureDetector(child: Image.asset("img/yes.png",fit: BoxFit.cover,width: 120,),onTap: (){
+               saveHigestScoreToSharedPref(_higestScore);
+               fToast.removeCustomToast();
+               setState(() {
+                 _score=0;
+               });
+
+             },),
+
+           ],
+         ),
        ),
      );
 
