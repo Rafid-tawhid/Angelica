@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "609283391240",
+    "project_id": "caffine-3b606",
+    "storage_bucket": "caffine-3b606.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:609283391240:android:c8918102396fe60b5fb6bd",
+        "android_client_info": {
+          "package_name": "com.example.caffine"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "609283391240-sgqhd047lm6ig48n4b1bdjekogjeqd6a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyApqcHh75bzZPsE6Mdwygn19tTouNsPwVI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "609283391240-sgqhd047lm6ig48n4b1bdjekogjeqd6a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:609283391240:android:6396a0d2931ff5da5fb6bd",
+        "android_client_info": {
+          "package_name": "com.example.random_game_new_version"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "609283391240-sgqhd047lm6ig48n4b1bdjekogjeqd6a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyApqcHh75bzZPsE6Mdwygn19tTouNsPwVI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "609283391240-sgqhd047lm6ig48n4b1bdjekogjeqd6a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:random_game_new_version/auth/firebase_auth_services.dart';
 import 'package:random_game_new_version/custom_widget/animation_toast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -15,8 +16,8 @@ class PlusPage extends StatefulWidget {
 }
 
 class _PlusPageState extends State<PlusPage> {
-   Image? image1;
 
+   String? userName=FirebaseAuthServices.currentUser!.email;
   // late Timer _timer;
   int _start = 120;
   int _score = 0;
@@ -141,7 +142,7 @@ class _PlusPageState extends State<PlusPage> {
                                         ),
                                       ),
                                       Text(
-                                        "Hello..!!  ",
+                                        '$userName',
 
                                         style: GoogleFonts.bubblegumSans(
                                             fontSize: 20,color: Colors.pinkAccent

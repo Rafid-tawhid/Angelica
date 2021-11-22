@@ -1,6 +1,8 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:random_game_new_version/pages/divisor_page.dart';
+import 'package:random_game_new_version/pages/loginPage.dart';
 import 'package:random_game_new_version/pages/multiplication_page.dart';
 import 'package:random_game_new_version/pages/plus_page.dart';
 import 'package:random_game_new_version/pages/score_board.dart';
@@ -10,7 +12,11 @@ import 'pages/multiplication_page.dart';
 import 'pages/plus_page.dart';
 import 'pages/splash_screen.dart';
 
-void main() {
+void main() async{
+
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     initialRoute: SplashScreen.routeName,
@@ -22,6 +28,7 @@ void main() {
       DivisorPage.routeName: (context) => DivisorPage(),
       ScoreBoard.routeName: (context) => ScoreBoard(),
       SubPage.routeName: (context) => SubPage(),
+      LoginPage.routeName: (context) => LoginPage(),
     },
   ));
 }
