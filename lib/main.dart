@@ -6,6 +6,7 @@ import 'package:random_game_new_version/pages/loginPage.dart';
 import 'package:random_game_new_version/pages/multiplication_page.dart';
 import 'package:random_game_new_version/pages/plus_page.dart';
 import 'package:random_game_new_version/pages/score_board.dart';
+import 'package:random_game_new_version/pages/signUpPage.dart';
 import 'package:random_game_new_version/pages/splash_screen.dart';
 import 'package:random_game_new_version/pages/substract_page.dart';
 import 'pages/multiplication_page.dart';
@@ -29,6 +30,7 @@ void main() async{
       ScoreBoard.routeName: (context) => ScoreBoard(),
       SubPage.routeName: (context) => SubPage(),
       LoginPage.routeName: (context) => LoginPage(),
+      SignUpPage.routeName: (context) => SignUpPage(),
     },
   ));
 }

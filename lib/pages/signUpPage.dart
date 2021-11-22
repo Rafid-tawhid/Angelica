@@ -5,17 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:random_game_new_version/auth/firebase_auth_services.dart';
 import 'package:random_game_new_version/main.dart';
-import 'package:random_game_new_version/pages/signUpPage.dart';
 
-class LoginPage extends StatefulWidget {
-  static const String routeName='/login_page';
+class SignUpPage extends StatefulWidget {
+  static const String routeName='/signUp_page';
 
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _SignUpPageState createState() => _SignUpPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
-  String? _email,_pass;
+class _SignUpPageState extends State<SignUpPage> {
+  String? _email,_pass,_name;
   String _errorMsg='';
   bool _isObscure=true;
 
@@ -26,7 +25,7 @@ class _LoginPageState extends State<LoginPage> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Login Page'),
+          title: Text('Register Page'),
           centerTitle: true,
           leading: IconButton(onPressed:(){Navigator.pop(context);} , icon: Icon(Icons.arrow_back)),
         ),
@@ -40,8 +39,25 @@ class _LoginPageState extends State<LoginPage> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(18.0),
-                      child: Center(child: Text('LOGIN',style: TextStyle(fontSize: 25,letterSpacing: 2),)),
+                      child: Center(child: Text('Registration',style: TextStyle(fontSize: 25,letterSpacing: 2),)),
                     ),
+                    TextFormField(
+
+                      validator: (value){
+                        if(value==null || value.isEmpty)
+                          return 'This field must not be empty';
+                        return null;
+                      },
+                      onSaved: (value){
+                        _name=value;
+                      },
+                      decoration: InputDecoration(
+                        labelText: 'User Name',
+                        border: OutlineInputBorder(),
+
+                      ),
+                    ),
+                    SizedBox(height: 20,),
                     TextFormField(
                       keyboardType: TextInputType.emailAddress,
                       validator: (value){
@@ -146,21 +162,23 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void _createUser() async{
+    if(form_key.currentState!.validate())
+    {
+      form_key.currentState!.save();
 
-      Navigator.pushNamed(context, SignUpPage.routeName);
-      // try{
-      //   final user= await FirebaseAuthServices.createUser(_email!, _pass!);
-      //   if(user !=null)
-      //   {
-      //     Navigator.pushReplacementNamed(context, HomePage.routeName);
-      //   }
-      // }
-      // on FirebaseAuthException catch(e){
-      //   setState(() {
-      //     _errorMsg=e.message!;
-      //   });
-      // }
-
+      try{
+        final user= await FirebaseAuthServices.createUser(_email!, _pass!);
+        if(user !=null)
+        {
+          Navigator.pushReplacementNamed(context, HomePage.routeName);
+        }
+      }
+      on FirebaseAuthException catch(e){
+        setState(() {
+          _errorMsg=e.message!;
+        });
+      }
+    }
 
   }
 }
