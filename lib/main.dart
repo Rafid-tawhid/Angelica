@@ -1,13 +1,17 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:random_game_new_version/pages/divisor_page.dart';
 import 'package:random_game_new_version/pages/loginPage.dart';
 import 'package:random_game_new_version/pages/multiplication_page.dart';
 import 'package:random_game_new_version/pages/plus_page.dart';
 import 'package:random_game_new_version/pages/score_board.dart';
+import 'package:random_game_new_version/pages/signUpPage.dart';
 import 'package:random_game_new_version/pages/splash_screen.dart';
 import 'package:random_game_new_version/pages/substract_page.dart';
+import 'package:random_game_new_version/providers/reg_provider.dart';
 import 'pages/multiplication_page.dart';
 import 'pages/plus_page.dart';
 import 'pages/splash_screen.dart';
@@ -17,35 +21,49 @@ void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
-  runApp(MaterialApp(
-    debugShowCheckedModeBanner: false,
-    initialRoute: SplashScreen.routeName,
-    routes: {
-      SplashScreen.routeName: (context) => SplashScreen(),
-      HomePage.routeName: (context) => HomePage(),
-      PlusPage.routeName: (context) => PlusPage(),
-      MultiplicationPage.routeName: (context) => MultiplicationPage(),
-      DivisorPage.routeName: (context) => DivisorPage(),
-      ScoreBoard.routeName: (context) => ScoreBoard(),
-      SubPage.routeName: (context) => SubPage(),
-      LoginPage.routeName: (context) => LoginPage(),
-    },
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create:(context)=> RegisterProvider()),
+    ],
+    child: MaterialApp(
+      debugShowCheckedModeBanner: false,
+      initialRoute: SplashScreen.routeName,
+      routes: {
+        SplashScreen.routeName: (context) => SplashScreen(),
+        HomePage.routeName: (context) => HomePage(),
+        PlusPage.routeName: (context) => PlusPage(),
+        MultiplicationPage.routeName: (context) => MultiplicationPage(),
+        DivisorPage.routeName: (context) => DivisorPage(),
+        ScoreBoard.routeName: (context) => ScoreBoard(),
+        SubPage.routeName: (context) => SubPage(),
+        LoginPage.routeName: (context) => LoginPage(),
+        SignUpPage.routeName: (context) => SignUpPage(),
+      },
+    ),
   ));
 }
 class HomePage extends StatefulWidget {
 
   static const String routeName = '/home_page';
+
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
   Image? image1;
+  late RegisterProvider _registerProvider;
+  // static  String unserName = _registerProvider.nameList[0].toString();
 
   @override
   void initState() {
     image1 = Image.asset("img/angle.png",fit: BoxFit.cover,filterQuality: FilterQuality.high);
     super.initState();
+  }
+  void didChangeDependencies() {
+    _registerProvider=Provider.of<RegisterProvider>(context,listen: false);
+    _registerProvider.getName();
+    super.didChangeDependencies();
   }
 
   @override
@@ -91,6 +109,7 @@ class _HomePageState extends State<HomePage> {
                     child: Image.asset('img/title.png',filterQuality: FilterQuality.high,fit: BoxFit.contain,),
                   ),
                 ),
+
                 Expanded(
                   child: Container(
                     margin: EdgeInsets.all(5),
@@ -163,7 +182,10 @@ class _HomePageState extends State<HomePage> {
                               padding: const EdgeInsets.all(8.0),
                               child: GestureDetector(
                                 onTap: (){
+
                                   Navigator.pushNamed(context, DivisorPage.routeName);
+                                  print(_registerProvider.nameList[0].toString());
+
                                 },
                                 child: Container(
                                     child: Center(
