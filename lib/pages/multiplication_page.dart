@@ -7,6 +7,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:random_game_new_version/custom_widget/animation_toast.dart';
+import 'package:random_game_new_version/custom_widget/helper%20class.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MultiplicationPage extends StatefulWidget {
@@ -128,7 +129,7 @@ class _MultiplicationPageState extends State<MultiplicationPage> {
                                         ),
                                       ),
                                       Text(
-                                        "Hello..!!  ",
+                                        Value.getString().toString(),
 
                                         style: GoogleFonts.bubblegumSans(
                                             fontSize: 20,color: Colors.pinkAccent

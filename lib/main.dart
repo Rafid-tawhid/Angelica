@@ -12,6 +12,7 @@ import 'package:random_game_new_version/pages/signUpPage.dart';
 import 'package:random_game_new_version/pages/splash_screen.dart';
 import 'package:random_game_new_version/pages/substract_page.dart';
 import 'package:random_game_new_version/providers/reg_provider.dart';
+import 'custom_widget/helper class.dart';
 import 'pages/multiplication_page.dart';
 import 'pages/plus_page.dart';
 import 'pages/splash_screen.dart';
@@ -52,22 +53,32 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   Image? image1;
+  // String? userName;
   late RegisterProvider _registerProvider;
-  // static  String unserName = _registerProvider.nameList[0].toString();
+  //
+
+
+  void didChangeDependencies() {
+    if(FirebaseAuth.instance.currentUser!=null)
+      {
+        _registerProvider=Provider.of<RegisterProvider>(context);
+        _registerProvider.getName();
+      }
+    super.didChangeDependencies();
+  }
+
 
   @override
   void initState() {
     image1 = Image.asset("img/angle.png",fit: BoxFit.cover,filterQuality: FilterQuality.high);
+
     super.initState();
-  }
-  void didChangeDependencies() {
-    _registerProvider=Provider.of<RegisterProvider>(context,listen: false);
-    _registerProvider.getName();
-    super.didChangeDependencies();
+
   }
 
   @override
   Widget build(BuildContext context) {
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
@@ -129,7 +140,9 @@ class _HomePageState extends State<HomePage> {
                               padding: const EdgeInsets.all(8.0),
                               child: GestureDetector(
                                 onTap: (){
+
                                   Navigator.pushNamed(context, PlusPage.routeName);
+                                  sendNametoAnotherPage();
 
                                 },
                                 child: Container(
@@ -146,7 +159,9 @@ class _HomePageState extends State<HomePage> {
                               padding: const EdgeInsets.all(8.0),
                               child: GestureDetector(
                                 onTap: (){
+
                                   Navigator.pushNamed(context, SubPage.routeName);
+                                  sendNametoAnotherPage();
                                 },
                                 child: Container(
 
@@ -167,7 +182,10 @@ class _HomePageState extends State<HomePage> {
                               padding: const EdgeInsets.all(8.0),
                               child: GestureDetector(
                                 onTap: (){
+
                                   Navigator.pushNamed(context, MultiplicationPage.routeName);
+                                  sendNametoAnotherPage();
+
                                 },
                                 child: Container(
                                     child: Center(
@@ -184,7 +202,9 @@ class _HomePageState extends State<HomePage> {
                                 onTap: (){
 
                                   Navigator.pushNamed(context, DivisorPage.routeName);
-                                  print(_registerProvider.nameList[0].toString());
+                                  sendNametoAnotherPage();
+
+
 
                                 },
                                 child: Container(
@@ -208,6 +228,18 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
+  }
+
+  void sendNametoAnotherPage() {
+    if(_registerProvider.nameList[0].length==0)
+      {
+        Value.setString('Hello !');
+      }
+    else
+      {
+        Value.setString(_registerProvider.nameList[0].toString());
+      }
+
   }
 }
 

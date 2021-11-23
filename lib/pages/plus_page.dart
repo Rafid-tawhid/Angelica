@@ -1,12 +1,16 @@
 import 'dart:math';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:random_game_new_version/auth/firebase_auth_services.dart';
 import 'package:random_game_new_version/custom_widget/animation_toast.dart';
+import 'package:random_game_new_version/custom_widget/helper%20class.dart';
+import 'package:random_game_new_version/providers/reg_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PlusPage extends StatefulWidget {
@@ -17,7 +21,11 @@ class PlusPage extends StatefulWidget {
 
 class _PlusPageState extends State<PlusPage> {
 
-   String? userName=FirebaseAuthServices.currentUser!.email;
+   // String? userName=Value.getString().toString();
+   String? userName;
+   // late RegisterProvider _registerProvider;
+
+
   // late Timer _timer;
   int _start = 120;
   int _score = 0;
@@ -76,6 +84,11 @@ class _PlusPageState extends State<PlusPage> {
     // image2 = Image.asset("assets/image2.png");
     fetchHigestScoreFromSharedPref();
   }
+   // void didChangeDependencies() {
+   //   _registerProvider=Provider.of<RegisterProvider>(context,listen: true);
+   //   _registerProvider.getName();
+   //   super.didChangeDependencies();
+   // }
 
 
 
@@ -141,9 +154,8 @@ class _PlusPageState extends State<PlusPage> {
                                             fontSize: 20,color: Colors.pinkAccent
                                         ),
                                       ),
-                                      Text(
-                                        '$userName',
-
+                                      Text(Value.getString().toString()
+                                        ,
                                         style: GoogleFonts.bubblegumSans(
                                             fontSize: 20,color: Colors.pinkAccent
                                         ),

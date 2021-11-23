@@ -3,9 +3,12 @@ import 'package:animated_widgets/widgets/shake_animated_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import 'package:random_game_new_version/auth/firebase_auth_services.dart';
+import 'package:random_game_new_version/custom_widget/helper%20class.dart';
 import 'package:random_game_new_version/main.dart';
 import 'package:random_game_new_version/pages/loginPage.dart';
+import 'package:random_game_new_version/providers/reg_provider.dart';
 
 class SplashScreen extends StatefulWidget {
   static const String routeName = '/';
@@ -19,9 +22,11 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   void initState() {
+
     if(FirebaseAuthServices.currentUser==null)
       {
-        showTxt=false;
+        showTxt=true;
+        // showTxt=false;
       }
     else
       {
@@ -31,12 +36,13 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
   }
 
-
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
+
+      // _registerProvider.nameList[0].toString();
     ]);
     return Center(
       child: SafeArea(
@@ -83,7 +89,14 @@ class _SplashScreenState extends State<SplashScreen> {
                           // ),
                           onPressed: () {
 
+
+                            // Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //       builder: (context) => HomePage(),
+                            //     ));
                             Navigator.pushNamed(context, HomePage.routeName);
+                            // print(_registerProvider.nameList[0].toString());
                           },
                         ),
                       ),
@@ -97,6 +110,7 @@ class _SplashScreenState extends State<SplashScreen> {
                       alignment: Alignment.bottomCenter,
                       child: MaterialButton(onPressed: () {
                         Navigator.pushNamed(context, LoginPage.routeName);
+
                       },
                       child: Text('Sign Up Free',style: TextStyle(color: Colors.pinkAccent,fontSize: 16),),),
                     ),
