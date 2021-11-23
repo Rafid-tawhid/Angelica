@@ -11,6 +11,7 @@ import 'package:random_game_new_version/pages/score_board.dart';
 import 'package:random_game_new_version/pages/signUpPage.dart';
 import 'package:random_game_new_version/pages/splash_screen.dart';
 import 'package:random_game_new_version/pages/substract_page.dart';
+import 'package:random_game_new_version/providers/players_info_provider.dart';
 import 'package:random_game_new_version/providers/reg_provider.dart';
 import 'custom_widget/helper class.dart';
 import 'pages/multiplication_page.dart';
@@ -25,6 +26,7 @@ void main() async{
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create:(context)=> RegisterProvider()),
+      ChangeNotifierProvider(create:(context)=> PlayersPrvider()),
     ],
     child: MaterialApp(
       debugShowCheckedModeBanner: false,

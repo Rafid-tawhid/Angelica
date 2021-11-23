@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:random_game_new_version/db/firestore_helper.dart';
+import 'package:random_game_new_version/models/players_info_model.dart';
 import 'package:random_game_new_version/models/register_user_model.dart';
 
 class RegisterProvider extends ChangeNotifier{
@@ -15,5 +16,8 @@ class RegisterProvider extends ChangeNotifier{
       notifyListeners();
     });
   }
+
+
+
 
 }

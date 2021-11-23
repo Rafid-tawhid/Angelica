@@ -31,6 +31,11 @@ class _LoginPageState extends State<LoginPage> {
       home: Scaffold(
         appBar: AppBar(
           title: Text('Login Page'),
+          actions: [
+            ElevatedButton.icon(onPressed: (){
+              FirebaseAuth.instance.signOut();
+            } , icon: Icon(Icons.logout), label: Text('logout'))
+          ],
           centerTitle: true,
           leading: IconButton(onPressed:(){Navigator.pop(context);} , icon: Icon(Icons.arrow_back)),
         ),

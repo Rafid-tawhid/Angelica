@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:random_game_new_version/models/players_info_model.dart';
 import 'package:random_game_new_version/models/register_user_model.dart';
 
 class FireStoreHelper{
@@ -16,9 +17,20 @@ class FireStoreHelper{
   }
 
 
+  //getting name from database
 
   static Stream<QuerySnapshot<Map<String, dynamic>>> getName()=>_db.collection(_collectionRegister).where('email',isEqualTo: FirebaseAuth.instance.currentUser!.email).snapshots();
 
+
+  //saving players info
+  static Future<void> playerInfoSave(PlayerInfoModel playerInfoModel){
+    final docRef=_db.collection(_collectionPlayersInfo).doc();
+    playerInfoModel.id=docRef.id;
+    return docRef.set(playerInfoModel.toMap());
+  }
+
+  //getting higest score
+  static Stream<QuerySnapshot<Map<String, dynamic>>> getHigestScore()=>_db.collection(_collectionPlayersInfo).where('email',isEqualTo: FirebaseAuth.instance.currentUser!.email).orderBy('plus',descending: true).snapshots();
 
 
 }
