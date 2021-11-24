@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:random_game_new_version/auth/firebase_auth_services.dart';
 import 'package:random_game_new_version/models/players_info_model.dart';
 import 'package:random_game_new_version/models/register_user_model.dart';
 
@@ -30,7 +31,14 @@ class FireStoreHelper{
   }
 
   //getting higest score
-  static Stream<QuerySnapshot<Map<String, dynamic>>> getHigestScore()=>_db.collection(_collectionPlayersInfo).where('email',isEqualTo: FirebaseAuth.instance.currentUser!.email).orderBy('plus',descending: true).snapshots();
+  static Stream<QuerySnapshot<Map<String, dynamic>>>? getHigestScore(){
+    if(FirebaseAuthServices.currentUser==null)
+      {
+        return null;
+      }
+    else
+      return _db.collection(_collectionPlayersInfo).where('email',isEqualTo: FirebaseAuth.instance.currentUser!.email).orderBy('plus',descending: true).snapshots();
+  }
 
 
 }

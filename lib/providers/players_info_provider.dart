@@ -8,9 +8,10 @@ class PlayersPrvider extends ChangeNotifier{
   Future<void> savePlayersInfo(PlayerInfoModel playerInfoModel) =>FireStoreHelper.playerInfoSave(playerInfoModel);
 
   void getHigestScore(){
-    FireStoreHelper.getHigestScore().listen((snapshot) {
+    FireStoreHelper.getHigestScore()?.listen((snapshot) {
 
       higestScoreList=List.generate(snapshot.docs.length, (index) => snapshot.docs[index].data()['plus']);
+
       notifyListeners();
     });
   }

@@ -46,10 +46,9 @@ class _PlusPageState extends State<PlusPage> {
    late String formattedDate;
   bool showMsg = false;
   bool hideNumber = true;
+  bool showHigestAndName=true;
   String _title = 'Noob';
   var _achivement = 'Beginner';
-  var _date;
-
 
   DateTime now = DateTime.now();
   AudioPlayer player = AudioPlayer(mode: PlayerMode.LOW_LATENCY);
@@ -81,9 +80,8 @@ class _PlusPageState extends State<PlusPage> {
     super.initState();
     fToast = FToast();
     fToast.init(context);
-    // image1 = Image.asset("img/game_bg2.png",fit: BoxFit.cover,filterQuality: FilterQuality.high);
-    // image2 = Image.asset("assets/image2.png");
-    fetchHigestScoreFromSharedPref();
+    checkUserLoginOrNot();
+    // fetchHigestScoreFromSharedPref();
   }
    void didChangeDependencies() {
      _playersPrvider=Provider.of<PlayersPrvider>(context,listen: false);
@@ -96,8 +94,9 @@ class _PlusPageState extends State<PlusPage> {
   @override
   Widget build(BuildContext context) {
 
-    //initial call
     _rollTheDice();
+    //initial call
+
     return Scaffold(
       // appBar: AppBar(
       //   title: Text('Plus'),
@@ -142,7 +141,7 @@ class _PlusPageState extends State<PlusPage> {
                         Center(
                           child:Column(
                             children: [
-                              Container(
+                             if(showHigestAndName) Container(
                                 child:  Padding(
                                   padding:
                                   const EdgeInsets.only(left: 27.0, right: 27,top: 40),
@@ -158,7 +157,7 @@ class _PlusPageState extends State<PlusPage> {
                                   FutureBuilder(
                                   future: Future.delayed(Duration(milliseconds: 500)),
                                     builder: (context, snapshot) {
-                         
+
                                       if (snapshot.connectionState == ConnectionState.done) {
                                         return Text(
                                           ' Higest Score :'+_playersPrvider.higestScoreList[0].toString(),
@@ -170,17 +169,57 @@ class _PlusPageState extends State<PlusPage> {
                                         return Container(); // Return empty container to avoid build errors
                                                       }
                                                   ),
-                                 
+
                                       Text(Value.getString().toString()
                                         ,
                                         style: GoogleFonts.bubblegumSans(
                                             fontSize: 20,color: Colors.pinkAccent
                                         ),
-                                      ),
+                                      ), //Retriving name
                                     ],
                                   ),
                                 ),
-                              ),
+                              )
+                              else
+                               Container(
+                                 child:  Padding(
+                                   padding:
+                                   const EdgeInsets.only(left: 27.0, right: 27,top: 40),
+                                   child: Row(
+                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                     children: [
+                                       // Text(
+                                       //   ' Higest Score :$_higestScore',
+                                       //   style: GoogleFonts.bubblegumSans(
+                                       //       fontSize: 20,color: Colors.pinkAccent
+                                       //   ),
+                                       // ),
+                                       FutureBuilder(
+                                           future: Future.delayed(Duration(milliseconds: 500)),
+                                           builder: (context, snapshot) {
+
+                                             if (snapshot.connectionState == ConnectionState.done) {
+                                               return Text(
+                                                 ' Higest Score :$_higestScore',
+                                                 style: GoogleFonts.bubblegumSans(
+                                                     fontSize: 20,color: Colors.pinkAccent
+                                                 ),
+                                               );
+                                             } else
+                                               return Container(); // Return empty container to avoid build errors
+                                           }
+                                       ),
+
+                                       Text('hello.!'
+                                         ,
+                                         style: GoogleFonts.bubblegumSans(
+                                             fontSize: 20,color: Colors.pinkAccent
+                                         ),
+                                       ), //Retriving name
+                                     ],
+                                   ),
+                                 ),
+                               ),
                               SizedBox(height: 15,),
                               Container(
                                 height: 40,
@@ -372,7 +411,7 @@ class _PlusPageState extends State<PlusPage> {
 
                               savePlayersInfoToFirebase();
                               _playersPrvider.savePlayersInfo(_playerInfoModel);
-                              saveHigestScoreToSharedPref(_higestScore);
+                              // saveHigestScoreToSharedPref(_higestScore);
                               Navigator.pop(context);
                             },
                           ),
@@ -420,7 +459,6 @@ class _PlusPageState extends State<PlusPage> {
 
   void _rollTheDice() {
     // _fetchUserInfo();
-
 
 
     if (_score > _higestScore) {
@@ -544,12 +582,12 @@ class _PlusPageState extends State<PlusPage> {
             children: [
               SizedBox(width: 10,),
               GestureDetector(child: Image.asset("img/no.png",fit: BoxFit.cover,width: 120,),onTap: (){
-                saveHigestScoreToSharedPref(_higestScore);
+                // saveHigestScoreToSharedPref(_higestScore);
                 fToast.removeCustomToast();
                 Navigator.pop(context);
               },),
               GestureDetector(child: Image.asset("img/yes.png",fit: BoxFit.cover,width: 120,),onTap: (){
-                saveHigestScoreToSharedPref(_higestScore);
+                // saveHigestScoreToSharedPref(_higestScore);
                 fToast.removeCustomToast();
                 setState(() {
                   _score=0;
@@ -583,24 +621,24 @@ class _PlusPageState extends State<PlusPage> {
 
 
 
-  void saveHigestScoreToSharedPref(int higest) async {
-    var now = new DateTime.now();
-    var formatter = new DateFormat('MMM-dd / h:mm');
-     formattedDate = formatter.format(now);
-
-    var sharedPreferences = await SharedPreferences.getInstance();
-    sharedPreferences.setInt("high", higest);
-    // sharedPreferences.setString("highDt", formattedDate);
-    print("savedd");
-
-  }
-  Future<int> fetchHigestScoreFromSharedPref() async {
-    final prefs = await SharedPreferences.getInstance();
-    setState(() {
-      _higestScore = prefs.getInt("high")!;
-    });
-    return _higestScore;
-  }
+  // void saveHigestScoreToSharedPref(int higest) async {
+  //   var now = new DateTime.now();
+  //   var formatter = new DateFormat('MMM-dd / h:mm');
+  //    formattedDate = formatter.format(now);
+  //
+  //   var sharedPreferences = await SharedPreferences.getInstance();
+  //   sharedPreferences.setInt("high", higest);
+  //   // sharedPreferences.setString("highDt", formattedDate);
+  //   print("savedd");
+  //
+  // }
+  // Future<int> fetchHigestScoreFromSharedPref() async {
+  //   final prefs = await SharedPreferences.getInstance();
+  //   setState(() {
+  //     _higestScore = prefs.getInt("high")!;
+  //   });
+  //   return _higestScore;
+  // }
 
   void savePlayersInfoToFirebase() {
     var now = new DateTime.now();
@@ -618,6 +656,20 @@ class _PlusPageState extends State<PlusPage> {
     _playerInfoModel.time=formattedDate;
     print('firebase saving');
 
+  }
+
+  void checkUserLoginOrNot() {
+    if(FirebaseAuthServices.currentUser==null)
+    {
+      setState(() {
+        showHigestAndName=false;
+      });
+      // showTxt=false;
+    }
+    else
+    {
+      showHigestAndName=true;
+    }
   }
 
 
