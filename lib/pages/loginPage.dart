@@ -29,106 +29,160 @@ class _LoginPageState extends State<LoginPage> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        appBar: AppBar(
-          title: Text('Login Page'),
-          actions: [
-            ElevatedButton.icon(onPressed: (){
-              FirebaseAuth.instance.signOut();
-            } , icon: Icon(Icons.logout), label: Text('logout'))
-          ],
-          centerTitle: true,
-          leading: IconButton(onPressed:(){Navigator.pop(context);} , icon: Icon(Icons.arrow_back)),
-        ),
-        body: Center(
-          child: Container(
-            child: Form(
-              key: form_key,
-                child: ListView(
-                  shrinkWrap: true,
-                  padding: EdgeInsets.all(15),
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(18.0),
-                      child: Center(child: Text('LOGIN',style: TextStyle(fontSize: 25,letterSpacing: 2),)),
-                    ),
-                    TextFormField(
-                      keyboardType: TextInputType.emailAddress,
-                      validator: (value){
-                        if(value==null || value.isEmpty)
-                          return 'This field must not be empty';
-                        return null;
-                      },
-                      onSaved: (value){
-                        _email=value;
-                      },
-                      decoration: InputDecoration(
-                        labelText: 'Email Address',
-                        border: OutlineInputBorder(),
 
-                      ),
-                    ),
-                    SizedBox(height: 20,),
-                    TextFormField(
-                      obscureText: _isObscure,
-                      validator: (value){
-                        if(value==null || value.isEmpty)
-                          return 'This field must not be empty';
-                        return null;
-                      },
-                      onSaved: (value){
-                        _pass=value;
-                      },
-                      decoration: InputDecoration(
-                        labelText: 'Password',
-                        // suffixIcon: GestureDetector(
-                        //   onLongPress: () {
-                        //     setState(() {
-                        //       _passwordVisible = true;
-                        //
-                        //     });
-                        //   },
-                        //   onLongPressUp: () {
-                        //     setState(() {
-                        //       _passwordVisible = false;
-                        //     });
-                        //   },
-                        //   child: Icon(
-                        //       _passwordVisible ? Icons.visibility : Icons.visibility_off),
-                        // ),
-                        border: OutlineInputBorder(),
-                          suffixIcon: IconButton(
-                              icon: Icon(
-                                  _isObscure ? Icons.visibility : Icons.visibility_off),
-                              onPressed: () {
-                                setState(() {
-                                  _isObscure = !_isObscure;
-                                });
-                              })),
-
-                      ),
-
-
-                    SizedBox(height: 40,),
-                    Row(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Center(child: ElevatedButton(onPressed: _createUser, child: Text('Register'))),
-                        SizedBox(width: 40,),
-                        Center(child: ElevatedButton(onPressed: _userLogin, child: Text('Login'))),
-
-                      ],
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(6.0),
-                      child: Center(child: Text(_errorMsg,style: TextStyle(fontSize: 15,color: Colors.red),)),
-                    ),
-
-
-
-                  ],
-            )),
+        // appBar: AppBar(
+        //   title: Text('Login Page'),
+        //   actions: [
+        //     ElevatedButton.icon(onPressed: (){
+        //       FirebaseAuth.instance.signOut();
+        //     } , icon: Icon(Icons.logout), label: Text('logout'))
+        //   ],
+        //   centerTitle: true,
+        //   leading: IconButton(onPressed:(){Navigator.pop(context);} , icon: Icon(Icons.arrow_back)),
+        // ),
+        body: Container(
+          width: double.maxFinite,
+          height: double.maxFinite,
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: ExactAssetImage("img/bg.jpg",),
+              fit: BoxFit.fill,
+            ),
           ),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const SizedBox(height:250,),
+               Stack(
+                 children: [
+
+                   Container(
+                     height: MediaQuery.of(context).size.height/2,
+                     width: double.maxFinite,
+
+                     margin: const EdgeInsets.only(left: 10,right: 10),
+                           decoration: const BoxDecoration(
+                             image: DecorationImage(
+                               image: ExactAssetImage("img/login_bg.png",),
+                               fit: BoxFit.fill,
+                             ),
+                           ),
+                     child: Center(
+                       child: Container(
+                         margin: EdgeInsets.only(top: 10),
+                         child: Form(
+
+                             key: form_key,
+                             child: ListView(
+                               shrinkWrap: true,
+                               padding: EdgeInsets.only(left: 30,right: 30,top: 20),
+                               children: [
+                                 SizedBox(height: 80,),
+                                 TextFormField(
+                                   keyboardType: TextInputType.emailAddress,
+                                   validator: (value){
+                                     if(value==null || value.isEmpty)
+                                       return 'This field must not be empty';
+                                     return null;
+                                   },
+                                   onSaved: (value){
+                                     _email=value;
+                                   },
+                                   decoration: const InputDecoration(
+                                     labelText: 'Email Address',
+                                     enabledBorder: OutlineInputBorder(
+                                         borderSide: BorderSide(color: Colors.pink, width: 1.0),
+                                         borderRadius: BorderRadius.all(Radius.circular(25))
+                                     ),
+                                     border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(25))),
+
+                                   ),
+                                 ),
+                                 const SizedBox(height: 20,),
+                                 TextFormField(
+                                   obscureText: _isObscure,
+                                   validator: (value){
+                                     if(value==null || value.isEmpty) {
+                                       return 'This field must not be empty';
+                                     }
+                                     return null;
+                                   },
+                                   onSaved: (value){
+                                     _pass=value;
+                                   },
+                                   decoration: InputDecoration(
+                                       labelText: 'Password',
+                                       enabledBorder: const OutlineInputBorder(
+                                           borderSide: BorderSide(color: Colors.pink, width: 1.0),
+                                           borderRadius: BorderRadius.all(Radius.circular(25))
+                                       ),
+                                       border: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(25))),
+
+                                       suffixIcon: IconButton(
+                                           icon: Icon(
+                                               _isObscure ? Icons.visibility : Icons.visibility_off),
+                                           onPressed: () {
+                                             setState(() {
+                                               _isObscure = !_isObscure;
+                                             });
+                                           })),
+
+                                 ),
+
+
+                                 SizedBox(height: 20,),
+                                 Row(
+                                   mainAxisSize: MainAxisSize.min,
+                                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                   children: [
+                                     const SizedBox(width: 20,),
+                                     Expanded(
+                                       child: GestureDetector(
+                                         child: Center(
+                                           child: Image.asset('img/login.png',fit: BoxFit.cover,),
+                                         ),
+                                         onTap: (){
+                                           _userLogin();
+                                         },
+                                       ),
+                                     ),
+                                     SizedBox(width: 20,),
+
+                                     Expanded(child: GestureDetector(child: Center(child: Image.asset('img/register.png',fit: BoxFit.cover,),),
+                                       onTap: () {
+                                         _createUser();
+                                       },),),
+                                     SizedBox(width: 20,),
+
+                                   ],
+                                 ),
+                                 Padding(
+                                   padding: const EdgeInsets.all(6.0),
+                                   child: Center(child: Text(_errorMsg,style: TextStyle(fontSize: 15,color: Colors.red),)),
+                                 ),
+
+
+
+                               ],
+                             )),
+                       ),
+                     ),
+                   ),
+                   Container(
+                     width: double.maxFinite,
+                     transform: Matrix4.translationValues(0.0, -145.0, 0.0),
+                     child: Image.asset('img/angle.png',height: 170,width: 170,),
+                   ),
+                 ],
+               )
+
+              ],
+            ),
+          ),
+
+
         ),
       ),
     );
