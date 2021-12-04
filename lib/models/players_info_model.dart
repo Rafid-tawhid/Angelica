@@ -52,4 +52,8 @@ class PlayerInfoModel{
 
   );
 
+  @override
+  String toString() {
+    return 'PlayerInfoModel{id: $id, name: $name, email: $email, plus: $plus, min: $min, mup: $mup, div: $div, titel: $titel, achivement: $achivement, time: $time}';
+  }
 }

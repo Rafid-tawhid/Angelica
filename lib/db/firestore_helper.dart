@@ -22,6 +22,8 @@ class FireStoreHelper{
 
   static Stream<QuerySnapshot<Map<String, dynamic>>> getName()=>_db.collection(_collectionRegister).where('email',isEqualTo: FirebaseAuth.instance.currentUser!.email).snapshots();
 
+   // static Future<QuerySnapshot<Map<String, dynamic>>> getName2()=>_db.collection(_collectionPlayersInfo).where('email',isEqualTo: FirebaseAuth.instance.currentUser!.email).get();
+
 
   //saving players info
   static Future<void> playerInfoSave(PlayerInfoModel playerInfoModel){
@@ -36,8 +38,24 @@ class FireStoreHelper{
       {
         return null;
       }
-    else
+
+    else {
       return _db.collection(_collectionPlayersInfo).where('email',isEqualTo: FirebaseAuth.instance.currentUser!.email).orderBy('plus',descending: true).snapshots();
+    }
+  }
+
+  static Future<QuerySnapshot<Map<String, dynamic>>> findPlayersAllInfoByEmail(String mail)
+  {
+   return _db.collection(_collectionPlayersInfo).where('email',isEqualTo: mail).get();
+  }
+
+
+
+  //update existing players info by email
+  static Future<void> playerInfoUpdate(PlayerInfoModel playerInfoModel){
+    final docRef=_db.collection(_collectionPlayersInfo).doc(playerInfoModel.id);
+    print('DOC REF: '+docRef.toString());
+    return docRef.update(playerInfoModel.toMap());
   }
 
 

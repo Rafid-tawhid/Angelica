@@ -57,7 +57,10 @@ class _HomePageState extends State<HomePage> {
   Image? image1;
   // String? userName;
   late RegisterProvider _registerProvider;
-  //
+
+  // players name
+  // late PlayersPrvider _playersPrvider;
+  //players score
 
 
   void didChangeDependencies() {
@@ -65,6 +68,8 @@ class _HomePageState extends State<HomePage> {
       {
         _registerProvider=Provider.of<RegisterProvider>(context);
         _registerProvider.getName();
+        // _playersPrvider=Provider.of<PlayersPrvider>(context);
+        // _playersPrvider.getHigestScore();
       }
     super.didChangeDependencies();
   }
@@ -145,6 +150,7 @@ class _HomePageState extends State<HomePage> {
 
                                   Navigator.pushNamed(context, PlusPage.routeName);
                                   sendNametoAnotherPage();
+                                  // sendUserScoretoAnotherPage();
 
                                 },
                                 child: Container(
@@ -243,5 +249,17 @@ class _HomePageState extends State<HomePage> {
       }
 
   }
+
+  // void sendUserScoretoAnotherPage() {
+  //   if(_playersPrvider.higestScoreList[0]==0)
+  //   {
+  //     UserName.setString('00');
+  //   }
+  //   else
+  //   {
+  //     UserName.setString(_playersPrvider.higestScoreList[0].toString());
+  //   }
+  //
+  // }
 }
 

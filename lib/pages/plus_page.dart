@@ -47,8 +47,10 @@ class _PlusPageState extends State<PlusPage> {
   bool showMsg = false;
   bool hideNumber = true;
   bool showHigestAndName=true;
+
   String _title = 'Noob';
   var _achivement = 'Beginner';
+
 
   DateTime now = DateTime.now();
   AudioPlayer player = AudioPlayer(mode: PlayerMode.LOW_LATENCY);
@@ -81,6 +83,7 @@ class _PlusPageState extends State<PlusPage> {
     fToast = FToast();
     fToast.init(context);
     checkUserLoginOrNot();
+
     // fetchHigestScoreFromSharedPref();
   }
    void didChangeDependencies() {
@@ -109,7 +112,7 @@ class _PlusPageState extends State<PlusPage> {
         width: double.maxFinite,
         height: double.maxFinite,
         padding: EdgeInsets.only(top: 100,left: 10,right: 10),
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
             image: ExactAssetImage('img/game_bg2.png',),
             fit: BoxFit.fill,
@@ -141,45 +144,44 @@ class _PlusPageState extends State<PlusPage> {
                         Center(
                           child:Column(
                             children: [
-                             if(showHigestAndName) Container(
-                                child:  Padding(
-                                  padding:
-                                  const EdgeInsets.only(left: 27.0, right: 27,top: 40),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      // Text(
-                                      //   ' Higest Score :$_higestScore',
-                                      //   style: GoogleFonts.bubblegumSans(
-                                      //       fontSize: 20,color: Colors.pinkAccent
-                                      //   ),
-                                      // ),
-                                  FutureBuilder(
-                                  future: Future.delayed(Duration(milliseconds: 500)),
-                                    builder: (context, snapshot) {
+                             if(showHigestAndName) Padding(
+                               padding:
+                               const EdgeInsets.only(left: 27.0, right: 27,top: 40),
+                               child: Row(
+                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                 children: [
+                                   FutureBuilder(
+                                       future: Future.delayed(const Duration(milliseconds: 500)),
+                                       builder: (context, snapshot) {
 
-                                      if (snapshot.connectionState == ConnectionState.done) {
-                                        return Text(
-                                          ' Higest Score :'+_playersPrvider.higestScoreList[0].toString(),
-                                          style: GoogleFonts.bubblegumSans(
-                                              fontSize: 20,color: Colors.pinkAccent
-                                          ),
-                                        );
-                                      } else
-                                        return Container(); // Return empty container to avoid build errors
-                                                      }
-                                                  ),
+                                         if (snapshot.connectionState == ConnectionState.done) {
 
-                                      Text(Value.getString().toString()
-                                        ,
-                                        style: GoogleFonts.bubblegumSans(
-                                            fontSize: 20,color: Colors.pinkAccent
-                                        ),
-                                      ), //Retriving name
-                                    ],
-                                  ),
-                                ),
-                              )
+                                           if(_playersPrvider.higestScoreList[0].toString().isEmpty){
+                                             _playersPrvider.higestScoreList[0]=0;
+                                           }
+                                           return Text(
+                                             ' Higest Score :'+_playersPrvider.higestScoreList[0].toString(),
+                                             style: GoogleFonts.bubblegumSans(
+                                                 fontSize: 20,color: Colors.pinkAccent
+                                             ),
+                                           );
+                                         } else {
+                                           return Container();
+                                         } // Return empty container to avoid build errors
+                                       }
+                                   ),
+
+                                   Text(Value.getString().toString()
+
+                                     ,
+                                     style: GoogleFonts.bubblegumSans(
+                                         fontSize: 20,color: Colors.pinkAccent
+                                     ),
+                                   ),
+                                   //if user not loged in
+                                 ],
+                               ),
+                             )
                               else
                                Container(
                                  child:  Padding(
@@ -188,27 +190,13 @@ class _PlusPageState extends State<PlusPage> {
                                    child: Row(
                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                      children: [
-                                       // Text(
-                                       //   ' Higest Score :$_higestScore',
-                                       //   style: GoogleFonts.bubblegumSans(
-                                       //       fontSize: 20,color: Colors.pinkAccent
-                                       //   ),
-                                       // ),
-                                       FutureBuilder(
-                                           future: Future.delayed(Duration(milliseconds: 500)),
-                                           builder: (context, snapshot) {
 
-                                             if (snapshot.connectionState == ConnectionState.done) {
-                                               return Text(
-                                                 ' Higest Score :$_higestScore',
+                                     Text(' Higest Score :$_higestScore',
                                                  style: GoogleFonts.bubblegumSans(
                                                      fontSize: 20,color: Colors.pinkAccent
                                                  ),
-                                               );
-                                             } else
-                                               return Container(); // Return empty container to avoid build errors
-                                           }
-                                       ),
+                                               ),
+                                              // Return empty container to avoid build errors
 
                                        Text('hello.!'
                                          ,
@@ -407,12 +395,13 @@ class _PlusPageState extends State<PlusPage> {
 
                             ),
                             // ),
-                            onPressed: () {
+                            onPressed: () async{
 
                               savePlayersInfoToFirebase();
-                              _playersPrvider.savePlayersInfo(_playerInfoModel);
+                             // await _playersPrvider.savePlayersInfo(_playerInfoModel);
+                              replacePlayersInfo();
                               // saveHigestScoreToSharedPref(_higestScore);
-                              Navigator.pop(context);
+                              // Navigator.pop(context);
                             },
                           ),
                           MaterialButton(
@@ -423,7 +412,7 @@ class _PlusPageState extends State<PlusPage> {
                             child: Container(
                               height: 45,
                               width: 120,
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
 
                                 image: DecorationImage(
 
@@ -434,8 +423,9 @@ class _PlusPageState extends State<PlusPage> {
                             ),
                             // ),
                             onPressed: () {
-                              // _rollTheDice();
-                              print(_playersPrvider.higestScoreList[0].toString());
+                              _rollTheDice();
+
+
                             },
                           ),
                         ],
@@ -640,13 +630,23 @@ class _PlusPageState extends State<PlusPage> {
   //   return _higestScore;
   // }
 
+
+
   void savePlayersInfoToFirebase() {
     var now = new DateTime.now();
     var formatter = new DateFormat('MMM-dd / h:mm');
     formattedDate = formatter.format(now);
-
+    String? mail;
+    if(FirebaseAuthServices.currentUser==null)
+      {
+      mail="bot@gmail.com";
+      }
+    else
+      {
+        mail=FirebaseAuthServices.currentUser!.email;
+      }
     _playerInfoModel.name=Value.getString().toString();
-    _playerInfoModel.email=FirebaseAuthServices.currentUser!.email;
+    _playerInfoModel.email=mail;
     _playerInfoModel.titel=_title;
     _playerInfoModel.plus=_higestScore;
     _playerInfoModel.min=_score;
@@ -670,6 +670,25 @@ class _PlusPageState extends State<PlusPage> {
     {
       showHigestAndName=true;
     }
+  }
+
+  void replacePlayersInfo() async{
+      var now = new DateTime.now();
+      var formatter = DateFormat('MMM-dd / h:mm');
+      formattedDate = formatter.format(now);
+
+      _playerInfoModel=(await _playersPrvider.findPlayersAllInfo(FirebaseAuthServices.currentUser!.email.toString()))!;
+      if(_playerInfoModel!=null)
+        {
+          savePlayersInfoToFirebase();
+          await _playersPrvider.updateProfileScore(_playerInfoModel);
+          print("found");
+        }
+      else
+        {
+          print("Not found");
+        }
+
   }
 
 
