@@ -401,7 +401,7 @@ class _PlusPageState extends State<PlusPage> {
                              // await _playersPrvider.savePlayersInfo(_playerInfoModel);
                               replacePlayersInfo();
                               // saveHigestScoreToSharedPref(_higestScore);
-                              Navigator.pop(context);
+                              // Navigator.pop(context);
                             },
                           ),
                           MaterialButton(
