@@ -55,7 +55,7 @@ class FireStoreHelper{
   static Future<void> playerInfoUpdate(PlayerInfoModel playerInfoModel){
     final docRef=_db.collection(_collectionPlayersInfo).doc(playerInfoModel.id);
     print('DOC REF: '+docRef.toString());
-    return docRef.update(playerInfoModel.toMap());
+    return docRef.update({'email': playerInfoModel.email, 'plus' :playerInfoModel.plus });
   }
 
 

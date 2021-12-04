@@ -275,7 +275,7 @@ class _PlusPageState extends State<PlusPage> {
                                       width: 135,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(25),
-                                        image: DecorationImage(
+                                        image: const DecorationImage(
 
                                             image: AssetImage('img/score_btn.png',),
                                             fit: BoxFit.cover,filterQuality: FilterQuality.high),
@@ -294,7 +294,7 @@ class _PlusPageState extends State<PlusPage> {
                                       width: 135,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(25),
-                                        image: DecorationImage(
+                                        image: const DecorationImage(
 
                                             image: AssetImage('img/score_btn.png',),
                                             fit: BoxFit.cover,filterQuality: FilterQuality.high),
@@ -322,7 +322,7 @@ class _PlusPageState extends State<PlusPage> {
                                       width: 135,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(25),
-                                        image: DecorationImage(
+                                        image: const DecorationImage(
 
                                             image: AssetImage('img/score_btn.png',),
                                             fit: BoxFit.cover,filterQuality: FilterQuality.high),
@@ -386,7 +386,7 @@ class _PlusPageState extends State<PlusPage> {
                             child: Container(
                               height: 45,
                               width: 120,
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
 
                                 image: DecorationImage(
                                     image: AssetImage('img/back.png',),
@@ -690,6 +690,8 @@ class _PlusPageState extends State<PlusPage> {
         }
 
   }
+
+
 
 
 

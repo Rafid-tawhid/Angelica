@@ -2,10 +2,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:random_game_new_version/auth/firebase_auth_services.dart';
 import 'package:random_game_new_version/main.dart';
+import 'package:random_game_new_version/models/players_info_model.dart';
 import 'package:random_game_new_version/models/register_user_model.dart';
+import 'package:random_game_new_version/providers/players_info_provider.dart';
 import 'package:random_game_new_version/providers/reg_provider.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -19,13 +22,19 @@ class _SignUpPageState extends State<SignUpPage> {
   String? _email,_pass,_name;
   String _errorMsg='';
   bool _isObscure=true;
+  late String formattedDate;
   late RegisterProvider _registerProvider;
+  late PlayersPrvider _playersPrvider;
+  PlayerInfoModel _playerInfoModel=PlayerInfoModel();
   final RegisterUserModel _registerUserModel=RegisterUserModel();
   final form_key=GlobalKey<FormState>();
 
   @override
   void didChangeDependencies() {
-    _registerProvider=Provider.of(context,listen: false);
+    _registerProvider=Provider.of<RegisterProvider>(context,listen: false);
+
+    _playersPrvider=Provider.of<PlayersPrvider>(context,listen: false);
+    _playersPrvider.getHigestScore();
     super.didChangeDependencies();
   }
 
@@ -236,6 +245,8 @@ class _SignUpPageState extends State<SignUpPage> {
           //add user info to firebase with provider
 
           _registerProvider.registerNewUser(_registerUserModel);
+          savePlayersInfoToFirebase();
+          _playersPrvider.savePlayersInfo(_playerInfoModel);
 
           Navigator.pushReplacementNamed(context, HomePage.routeName);
         }
@@ -249,6 +260,33 @@ class _SignUpPageState extends State<SignUpPage> {
 
 
     }
+
+  }
+
+
+  void savePlayersInfoToFirebase() {
+    var now = DateTime.now();
+    var formatter = DateFormat('MMM-dd / h:mm');
+    formattedDate = formatter.format(now);
+    String? mail;
+    if(FirebaseAuthServices.currentUser==null)
+    {
+      mail="bot@gmail.com";
+    }
+    else
+    {
+      mail=FirebaseAuthServices.currentUser!.email;
+    }
+    _playerInfoModel.name="BOT";
+    _playerInfoModel.email=mail;
+    _playerInfoModel.titel='';
+    _playerInfoModel.plus=0;
+    _playerInfoModel.min=0;
+    _playerInfoModel.mup=0;
+    _playerInfoModel.div=0;
+    _playerInfoModel.achivement="Noob";
+    _playerInfoModel.time=formattedDate;
+    print('firebase saving');
 
   }
 }
