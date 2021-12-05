@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:random_game_new_version/pages/amature_mode.dart';
 import 'package:random_game_new_version/pages/divisor_page.dart';
 import 'package:random_game_new_version/pages/loginPage.dart';
 import 'package:random_game_new_version/pages/multiplication_page.dart';
@@ -41,6 +42,7 @@ void main() async{
         SubPage.routeName: (context) => SubPage(),
         LoginPage.routeName: (context) => LoginPage(),
         SignUpPage.routeName: (context) => SignUpPage(),
+        Amature.routeName: (context) => Amature(),
       },
     ),
   ));
@@ -226,6 +228,56 @@ class _HomePageState extends State<HomePage> {
 
                         ],
                       ),
+                      SizedBox(height: 30,),
+
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Expanded(
+                            child: RawMaterialButton(
+                              onPressed: () {
+                                Navigator.pushNamed(context, Amature.routeName);
+                              },
+                              elevation: 2.0,
+                              fillColor: Colors.white,
+                              child: const Icon(
+                                Icons.pause,
+                                size: 35.0,
+                              ),
+                              padding: EdgeInsets.all(15.0),
+                              shape: CircleBorder(),
+                            ),
+                          ),
+                          Expanded(
+                            child: RawMaterialButton(
+                              onPressed: () {},
+                              elevation: 2.0,
+                              fillColor: Colors.white,
+                              child: const Icon(
+                                Icons.pause,
+                                size: 35.0,
+                              ),
+                              padding: EdgeInsets.all(15.0),
+                              shape: CircleBorder(),
+                            ),
+                          ),
+                          Expanded(
+                            child: RawMaterialButton(
+                              onPressed: () {},
+                              elevation: 2.0,
+                              fillColor: Colors.white,
+                              child: const Icon(
+                                Icons.pause,
+                                size: 35.0,
+                              ),
+                              padding: EdgeInsets.all(15.0),
+                              shape: CircleBorder(),
+                            ),
+                          ),
+
+
+                        ],
+                      )
                     ],
                   ),
                 )

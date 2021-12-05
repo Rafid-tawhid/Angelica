@@ -556,7 +556,7 @@ class _PlusPageState extends State<PlusPage> {
       alignment: Alignment.bottomCenter,
       height: MediaQuery.of(context).size.height/2,
       width: MediaQuery.of(context).size.width,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         image: DecorationImage(
           image: AssetImage("img/wrng.png",),
           fit: BoxFit.fill,

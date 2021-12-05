@@ -208,7 +208,7 @@ class _DivisorPageState extends State<DivisorPage> {
                                       width: 135,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(25),
-                                        image: DecorationImage(
+                                        image: const DecorationImage(
 
                                             image: AssetImage('img/score_btn.png',),
                                             fit: BoxFit.cover,filterQuality: FilterQuality.high),
@@ -227,7 +227,7 @@ class _DivisorPageState extends State<DivisorPage> {
                                       width: 135,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(25),
-                                        image: DecorationImage(
+                                        image: const DecorationImage(
 
                                             image: AssetImage('img/score_btn.png',),
                                             fit: BoxFit.cover,filterQuality: FilterQuality.high),
@@ -255,7 +255,7 @@ class _DivisorPageState extends State<DivisorPage> {
                                       width: 135,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(25),
-                                        image: DecorationImage(
+                                        image: const DecorationImage(
 
                                             image: AssetImage('img/score_btn.png',),
                                             fit: BoxFit.cover,filterQuality: FilterQuality.high),
