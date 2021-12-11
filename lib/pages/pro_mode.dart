@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'dart:math';
+
 import 'package:audioplayers/audioplayers.dart';
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -10,15 +12,15 @@ import 'package:random_game_new_version/custom_widget/animation_toast.dart';
 import 'package:random_game_new_version/custom_widget/helper%20class.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class Amature extends StatefulWidget {
+class ProfessionalMode extends StatefulWidget {
 
-  static const String routeName='/amature';
+  static const String routeName='/pro';
 
   @override
-  _AmatureState createState() => _AmatureState();
+  _ProfessionalModeState createState() => _ProfessionalModeState();
 }
 
-class _AmatureState extends State<Amature> {
+class _ProfessionalModeState extends State<ProfessionalMode> {
   int _score = 0;
   int _higestScore = 0;
   var _res = 0;
@@ -37,7 +39,7 @@ class _AmatureState extends State<Amature> {
   String _title = 'Noob';
   var _achivement = 'Beginner';
   var _date;
-   late Timer _timer;
+  late Timer _timer;
   int _start = 10;
 
 
@@ -63,8 +65,12 @@ class _AmatureState extends State<Amature> {
     'img/nm9.png',
   ];
   late FToast fToast;
-
-
+  CountDownController controller = CountDownController();
+  // @override
+  // void dispose() {
+  //   _timer.cancel();
+  //   super.dispose();
+  // }
   @override
   void initState() {
     super.initState();
@@ -96,7 +102,38 @@ class _AmatureState extends State<Amature> {
           child: Stack(
 
             children: [
-
+            Align(
+              alignment: Alignment.topRight,
+              child: CircularCountDownTimer(
+              duration: 5,
+              initialDuration: 0,
+              controller: controller,
+              width: 30,
+              height: 30,
+              ringColor: Colors.grey,
+              ringGradient: null,
+              fillColor: Colors.purpleAccent,
+              fillGradient: null,
+              backgroundColor: Colors.purple[500],
+              backgroundGradient: null,
+              strokeWidth: 10.0,
+              strokeCap: StrokeCap.round,
+              textStyle: const TextStyle(
+                  fontSize: 15.0, color: Colors.white, fontWeight: FontWeight.bold),
+              textFormat: CountdownTextFormat.S,
+              isReverse: false,
+              isReverseAnimation: false,
+              isTimerTextShown: true,
+              autoStart: false,
+              onStart: () {
+                print('Countdown Started');
+              },
+              onComplete: () {
+                _rollTheDice();
+                controller.resume();
+              },
+          ),
+            ),
               Stack(
 
                 children: [
@@ -366,6 +403,8 @@ class _AmatureState extends State<Amature> {
 
   void _rollTheDice() {
     // _fetchUserInfo();
+
+
     if (_score > _higestScore) {
       _higestScore = _score;
       if (_score > 5) {
@@ -380,7 +419,7 @@ class _AmatureState extends State<Amature> {
     }
     // _saveLastScore(_higestScore);
     //generate random number to call each method at a time
-   int _randFun=_random.nextInt(4);
+    int _randFun=_random.nextInt(4);
     switch(_randFun)
     {
       case 0:plusFunction();
@@ -423,12 +462,14 @@ class _AmatureState extends State<Amature> {
     c = list[2];
     d = list[3];
     print("$a" + " " "$b" + " " + "$c" + " " "$d");
-  }  
+  }
 
   checkRes(int a) {
     // print(a);
+
     int aa = a;
     if (aa == _res) {
+      controller.start();
       final player = AudioCache();
       // congrats sound
       player.play('play.wav');
@@ -520,14 +561,14 @@ class _AmatureState extends State<Amature> {
     String formattedDate = formatter.format(now);
 
     var sharedPreferences = await SharedPreferences.getInstance();
-    sharedPreferences.setInt("mode1", higest);
+    sharedPreferences.setInt("mode2", higest);
     // sharedPreferences.setString("minDt", formattedDate);
 
   }
   Future<int> fetchHigestScoreFromSharedPref() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
-      _higestScore = prefs.getInt("mode1")!;
+      _higestScore = prefs.getInt("mode2")!;
 
     });
     return _higestScore;
@@ -644,6 +685,4 @@ class _AmatureState extends State<Amature> {
       },
     );
   }
-
-
 }

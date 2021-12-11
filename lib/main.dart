@@ -8,6 +8,7 @@ import 'package:random_game_new_version/pages/divisor_page.dart';
 import 'package:random_game_new_version/pages/loginPage.dart';
 import 'package:random_game_new_version/pages/multiplication_page.dart';
 import 'package:random_game_new_version/pages/plus_page.dart';
+import 'package:random_game_new_version/pages/pro_mode.dart';
 import 'package:random_game_new_version/pages/score_board.dart';
 import 'package:random_game_new_version/pages/signUpPage.dart';
 import 'package:random_game_new_version/pages/splash_screen.dart';
@@ -43,6 +44,7 @@ void main() async{
         LoginPage.routeName: (context) => LoginPage(),
         SignUpPage.routeName: (context) => SignUpPage(),
         Amature.routeName: (context) => Amature(),
+        ProfessionalMode.routeName:(context)=>ProfessionalMode()
       },
     ),
   ));
@@ -110,7 +112,7 @@ class _HomePageState extends State<HomePage> {
             //
             // ),
           body: Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               image: DecorationImage(
                 image: ExactAssetImage("img/bg.jpg"),
                 fit: BoxFit.fill,
@@ -250,7 +252,9 @@ class _HomePageState extends State<HomePage> {
                           ),
                           Expanded(
                             child: RawMaterialButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.pushNamed(context, ProfessionalMode.routeName);
+                              },
                               elevation: 2.0,
                               fillColor: Colors.white,
                               child: const Icon(
