@@ -8,7 +8,7 @@ class FireStoreHelper{
 
   static const String _collectionRegister='Registration';
   static const String _collectionPlayersInfo='Players';
-  static FirebaseFirestore _db=FirebaseFirestore.instance;
+  static final FirebaseFirestore _db=FirebaseFirestore.instance;
 
 
   static Future<void> newRegisterUser(RegisterUserModel registerUserModel){
@@ -52,10 +52,24 @@ class FireStoreHelper{
 
 
   //update existing players info by email
-  static Future<void> playerInfoUpdate(PlayerInfoModel playerInfoModel){
+  static Future<void> playerInfoUpdate(PlayerInfoModel playerInfoModel,String type)async {
     final docRef=_db.collection(_collectionPlayersInfo).doc(playerInfoModel.id);
     print('DOC REF: '+docRef.toString());
-    return docRef.update({'email': playerInfoModel.email, 'plus' :playerInfoModel.plus });
+    switch(type)
+    {
+      case "plus":
+       await docRef.update({'email': playerInfoModel.email, 'plus' :playerInfoModel.plus });
+        break;
+      case "min":
+       await docRef.update({'email': playerInfoModel.email, 'min' :playerInfoModel.min });
+        break;
+      case "mup":
+       await docRef.update({'email': playerInfoModel.email, 'mup' :playerInfoModel.mup });
+        break;
+      case "div":
+       await docRef.update({'email': playerInfoModel.email, 'div' :playerInfoModel.div });
+        break;
+    }
   }
 
 

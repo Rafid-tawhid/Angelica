@@ -130,7 +130,7 @@ class _ProfessionalModeState extends State<ProfessionalMode> {
               },
               onComplete: () {
                 _rollTheDice();
-                controller.resume();
+                controller.start();
               },
           ),
             ),

@@ -9,7 +9,14 @@ class Value {
   }
 
   static String? getString() {
-    return value;
+    if(value==null)
+    {
+      return "hello.!";
+    }
+    else
+    {
+      return value;
+    }
   }
 }
 
@@ -20,7 +27,14 @@ class UserName {
   }
 
   static String? getString() {
-    return value;
+    if(value==null)
+    {
+      return "hello.!";
+    }
+    else
+      {
+        return value;
+      }
   }
 
 

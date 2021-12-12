@@ -12,7 +12,7 @@ class RegisterProvider extends ChangeNotifier{
   Future<void> registerNewUser(RegisterUserModel registerUserModel) =>FireStoreHelper.newRegisterUser(registerUserModel);
 
 
-  void getName()async{
+  void  getName()async{
     FireStoreHelper.getName().listen((snapshot) async {
 
       nameList=await List.generate(snapshot.docs.length, (index) => snapshot.docs[index].data()['name']);

@@ -6,8 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+import 'package:random_game_new_version/auth/firebase_auth_services.dart';
 import 'package:random_game_new_version/custom_widget/animation_toast.dart';
 import 'package:random_game_new_version/custom_widget/helper%20class.dart';
+import 'package:random_game_new_version/models/players_info_model.dart';
+import 'package:random_game_new_version/providers/players_info_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MultiplicationPage extends StatefulWidget {
@@ -38,7 +42,7 @@ class _MultiplicationPageState extends State<MultiplicationPage> {
   bool hideNumber = true;
   String _title = 'Noob';
   var _achivement = 'Beginner';
-  var _date;
+  late String formattedDate;
 
 
   DateTime now = DateTime.now();
@@ -62,8 +66,9 @@ class _MultiplicationPageState extends State<MultiplicationPage> {
     'img/nm9.png',
   ];
 
-  ///
-  ///
+
+  late PlayersPrvider _playersPrvider;
+  PlayerInfoModel _playerInfoModel=PlayerInfoModel();
   late FToast fToast;
 
   @override
@@ -73,6 +78,14 @@ class _MultiplicationPageState extends State<MultiplicationPage> {
     fToast.init(context);
     fetchHigestScoreFromSharedPref();
   }
+
+  void didChangeDependencies() {
+    _playersPrvider=Provider.of<PlayersPrvider>(context,listen: false);
+    _playersPrvider.getHigestScore();
+    super.didChangeDependencies();
+  }
+
+
   @override
   Widget build(BuildContext context) {
     _rollTheDice();
@@ -83,7 +96,7 @@ class _MultiplicationPageState extends State<MultiplicationPage> {
         width: double.maxFinite,
         height: double.maxFinite,
         padding: EdgeInsets.only(top: 100,left: 10,right: 10),
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
               image: ExactAssetImage('img/game_bg2.png',),
               fit: BoxFit.fill,
@@ -146,7 +159,7 @@ class _MultiplicationPageState extends State<MultiplicationPage> {
 
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(25),
-                                  image: DecorationImage(
+                                  image: const DecorationImage(
 
                                       image: AssetImage('img/score_btn.png',),
                                       fit: BoxFit.cover,filterQuality: FilterQuality.high),
@@ -206,7 +219,7 @@ class _MultiplicationPageState extends State<MultiplicationPage> {
                                       width: 135,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(25),
-                                        image: DecorationImage(
+                                        image: const DecorationImage(
 
                                             image: AssetImage('img/score_btn.png',),
                                             fit: BoxFit.cover,filterQuality: FilterQuality.high),
@@ -225,7 +238,7 @@ class _MultiplicationPageState extends State<MultiplicationPage> {
                                       width: 135,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(25),
-                                        image: DecorationImage(
+                                        image: const DecorationImage(
 
                                             image: AssetImage('img/score_btn.png',),
                                             fit: BoxFit.cover,filterQuality: FilterQuality.high),
@@ -253,7 +266,7 @@ class _MultiplicationPageState extends State<MultiplicationPage> {
                                       width: 135,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(25),
-                                        image: DecorationImage(
+                                        image: const DecorationImage(
 
                                             image: AssetImage('img/score_btn.png',),
                                             fit: BoxFit.cover,filterQuality: FilterQuality.high),
@@ -317,7 +330,7 @@ class _MultiplicationPageState extends State<MultiplicationPage> {
                             child: Container(
                               height: 45,
                               width: 120,
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
 
                                 image: DecorationImage(
                                     image: AssetImage('img/back.png',),
@@ -328,6 +341,7 @@ class _MultiplicationPageState extends State<MultiplicationPage> {
                             // ),
                             onPressed: () {
                               saveHigestScoreToSharedPref(_higestScore);
+                              replacePlayersInfo();
                               Navigator.pop(context);
                             },
                           ),
@@ -524,8 +538,8 @@ class _MultiplicationPageState extends State<MultiplicationPage> {
 
 
   void saveHigestScoreToSharedPref(int higest) async {
-    var now = new DateTime.now();
-    var formatter = new DateFormat('MMM-dd / h:mm');
+    var now = DateTime.now();
+    var formatter = DateFormat('MMM-dd / h:mm');
     String formattedDate = formatter.format(now);
     var sharedPreferences = await SharedPreferences.getInstance();
     sharedPreferences.setInt("mup", higest);
@@ -540,5 +554,50 @@ class _MultiplicationPageState extends State<MultiplicationPage> {
 
     });
     return _higestScore;
+  }
+
+  void replacePlayersInfo() async{
+    var now = new DateTime.now();
+    var formatter = DateFormat('MMM-dd / h:mm');
+    formattedDate = formatter.format(now);
+
+    _playerInfoModel=(await _playersPrvider.findPlayersAllInfo(FirebaseAuthServices.currentUser!.email.toString()))!;
+    if(_playerInfoModel!=null)
+    {
+      savePlayersInfoToFirebase();
+      await _playersPrvider.updateProfileScore(_playerInfoModel,"mup");
+      print("found");
+    }
+    else
+    {
+      print("Not found");
+    }
+
+  }
+
+  void savePlayersInfoToFirebase() {
+    var now = DateTime.now();
+    var formatter = DateFormat('MMM-dd / h:mm');
+    formattedDate = formatter.format(now);
+    String? mail;
+    if(FirebaseAuthServices.currentUser==null)
+    {
+      mail="bot@gmail.com";
+    }
+    else
+    {
+      mail=FirebaseAuthServices.currentUser!.email;
+    }
+    _playerInfoModel.name=Value.getString().toString();
+    _playerInfoModel.email=mail;
+    _playerInfoModel.titel=_title;
+    _playerInfoModel.plus=_score;
+    _playerInfoModel.min=_higestScore;
+    _playerInfoModel.mup=_score;
+    _playerInfoModel.div=_score;
+    _playerInfoModel.achivement=_achivement;
+    _playerInfoModel.time=formattedDate;
+    print('firebase saving');
+
   }
 }

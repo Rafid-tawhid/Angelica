@@ -28,9 +28,9 @@ class PlayersPrvider extends ChangeNotifier{
     return null;
   }
 
-  Future<void> updateProfileScore(PlayerInfoModel playerInfoModel)async
+  Future<void> updateProfileScore(PlayerInfoModel playerInfoModel,String types)async
   {
-    FireStoreHelper.playerInfoUpdate(playerInfoModel);
+    FireStoreHelper.playerInfoUpdate(playerInfoModel,types);
     print(playerInfoModel.toString());
   }
 

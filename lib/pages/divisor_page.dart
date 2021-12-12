@@ -6,8 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+import 'package:random_game_new_version/auth/firebase_auth_services.dart';
 import 'package:random_game_new_version/custom_widget/animation_toast.dart';
 import 'package:random_game_new_version/custom_widget/helper%20class.dart';
+import 'package:random_game_new_version/models/players_info_model.dart';
+import 'package:random_game_new_version/providers/players_info_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DivisorPage extends StatefulWidget {
@@ -37,12 +41,14 @@ class _DivisorPageState extends State<DivisorPage> {
   bool showMsg = false;
   bool hideNumber = true;
   String _title = 'Noob';
-  var _achivement = 'Beginner';
-  var _date;
+  final _achivement = 'Beginner';
+  late String formattedDate;
 
 
   DateTime now = DateTime.now();
   AudioPlayer player = AudioPlayer(mode: PlayerMode.LOW_LATENCY);
+
+
 
   String nameS = "Bot User",
       idS = "00",
@@ -62,9 +68,9 @@ class _DivisorPageState extends State<DivisorPage> {
     'img/nm9.png',
   ];
 
-  ///
-  ///
-  ///
+
+  late PlayersPrvider _playersPrvider;
+  PlayerInfoModel _playerInfoModel=PlayerInfoModel();
   late FToast fToast;
 
   @override
@@ -73,6 +79,11 @@ class _DivisorPageState extends State<DivisorPage> {
     fToast = FToast();
     fToast.init(context);
     fetchHigestScoreFromSharedPref();
+  }
+  void didChangeDependencies() {
+    _playersPrvider=Provider.of<PlayersPrvider>(context,listen: false);
+    _playersPrvider.getHigestScore();
+    super.didChangeDependencies();
   }
 
   @override
@@ -330,6 +341,7 @@ class _DivisorPageState extends State<DivisorPage> {
                             // ),
                             onPressed: () {
                               saveHigestScoreToSharedPref(_higestScore);
+                              replacePlayersInfo();
                               Navigator.pop(context);
                             },
                           ),
@@ -341,7 +353,7 @@ class _DivisorPageState extends State<DivisorPage> {
                             child: Container(
                               height: 45,
                               width: 120,
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
 
                                 image: DecorationImage(
 
@@ -571,5 +583,50 @@ class _DivisorPageState extends State<DivisorPage> {
 
     });
     return _higestScore;
+  }
+
+  void replacePlayersInfo() async{
+    var now = DateTime.now();
+    var formatter = DateFormat('MMM-dd / h:mm');
+    formattedDate = formatter.format(now);
+
+    _playerInfoModel=(await _playersPrvider.findPlayersAllInfo(FirebaseAuthServices.currentUser!.email.toString()))!;
+    if(_playerInfoModel!=null)
+    {
+      savePlayersInfoToFirebase();
+      await _playersPrvider.updateProfileScore(_playerInfoModel,"div");
+      print("found");
+    }
+    else
+    {
+      print("Not found");
+    }
+
+  }
+
+  void savePlayersInfoToFirebase() {
+    var now = DateTime.now();
+    var formatter = DateFormat('MMM-dd / h:mm');
+    formattedDate = formatter.format(now);
+    String? mail;
+    if(FirebaseAuthServices.currentUser==null)
+    {
+      mail="bot@gmail.com";
+    }
+    else
+    {
+      mail=FirebaseAuthServices.currentUser!.email;
+    }
+    _playerInfoModel.name=Value.getString().toString();
+    _playerInfoModel.email=mail;
+    _playerInfoModel.titel=_title;
+    _playerInfoModel.plus=_score;
+    _playerInfoModel.min=_higestScore;
+    _playerInfoModel.mup=_score;
+    _playerInfoModel.div=_score;
+    _playerInfoModel.achivement=_achivement;
+    _playerInfoModel.time=formattedDate;
+    print('firebase saving');
+
   }
 }

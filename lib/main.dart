@@ -175,11 +175,8 @@ class _HomePageState extends State<HomePage> {
                                   Navigator.pushNamed(context, SubPage.routeName);
                                   sendNametoAnotherPage();
                                 },
-                                child: Container(
-
-                                    child: Center(
-                                      child: Image.asset('img/min.png'),
-                                    )
+                                child: Center(
+                                  child: Image.asset('img/min.png'),
                                 ),
                               ),
                             ),
@@ -199,10 +196,8 @@ class _HomePageState extends State<HomePage> {
                                   sendNametoAnotherPage();
 
                                 },
-                                child: Container(
-                                    child: Center(
-                                      child: Image.asset('img/mup.png'),
-                                    )
+                                child: Center(
+                                  child: Image.asset('img/mup.png'),
                                 ),
                               ),
                             ),
@@ -219,10 +214,8 @@ class _HomePageState extends State<HomePage> {
 
 
                                 },
-                                child: Container(
-                                    child: Center(
-                                      child: Image.asset('img/div.png'),
-                                    )
+                                child: Center(
+                                  child: Image.asset('img/div.png'),
                                 ),
                               ),
                             ),
@@ -230,7 +223,7 @@ class _HomePageState extends State<HomePage> {
 
                         ],
                       ),
-                      SizedBox(height: 30,),
+                      const SizedBox(height: 30,),
 
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -246,8 +239,8 @@ class _HomePageState extends State<HomePage> {
                                 Icons.pause,
                                 size: 35.0,
                               ),
-                              padding: EdgeInsets.all(15.0),
-                              shape: CircleBorder(),
+                              padding: const EdgeInsets.all(15.0),
+                              shape: const CircleBorder(),
                             ),
                           ),
                           Expanded(
@@ -258,7 +251,7 @@ class _HomePageState extends State<HomePage> {
                               elevation: 2.0,
                               fillColor: Colors.white,
                               child: const Icon(
-                                Icons.pause,
+                                Icons.eleven_mp,
                                 size: 35.0,
                               ),
                               padding: EdgeInsets.all(15.0),
@@ -295,7 +288,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   void sendNametoAnotherPage() {
-    if(_registerProvider.nameList[0].length==0)
+    if(_registerProvider.nameList[0].isEmpty)
       {
         Value.setString('Hello !');
       }
