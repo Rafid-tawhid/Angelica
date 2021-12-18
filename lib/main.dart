@@ -1,9 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:random_game_new_version/custom_widget/settings_toast.dart';
 import 'package:random_game_new_version/pages/amature_mode.dart';
+import 'package:random_game_new_version/pages/different_modes.dart';
 import 'package:random_game_new_version/pages/divisor_page.dart';
 import 'package:random_game_new_version/pages/loginPage.dart';
 import 'package:random_game_new_version/pages/multiplication_page.dart';
@@ -44,7 +47,9 @@ void main() async{
         LoginPage.routeName: (context) => LoginPage(),
         SignUpPage.routeName: (context) => SignUpPage(),
         Amature.routeName: (context) => Amature(),
-        ProfessionalMode.routeName:(context)=>ProfessionalMode()
+        ProfessionalMode.routeName:(context)=>ProfessionalMode(),
+        Modes.routeName:(context)=>Modes(),
+
       },
     ),
   ));
@@ -61,10 +66,12 @@ class _HomePageState extends State<HomePage> {
   Image? image1;
   // String? userName;
   late RegisterProvider _registerProvider;
+  late FToast fToast;
 
   // players name
   // late PlayersPrvider _playersPrvider;
   //players score
+
 
 
   void didChangeDependencies() {
@@ -82,7 +89,8 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     image1 = Image.asset("img/angle.png",fit: BoxFit.cover,filterQuality: FilterQuality.high);
-
+    fToast = FToast();
+    fToast.init(context);
     super.initState();
 
   }
@@ -126,9 +134,25 @@ class _HomePageState extends State<HomePage> {
                 Expanded(
 
                   child: Container(
-                    padding: EdgeInsets.only(top: 30),
-                    margin: EdgeInsets.only(left: 20,right: 20),
-                    child: Image.asset('img/title.png',filterQuality: FilterQuality.high,fit: BoxFit.contain,),
+                    padding: const EdgeInsets.only(top: 30),
+                    margin: const EdgeInsets.only(left: 20,right: 20),
+                    child: Stack(
+                      children: [
+                        Image.asset('img/title.png',filterQuality: FilterQuality.high,fit: BoxFit.contain,),
+                        Positioned(
+                          right: -10,
+
+                          child: IconButton(onPressed: (){
+                            Widget widget=SettingToast();
+                            fToast.showToast(child: widget,
+                              gravity: ToastGravity.CENTER,
+                              toastDuration: Duration(seconds: 120),);
+                          }, icon: const Icon(Icons.settings,),iconSize: 30,
+                            color: Colors.pinkAccent,
+                          ),
+                        )
+                      ],
+                    )
                   ),
                 ),
 
@@ -140,7 +164,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.only(left: 60,right: 60,bottom: 60),
+                  padding: const EdgeInsets.only(left: 60,right: 60,bottom: 60),
                   child: Column(
                     children: [
                       Row(
@@ -225,56 +249,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                       const SizedBox(height: 30,),
 
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Expanded(
-                            child: RawMaterialButton(
-                              onPressed: () {
-                                Navigator.pushNamed(context, Amature.routeName);
-                              },
-                              elevation: 2.0,
-                              fillColor: Colors.white,
-                              child: const Icon(
-                                Icons.pause,
-                                size: 35.0,
-                              ),
-                              padding: const EdgeInsets.all(15.0),
-                              shape: const CircleBorder(),
-                            ),
-                          ),
-                          Expanded(
-                            child: RawMaterialButton(
-                              onPressed: () {
-                                Navigator.pushNamed(context, ProfessionalMode.routeName);
-                              },
-                              elevation: 2.0,
-                              fillColor: Colors.white,
-                              child: const Icon(
-                                Icons.eleven_mp,
-                                size: 35.0,
-                              ),
-                              padding: EdgeInsets.all(15.0),
-                              shape: CircleBorder(),
-                            ),
-                          ),
-                          Expanded(
-                            child: RawMaterialButton(
-                              onPressed: () {},
-                              elevation: 2.0,
-                              fillColor: Colors.white,
-                              child: const Icon(
-                                Icons.pause,
-                                size: 35.0,
-                              ),
-                              padding: EdgeInsets.all(15.0),
-                              shape: CircleBorder(),
-                            ),
-                          ),
-
-
-                        ],
-                      )
+                    
                     ],
                   ),
                 )
@@ -299,6 +274,7 @@ class _HomePageState extends State<HomePage> {
 
   }
 
+
   // void sendUserScoretoAnotherPage() {
   //   if(_playersPrvider.higestScoreList[0]==0)
   //   {
@@ -311,4 +287,5 @@ class _HomePageState extends State<HomePage> {
   //
   // }
 }
+
 
