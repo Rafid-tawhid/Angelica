@@ -103,14 +103,14 @@ class _ProfessionalModeState extends State<ProfessionalMode> {
 
             children: [
             Align(
-              alignment: Alignment.topRight,
+              alignment: Alignment.topCenter,
               child: CircularCountDownTimer(
               duration: 5,
               initialDuration: 0,
               controller: controller,
-              width: 30,
-              height: 30,
-              ringColor: Colors.grey,
+              width: 40,
+              height: 40,
+              ringColor: Colors.yellowAccent,
               ringGradient: null,
               fillColor: Colors.purpleAccent,
               fillGradient: null,
@@ -494,6 +494,7 @@ class _ProfessionalModeState extends State<ProfessionalMode> {
     //buzzer sound
     final player = AudioCache();
     player.play('buzzer.wav');
+    controller.pause();
 
     Widget toast =Container(
       alignment: Alignment.bottomCenter,
@@ -521,6 +522,7 @@ class _ProfessionalModeState extends State<ProfessionalMode> {
               },),
               GestureDetector(child: Image.asset("img/yes.png",fit: BoxFit.cover,width: 120,),onTap: (){
                 saveHigestScoreToSharedPref(_higestScore);
+                controller.start();
                 fToast.removeCustomToast();
                 setState(() {
                   _score=0;

@@ -1,13 +1,24 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:random_game_new_version/main.dart';
+import 'package:random_game_new_version/pages/amature_mode.dart';
+import 'package:random_game_new_version/pages/pro_mode.dart';
 
 class SettingToast extends StatefulWidget {
+
+  final FToast ftoast;
+  SettingToast(this.ftoast);
 
   @override
   _SettingToastState createState() => _SettingToastState();
 }
 
 class _SettingToastState extends State<SettingToast> {
+  @override
+
+
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -16,9 +27,10 @@ class _SettingToastState extends State<SettingToast> {
 
       ),
       child: Container(
+
         height: MediaQuery.of(context).size.height/2,
         width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             image: DecorationImage(
                 image: AssetImage('img/number_bg.png'),
                 fit: BoxFit.cover),
@@ -32,11 +44,22 @@ class _SettingToastState extends State<SettingToast> {
              ),
              Padding(
                padding: const EdgeInsets.only(left: 10.0,right: 10),
-               child: Image.asset('img/medium.png'),
+               child: GestureDetector(child: Image.asset('img/medium.png'),onTap: (){
+
+                 widget.ftoast.removeCustomToast();
+                 widget.ftoast.removeQueuedCustomToasts();
+                 Navigator.pushNamed(context, Amature.routeName);
+
+               },),
              ),
              Padding(
                padding: const EdgeInsets.only(left: 10.0,right: 10),
-               child: Image.asset('img/advance.png'),
+               child: GestureDetector(child: Image.asset('img/advance.png'),onTap: (){
+
+                 widget.ftoast.removeCustomToast();
+                 widget.ftoast.removeQueuedCustomToasts();
+                 Navigator.pushNamed(context, ProfessionalMode.routeName);
+               },),
              ),
           ],
         ),

@@ -54,67 +54,71 @@ class _SplashScreenState extends State<SplashScreen> {
                   fit: BoxFit.fill,
               ),
             ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
+            child: Stack(
               children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
 
-                Container(
-                  margin: EdgeInsets.only(bottom: 0),
-                  child: ShakeAnimatedWidget(
-                    enabled: true,
-                    duration: Duration(milliseconds: 1000),
-                    shakeAngle: Rotation.deg(x: 25,),
-                    curve: Curves.decelerate,
-                    //update this boolean to forward/reverse the animation
-                    child: Center(
-                      child: Align(
-                        alignment: Alignment.bottomCenter,
-                        child: MaterialButton(
+                    Container(
+                      margin: EdgeInsets.only(bottom: 0),
+                      child: ShakeAnimatedWidget(
+                        enabled: true,
+                        duration: Duration(milliseconds: 1000),
+                        shakeAngle: Rotation.deg(x: 25,),
+                        curve: Curves.decelerate,
+                        //update this boolean to forward/reverse the animation
+                        child: Center(
+                          child: Align(
+                            alignment: Alignment.bottomCenter,
+                            child: MaterialButton(
 
-                          textColor: Colors.white,
-                          splashColor: Colors.greenAccent,
-                          elevation: 8.0,
-                          child: Container(
-                            height: MediaQuery.of(context).size.height/10,
-                            width: MediaQuery.of(context).size.width/2,
-                            decoration: BoxDecoration(
+                              textColor: Colors.white,
+                              splashColor: Colors.greenAccent,
+                              elevation: 8.0,
+                              child: Container(
+                                height: MediaQuery.of(context).size.height/10,
+                                width: MediaQuery.of(context).size.width/2,
+                                decoration: BoxDecoration(
 
-                              image: DecorationImage(
+                                  image: DecorationImage(
 
-                                  image: AssetImage('img/ply_btn.png',),
-                                  fit: BoxFit.cover,filterQuality: FilterQuality.high),
+                                      image: AssetImage('img/ply_btn.png',),
+                                      fit: BoxFit.cover,filterQuality: FilterQuality.high),
+                                ),
+
+                              ),
+                              // ),
+                              onPressed: () {
+
+
+                                // Navigator.push(
+                                //     context,
+                                //     MaterialPageRoute(
+                                //       builder: (context) => HomePage(),
+                                //     ));
+                                Navigator.pushNamed(context, HomePage.routeName);
+                                // print(_registerProvider.nameList[0].toString());
+                              },
                             ),
-
                           ),
-                          // ),
-                          onPressed: () {
-
-
-                            // Navigator.push(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //       builder: (context) => HomePage(),
-                            //     ));
-                            Navigator.pushNamed(context, HomePage.routeName);
-                            // print(_registerProvider.nameList[0].toString());
-                          },
                         ),
                       ),
                     ),
-                  ),
-                ),
-                if(showTxt)Padding(
-                  padding: const EdgeInsets.only(top: 0.0,bottom: 10),
-                  child: Center(
-                    child: Align(
-                      alignment: Alignment.bottomCenter,
-                      child: MaterialButton(onPressed: () {
-                        Navigator.pushNamed(context, LoginPage.routeName);
+                    if(showTxt)Padding(
+                      padding: const EdgeInsets.only(top: 0.0,bottom: 10),
+                      child: Center(
+                        child: Align(
+                          alignment: Alignment.bottomCenter,
+                          child: MaterialButton(onPressed: () {
+                            Navigator.pushNamed(context, LoginPage.routeName);
 
-                      },
-                      child: Text('Sign Up Free',style: TextStyle(color: Colors.pinkAccent,fontSize: 16),),),
+                          },
+                            child: Text('Sign Up Free',style: TextStyle(color: Colors.pinkAccent,fontSize: 16),),),
+                        ),
+                      ),
                     ),
-                  ),
+                  ],
                 ),
               ],
             )

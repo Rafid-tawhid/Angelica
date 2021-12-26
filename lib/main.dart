@@ -119,142 +119,149 @@ class _HomePageState extends State<HomePage> {
             //   backgroundColor: Color(0xffF61ABC),
             //
             // ),
-          body: Container(
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: ExactAssetImage("img/bg.jpg"),
-                fit: BoxFit.fill,
-                filterQuality: FilterQuality.high
+          body: GestureDetector(
+            onTap: (){
+              fToast.removeCustomToast();
+              fToast.removeQueuedCustomToasts();
+            },
+            child: Container(
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: ExactAssetImage("img/bg.jpg"),
+                  fit: BoxFit.fill,
+                  filterQuality: FilterQuality.high
 
+                ),
               ),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Expanded(
 
-                  child: Container(
-                    padding: const EdgeInsets.only(top: 30),
-                    margin: const EdgeInsets.only(left: 20,right: 20),
-                    child: Stack(
+                    child: Container(
+                      padding: const EdgeInsets.only(top: 30),
+                      margin: const EdgeInsets.only(left: 20,right: 20),
+                      child: Stack(
+                        children: [
+                          Image.asset('img/title.png',filterQuality: FilterQuality.high,fit: BoxFit.contain,),
+                          Positioned(
+                            right: -10,
+
+                            child: IconButton(onPressed: (){
+
+                              Widget widget=SettingToast(fToast);
+                              fToast.showToast(child: widget,
+                                gravity: ToastGravity.CENTER,
+                                toastDuration: Duration(seconds: 5),);
+                            }, icon: const Icon(Icons.settings,),iconSize: 30,
+                              color: Colors.pinkAccent,
+                            ),
+                          )
+                        ],
+                      )
+                    ),
+                  ),
+
+                  Expanded(
+                    child: Container(
+                      margin: EdgeInsets.all(5),
+
+                      child: image1,
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.only(left: 60,right: 60,bottom: 60),
+                    child: Column(
                       children: [
-                        Image.asset('img/title.png',filterQuality: FilterQuality.high,fit: BoxFit.contain,),
-                        Positioned(
-                          right: -10,
+                        Row(
 
-                          child: IconButton(onPressed: (){
-                            Widget widget=SettingToast();
-                            fToast.showToast(child: widget,
-                              gravity: ToastGravity.CENTER,
-                              toastDuration: Duration(seconds: 120),);
-                          }, icon: const Icon(Icons.settings,),iconSize: 30,
-                            color: Colors.pinkAccent,
-                          ),
-                        )
+                          children: [
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: GestureDetector(
+                                  onTap: (){
+
+                                    Navigator.pushNamed(context, PlusPage.routeName);
+                                    sendNametoAnotherPage();
+                                    // sendUserScoretoAnotherPage();
+
+                                  },
+                                  child: Container(
+
+                                      child: Center(
+                                        child: Image.asset('img/plus.png'),
+                                      )
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: GestureDetector(
+                                  onTap: (){
+
+                                    Navigator.pushNamed(context, SubPage.routeName);
+                                    sendNametoAnotherPage();
+                                  },
+                                  child: Center(
+                                    child: Image.asset('img/min.png'),
+                                  ),
+                                ),
+                              ),
+                            ),
+
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: GestureDetector(
+                                  onTap: (){
+
+                                    Navigator.pushNamed(context, MultiplicationPage.routeName);
+                                    sendNametoAnotherPage();
+
+                                  },
+                                  child: Center(
+                                    child: Image.asset('img/mup.png'),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: GestureDetector(
+                                  onTap: (){
+
+                                    Navigator.pushNamed(context, DivisorPage.routeName);
+                                    sendNametoAnotherPage();
+
+
+
+                                  },
+                                  child: Center(
+                                    child: Image.asset('img/div.png'),
+                                  ),
+                                ),
+                              ),
+                            ),
+
+                          ],
+                        ),
+                        const SizedBox(height: 30,),
+
+
                       ],
-                    )
-                  ),
-                ),
+                    ),
+                  )
 
-                Expanded(
-                  child: Container(
-                    margin: EdgeInsets.all(5),
-
-                    child: image1,
-                  ),
-                ),
-                Container(
-                  padding: const EdgeInsets.only(left: 60,right: 60,bottom: 60),
-                  child: Column(
-                    children: [
-                      Row(
-
-                        children: [
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: GestureDetector(
-                                onTap: (){
-
-                                  Navigator.pushNamed(context, PlusPage.routeName);
-                                  sendNametoAnotherPage();
-                                  // sendUserScoretoAnotherPage();
-
-                                },
-                                child: Container(
-                                   
-                                    child: Center(
-                                      child: Image.asset('img/plus.png'),
-                                    )
-                                ),
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: GestureDetector(
-                                onTap: (){
-
-                                  Navigator.pushNamed(context, SubPage.routeName);
-                                  sendNametoAnotherPage();
-                                },
-                                child: Center(
-                                  child: Image.asset('img/min.png'),
-                                ),
-                              ),
-                            ),
-                          ),
-
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: GestureDetector(
-                                onTap: (){
-
-                                  Navigator.pushNamed(context, MultiplicationPage.routeName);
-                                  sendNametoAnotherPage();
-
-                                },
-                                child: Center(
-                                  child: Image.asset('img/mup.png'),
-                                ),
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: GestureDetector(
-                                onTap: (){
-
-                                  Navigator.pushNamed(context, DivisorPage.routeName);
-                                  sendNametoAnotherPage();
-
-
-
-                                },
-                                child: Center(
-                                  child: Image.asset('img/div.png'),
-                                ),
-                              ),
-                            ),
-                          ),
-
-                        ],
-                      ),
-                      const SizedBox(height: 30,),
-
-                    
-                    ],
-                  ),
-                )
-
-              ],
+                ],
+              ),
             ),
           ),
         ),
