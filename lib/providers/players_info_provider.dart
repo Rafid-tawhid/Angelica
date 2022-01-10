@@ -32,6 +32,7 @@ class PlayersPrvider extends ChangeNotifier{
   {
     FireStoreHelper.playerInfoUpdate(playerInfoModel,types);
     print(playerInfoModel.toString());
+    print(playerInfoModel.toString());
   }
 
 
