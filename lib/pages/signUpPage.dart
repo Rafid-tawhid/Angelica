@@ -277,7 +277,7 @@ class _SignUpPageState extends State<SignUpPage> {
     {
       mail=FirebaseAuthServices.currentUser!.email;
     }
-    _playerInfoModel.name="BOT";
+    _playerInfoModel.name=_name;
     _playerInfoModel.email=mail;
     _playerInfoModel.titel='';
     _playerInfoModel.plus=0;
@@ -286,6 +286,7 @@ class _SignUpPageState extends State<SignUpPage> {
     _playerInfoModel.div=0;
     _playerInfoModel.achivement="Noob";
     _playerInfoModel.time=formattedDate;
+    _playerInfoModel.coin=100;
     print('firebase saving');
 
   }

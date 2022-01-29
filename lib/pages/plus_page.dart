@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -49,7 +50,7 @@ class _PlusPageState extends State<PlusPage> {
   bool showHigestAndName=true;
 
   String _title = 'Noob';
-  var _achivement = 'Beginner';
+  final _achivement = 'Beginner';
 
 
   DateTime now = DateTime.now();
@@ -88,7 +89,7 @@ class _PlusPageState extends State<PlusPage> {
   }
    void didChangeDependencies() {
      _playersPrvider=Provider.of<PlayersPrvider>(context,listen: false);
-     _playersPrvider.getHigestScore();
+     _playersPrvider.getCC();
      super.didChangeDependencies();
    }
 
@@ -128,8 +129,13 @@ class _PlusPageState extends State<PlusPage> {
             children: [
 
               Stack(
-
                 children: [
+                  FutureBuilder(future: _playersPrvider.getCC(),
+                    builder: (context,snapshot){
+                    return Text('COIN : ${snapshot.data}');
+                    },
+                  ),
+
                   // Image.asset('img/number_bg.png',fit: BoxFit.cover,filterQuality: FilterQuality.high),
                  Align(
                    alignment: Alignment.center,
@@ -142,45 +148,6 @@ class _PlusPageState extends State<PlusPage> {
                       Center(
                         child:Column(
                           children: [
-                           // if(showHigestAndName) Padding(
-                           //   padding:
-                           //   const EdgeInsets.only(left: 27.0, right: 27,top: 40),
-                           //   child: Row(
-                           //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                           //     children: [
-                           //       FutureBuilder(
-                           //           future: Future.delayed(const Duration(milliseconds: 500)),
-                           //           builder: (context, snapshot) {
-                           //
-                           //             if (snapshot.connectionState == ConnectionState.done) {
-                           //
-                           //               if(_playersPrvider.higestScoreList[0].toString().isEmpty){
-                           //                 _playersPrvider.higestScoreList[0]=0;
-                           //               }
-                           //               return Text(
-                           //                 ' Higest Score :'+_playersPrvider.higestScoreList[0].toString(),
-                           //                 style: GoogleFonts.bubblegumSans(
-                           //                     fontSize: 20,color: Colors.pinkAccent
-                           //                 ),
-                           //               );
-                           //             } else {
-                           //               return Container();
-                           //             } // Return empty container to avoid build errors
-                           //           }
-                           //       ),
-                           //
-                           //       Text(Value.getString().toString()
-                           //
-                           //         ,
-                           //         style: GoogleFonts.bubblegumSans(
-                           //             fontSize: 20,color: Colors.pinkAccent
-                           //         ),
-                           //       ),
-                           //       //if user not loged in
-                           //     ],
-                           //   ),
-                           // )
-                           //  else
 
                              Container(
                                child:  Padding(
@@ -634,6 +601,7 @@ class _PlusPageState extends State<PlusPage> {
     _playerInfoModel.div=_score;
     _playerInfoModel.achivement=_achivement;
     _playerInfoModel.time=formattedDate;
+
     print('firebase saving');
 
   }

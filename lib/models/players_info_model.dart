@@ -9,6 +9,7 @@ class PlayerInfoModel{
   String? titel;
   String? achivement;
   String? time;
+  int? coin;
 
   PlayerInfoModel(
       {this.id,
@@ -20,7 +21,8 @@ class PlayerInfoModel{
       this.div,
       this.titel,
       this.achivement,
-      this.time});
+      this.time,
+      this.coin});
 
   Map<String,dynamic> toMap(){
     var map=<String,dynamic>{
@@ -34,6 +36,7 @@ class PlayerInfoModel{
       'titel':titel,
       'achivement':achivement,
       'time':time,
+      'coin':coin,
     };
 
     return map;
@@ -49,11 +52,12 @@ class PlayerInfoModel{
     titel: map['titel'],
     achivement: map['achivement'],
     time: map['time'],
+    coin: map['coin'],
 
   );
 
   @override
   String toString() {
-    return 'PlayerInfoModel{id: $id, name: $name, email: $email, plus: $plus, min: $min, mup: $mup, div: $div, titel: $titel, achivement: $achivement, time: $time}';
+    return 'PlayerInfoModel{id: $id, name: $name, email: $email, plus: $plus, min: $min, mup: $mup, div: $div, titel: $titel, achivement: $achivement, time: $time,coin: $coin}';
   }
 }

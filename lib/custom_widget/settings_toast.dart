@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:random_game_new_version/main.dart';
 import 'package:random_game_new_version/pages/amature_mode.dart';
+import 'package:random_game_new_version/pages/level_dashboard.dart';
 import 'package:random_game_new_version/pages/pro_mode.dart';
 
 class SettingToast extends StatefulWidget {
@@ -40,7 +41,12 @@ class _SettingToastState extends State<SettingToast> {
           children: [
              Padding(
                padding: const EdgeInsets.only(left: 10.0,right: 10),
-               child: Image.asset('img/normall.png'),
+               child: GestureDetector(child: Image.asset('img/normall.png'),
+               onTap: (){
+                 widget.ftoast.removeCustomToast();
+                 widget.ftoast.removeQueuedCustomToasts();
+                 Navigator.pushNamed(context, LevelDashboard.routeName);
+               },),
              ),
              Padding(
                padding: const EdgeInsets.only(left: 10.0,right: 10),

@@ -1,3 +1,4 @@
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:random_game_new_version/auth/firebase_auth_services.dart';
@@ -20,9 +21,24 @@ class FireStoreHelper{
 
   //getting name from database
 
-  static Stream<QuerySnapshot<Map<String, dynamic>>> getName()=>_db.collection(_collectionRegister).where('email',isEqualTo: FirebaseAuth.instance.currentUser!.email).snapshots();
+  static Stream<QuerySnapshot<Map<String, dynamic>>> getName()=>
+      _db.collection(_collectionRegister).
+      where('email',isEqualTo: FirebaseAuth.instance.currentUser!.email).snapshots();
+  
+
+
+
+
+  static Stream<QuerySnapshot<Map<String, dynamic>>> getAllPlayers()=>
+      _db.collection(_collectionPlayersInfo).snapshots();
+
 
    // static Future<QuerySnapshot<Map<String, dynamic>>> getName2()=>_db.collection(_collectionPlayersInfo).where('email',isEqualTo: FirebaseAuth.instance.currentUser!.email).get();
+
+
+
+
+
 
 
   //saving players info
@@ -34,15 +50,18 @@ class FireStoreHelper{
 
   //getting higest score
   static Stream<QuerySnapshot<Map<String, dynamic>>>? getHigestScore(){
-    if(FirebaseAuthServices.currentUser==null)
-      {
-        return null;
-      }
-
-    else {
-      return _db.collection(_collectionPlayersInfo).where('email',isEqualTo: FirebaseAuth.instance.currentUser!.email).orderBy('plus',descending: true).snapshots();
-    }
+      return _db.collection(_collectionPlayersInfo).
+      where('email',isEqualTo: FirebaseAuth.instance.currentUser!.email).orderBy('plus',descending: true).snapshots();
   }
+
+// getting coin from database
+
+  static Future<QuerySnapshot<Map<String, dynamic>>> getCoins()=>
+      _db.collection(_collectionPlayersInfo)
+          .where('email',isEqualTo: FirebaseAuth.instance.currentUser!.email)
+          .get();
+
+
 
   static Future<QuerySnapshot<Map<String, dynamic>>> findPlayersAllInfoByEmail(String mail)
   {
