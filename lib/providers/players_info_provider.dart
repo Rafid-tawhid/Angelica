@@ -8,31 +8,23 @@ class PlayersPrvider extends ChangeNotifier{
   List<int> higestScoreList=[];
   List<PlayerInfoModel> playerList=[];
    Future<int>? coin;
+   Future<int>? score_databse;
 
 
 
 
   Future<void> savePlayersInfo(PlayerInfoModel playerInfoModel) =>FireStoreHelper.playerInfoSave(playerInfoModel);
 
-  void getHigestScore() {
-    FireStoreHelper.getHigestScore()?.listen((snapshot) {
 
-      higestScoreList= List.generate(snapshot.docs.length, (index) =>
-      snapshot.docs[index].data()['plus']);
-      notifyListeners();
 
-    });
+  Future<int?> getHigestScore() async  {
+    return FireStoreHelper.getHigestScore().then((value) async =>
+    await value.docs.first.data()['plus']);
   }
 
 
   // get players coin
 
-  Future<Map<String, dynamic>> getPlayersCoin() async {
-
-   return await FireStoreHelper.getCoins().then((value) =>
-     value.docs.first.data()['coin']);
-
-  }
 
   Future<int?> getCC() async{
    return FireStoreHelper.getCoins().then((value) async =>

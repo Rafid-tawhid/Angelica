@@ -82,7 +82,7 @@ class _DivisorPageState extends State<DivisorPage> {
   }
   void didChangeDependencies() {
     _playersPrvider=Provider.of<PlayersPrvider>(context,listen: false);
-    _playersPrvider.getHigestScore();
+    // _playersPrvider.getHigestScore();
     super.didChangeDependencies();
   }
 

@@ -82,7 +82,7 @@ class SubPage extends StatefulWidget {
 
    void didChangeDependencies() {
      _playersPrvider=Provider.of<PlayersPrvider>(context,listen: false);
-     _playersPrvider.getHigestScore();
+     // _playersPrvider.getHigestScore();
      super.didChangeDependencies();
    }
    @override

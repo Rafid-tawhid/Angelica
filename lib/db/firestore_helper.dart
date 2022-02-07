@@ -49,9 +49,9 @@ class FireStoreHelper{
   }
 
   //getting higest score
-  static Stream<QuerySnapshot<Map<String, dynamic>>>? getHigestScore(){
+  static Future<QuerySnapshot<Map<String, dynamic>>> getHigestScore(){
       return _db.collection(_collectionPlayersInfo).
-      where('email',isEqualTo: FirebaseAuth.instance.currentUser!.email).orderBy('plus',descending: true).snapshots();
+      where('email',isEqualTo: FirebaseAuth.instance.currentUser!.email).get();
   }
 
 // getting coin from database

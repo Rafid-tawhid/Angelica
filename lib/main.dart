@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:random_game_new_version/custom_widget/settings_toast.dart';
 import 'package:random_game_new_version/pages/all_players_info.dart';
 import 'package:random_game_new_version/pages/amature_mode.dart';
+import 'package:random_game_new_version/pages/demopage.dart';
 import 'package:random_game_new_version/pages/different_modes.dart';
 import 'package:random_game_new_version/pages/divisor_page.dart';
 import 'package:random_game_new_version/pages/level_dashboard.dart';
@@ -53,6 +54,7 @@ void main() async{
         Modes.routeName:(context)=>Modes(),
         AllPlayers.routeName:(context)=>AllPlayers(),
         LevelDashboard.routeName:(context)=>LevelDashboard(),
+        DemoPage.routeName:(context)=>DemoPage()
 
       },
     ),
@@ -83,8 +85,9 @@ class _HomePageState extends State<HomePage> {
     if(FirebaseAuth.instance.currentUser!=null)
       {
         _registerProvider=Provider.of<RegisterProvider>(context);
-        playersPrvider=Provider.of<PlayersPrvider>(context,listen: false);
         _registerProvider.getName();
+
+        playersPrvider=Provider.of<PlayersPrvider>(context,listen: false);
         playersPrvider.getPlayers();
       }
     super.didChangeDependencies();
