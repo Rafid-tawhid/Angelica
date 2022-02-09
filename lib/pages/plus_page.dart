@@ -11,10 +11,8 @@ import 'package:provider/provider.dart';
 import 'package:random_game_new_version/auth/firebase_auth_services.dart';
 import 'package:random_game_new_version/custom_widget/animation_toast.dart';
 import 'package:random_game_new_version/custom_widget/helper%20class.dart';
-import 'package:random_game_new_version/db/firestore_helper.dart';
 import 'package:random_game_new_version/models/players_info_model.dart';
 import 'package:random_game_new_version/providers/players_info_provider.dart';
-import 'package:random_game_new_version/providers/reg_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PlusPage extends StatefulWidget {
@@ -25,7 +23,6 @@ class PlusPage extends StatefulWidget {
 
 class _PlusPageState extends State<PlusPage> {
 
-   // String? userName=Value.getString().toString();
    String? userName;
    late PlayersPrvider _playersPrvider;
    PlayerInfoModel _playerInfoModel=PlayerInfoModel();

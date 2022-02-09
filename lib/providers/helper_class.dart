@@ -1,5 +1,6 @@
  import 'dart:math';
 
+import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 
 class helper {
@@ -38,4 +39,11 @@ class helper {
     String formattedDate = formatter.format(now);
     return formattedDate;
    }
+
+   static int getRandomNumber(int length){
+     final _random = Random.secure();
+     return _random.nextInt(length);
+   }
+
+
 }

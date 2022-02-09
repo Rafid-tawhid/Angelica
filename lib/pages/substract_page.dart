@@ -40,9 +40,7 @@ class SubPage extends StatefulWidget {
    bool showMsg = false;
    bool hideNumber = true;
    String _title = 'Noob';
-   var _achivement = 'Beginner';
-   var _date;
-
+   final _achivement = 'Beginner';
 
    DateTime now = DateTime.now();
    AudioPlayer player = AudioPlayer(mode: PlayerMode.LOW_LATENCY);
@@ -476,16 +474,6 @@ class SubPage extends StatefulWidget {
        setState(() {
 
        });
-       // setState(() {
-       //   showMsg = true;
-       //   hideNumber = false;
-       //   Future.delayed(const Duration(milliseconds: 500), () {
-       //     setState(() {
-       //       showMsg = false;
-       //       hideNumber = true;
-       //     });
-       //   });
-       // });
        _score++;
      } else {
        print("ERROR");
@@ -503,7 +491,7 @@ class SubPage extends StatefulWidget {
        alignment: Alignment.bottomCenter,
        height: MediaQuery.of(context).size.height/2,
        width: MediaQuery.of(context).size.width,
-       decoration: BoxDecoration(
+       decoration: const BoxDecoration(
          image: DecorationImage(
            image: AssetImage("img/wrng.png",),
            fit: BoxFit.fill,
@@ -517,7 +505,7 @@ class SubPage extends StatefulWidget {
            child: Row(
              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
              children: [
-               SizedBox(width: 10,),
+               const SizedBox(width: 10,),
                GestureDetector(child: Image.asset("img/no.png",fit: BoxFit.cover,width: 120,),onTap: (){
                  saveHigestScoreToSharedPref(_higestScore);
                  fToast.removeCustomToast();
@@ -532,7 +520,7 @@ class SubPage extends StatefulWidget {
 
 
                },),
-               SizedBox(width: 10,)
+               const SizedBox(width: 10,)
 
              ],
            ),
@@ -543,25 +531,17 @@ class SubPage extends StatefulWidget {
      fToast.showToast(
        child: toast,
        gravity: ToastGravity.CENTER,
-       toastDuration: Duration(seconds: 20),
+       toastDuration: const Duration(seconds: 20),
      );
 
      // Custom Toast Position
    }
 
-   void customToastShow() {
-     fToast.removeCustomToast();
-     _score = 0;
-
-     // _rollTheDice();
-   }
-
-
 
 
    void saveHigestScoreToSharedPref(int higest) async {
-     var now = new DateTime.now();
-     var formatter = new DateFormat('MMM-dd / h:mm');
+     var now = DateTime.now();
+     var formatter = DateFormat('MMM-dd / h:mm');
      String formattedDate = formatter.format(now);
 
      var sharedPreferences = await SharedPreferences.getInstance();

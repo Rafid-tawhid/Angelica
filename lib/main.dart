@@ -191,16 +191,13 @@ class _HomePageState extends State<HomePage> {
                                 child: GestureDetector(
                                   onTap: (){
 
-                                    Navigator.pushNamed(context, PlusPage.routeName);
+                                    Navigator.pushNamed(context, DemoPage.routeName);
                                     sendNametoAnotherPage();
                                     // sendUserScoretoAnotherPage();
 
                                   },
-                                  child: Container(
-
-                                      child: Center(
-                                        child: Image.asset('img/plus.png'),
-                                      )
+                                  child: Center(
+                                    child: Image.asset('img/plus.png'),
                                   ),
                                 ),
                               ),

@@ -29,9 +29,6 @@ class PlayersPrvider extends ChangeNotifier{
   Future<int?> getCC() async{
    return FireStoreHelper.getCoins().then((value) async =>
       await value.docs.first.data()['coin']);
-      notifyListeners();
-    print('HELLO .. $coin');
-
   }
 
 

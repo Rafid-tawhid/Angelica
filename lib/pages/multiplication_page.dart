@@ -353,7 +353,7 @@ class _MultiplicationPageState extends State<MultiplicationPage> {
                             child: Container(
                               height: 45,
                               width: 120,
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
 
                                 image: DecorationImage(
 
@@ -482,7 +482,7 @@ class _MultiplicationPageState extends State<MultiplicationPage> {
       alignment: Alignment.bottomCenter,
       height: MediaQuery.of(context).size.height/2,
       width: MediaQuery.of(context).size.width,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         image: DecorationImage(
           image: AssetImage("img/wrng.png",),
           fit: BoxFit.fill,
@@ -496,7 +496,7 @@ class _MultiplicationPageState extends State<MultiplicationPage> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              SizedBox(width: 10,),
+              const SizedBox(width: 10,),
               GestureDetector(child: Image.asset("img/no.png",fit: BoxFit.cover,width: 120,),onTap: (){
                 saveHigestScoreToSharedPref(_higestScore);
                 fToast.removeCustomToast();
