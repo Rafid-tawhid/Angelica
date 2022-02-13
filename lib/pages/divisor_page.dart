@@ -95,8 +95,8 @@ class _DivisorPageState extends State<DivisorPage> {
 
         width: double.maxFinite,
         height: double.maxFinite,
-        padding: EdgeInsets.only(top: 100,left: 10,right: 10),
-        decoration: BoxDecoration(
+        padding: const EdgeInsets.only(top: 100,left: 10,right: 10),
+        decoration: const BoxDecoration(
           image: DecorationImage(
               image: ExactAssetImage('img/game_bg2.png',),
               fit: BoxFit.fill,

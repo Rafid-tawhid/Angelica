@@ -37,6 +37,7 @@ class _DemoPageState extends State<DemoPage> {
   bool decideModesFunction=false;
   late FToast fToast;
   late PlayersPrvider playersPrvider;
+  int? numberofPlayersCoin;
   @override
   void initState() {
     fToast = FToast();
@@ -49,14 +50,13 @@ class _DemoPageState extends State<DemoPage> {
   void didChangeDependencies() {
 
     playersPrvider=Provider.of<PlayersPrvider>(context,listen: true);
-    playersPrvider.getCC().then((value) {
-      int? a=value;
-      if(callOnce){
-        callOnce=false;
-        checkWhichLevelisCurrentUser(a);
-      }
-
-    });
+    if(callOnce) {
+      callOnce = false;
+      playersPrvider.getCC().then((value) {
+        numberofPlayersCoin = value;
+        checkWhichLevelisCurrentUser(numberofPlayersCoin);
+      });
+    }
     super.didChangeDependencies();
   }
 
@@ -384,7 +384,7 @@ class _DemoPageState extends State<DemoPage> {
       decideModesFunction=false;
       minusFunction();
     }
-    //decide which mode to call for update ui
+
 
   }
 
@@ -438,15 +438,70 @@ class _DemoPageState extends State<DemoPage> {
       _rand3 = helper.getRandomNumber(81);
 
       _result = (_index1+1) * (_index2+1) ;
-
+      signChange='img/mup.png';
       // _score =_score +_index1 + _index2 + 2;
 
       suffle(_rand1, _rand2, _rand3, _result);
     });
   }
+
+  void divFunction(){
+    setState(() {
+      int aa = (helper.getRandomNumber(8) & -2)+1;
+      int bb = (helper.getRandomNumber(8) & -2)+1;
+
+      if(aa<bb)
+      {
+        bb=aa;
+        aa=bb;
+      }
+      _index1=aa;
+      _index2=bb;
+      try {
+        while(_index1 % _index2 != 0)
+        {
+          _index2 = helper.getRandomNumber(4);
+        }
+        print(_index1.toString()+" : "+_index2.toString());
+      } on IntegerDivisionByZeroException {
+        _result=1;
+        print("Cannot divide by Zero");
+      }
+
+
+      signChange='img/div.png';
+      _result = ((_index1+1) ~/ (_index2+1));
+
+      print('$_index1+": "+$_index2 " : "$_result');
+      _rand1 = helper.getRandomNumber(9);
+      _rand2 = helper.getRandomNumber(8);
+      _rand3 = helper.getRandomNumber(9);
+
+
+      suffle(_rand1, _rand2, _rand3, _result);
+    });
+  }
+
+
+
   void checkWhichLevelisCurrentUser(int? a) {
-    if(a!>=100&&a<=300){
+    if(a!>=100&&a<=200){
       primaryLevel();
+    }
+    else if (a!>200&&a<300)
+      {
+        mediumlevel();
+      }
+    if(a<100){
+      const snackBar = SnackBar(
+        content: Text('Yo dont have enough Coin '),
+        duration: Duration(microseconds: 100000),
+        backgroundColor: Colors.pink,
+        padding: EdgeInsets.all(15),
+
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      return;
     }
   }
 
@@ -476,6 +531,7 @@ class _DemoPageState extends State<DemoPage> {
     d = list[3];
     print("$a" + " " "$b" + " " + "$c" + " " "$d");
   }
+
   checkRes(int a) {
     // print(a);
     int aa = a;
@@ -487,9 +543,16 @@ class _DemoPageState extends State<DemoPage> {
       fToast.showToast(
         child: toast,
         gravity: ToastGravity.CENTER,
-        toastDuration: const Duration(milliseconds: 500),
+        toastDuration: const Duration(milliseconds: 1000),
       );
-      _rollTheDice();
+      if(numberofPlayersCoin!>=100&&numberofPlayersCoin!<=200)
+        {
+          primaryLevel();
+        }
+      if(numberofPlayersCoin!>=200&&numberofPlayersCoin!<=300)
+      {
+        mediumlevel();
+      }
       // _score++;
     } else {
       print("ERROR");
@@ -549,6 +612,18 @@ class _DemoPageState extends State<DemoPage> {
     );
 
     // Custom Toast Position
+  }
+
+  void mediumlevel() {
+    if(decideModesFunction==false){
+      decideModesFunction=true;
+
+      divFunction();
+    }
+    else if(decideModesFunction==true){
+      decideModesFunction=false;
+      mupFunction();
+    }
   }
 
 
