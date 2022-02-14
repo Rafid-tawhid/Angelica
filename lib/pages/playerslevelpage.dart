@@ -15,15 +15,19 @@ import '../custom_widget/helper class.dart';
 import '../models/players_info_model.dart';
 import '../providers/players_info_provider.dart';
 
-class DemoPage extends StatefulWidget {
+class PlayersLevelPage extends StatefulWidget {
 
   static const String routeName='/demo';
 
+  String value;
+  PlayersLevelPage({required this.value});
+
+
   @override
-  _DemoPageState createState() => _DemoPageState();
+  _PlayersLevelPageState createState() => _PlayersLevelPageState();
 }
 
-class _DemoPageState extends State<DemoPage> {
+class _PlayersLevelPageState extends State<PlayersLevelPage> {
 
   var _index1 = 0;
   var _index2 = 0;
@@ -38,10 +42,18 @@ class _DemoPageState extends State<DemoPage> {
   late FToast fToast;
   late PlayersPrvider playersPrvider;
   int? numberofPlayersCoin;
+  int _score=0;
+  int level=0;
   @override
   void initState() {
     fToast = FToast();
     fToast.init(context);
+    if(widget.value=='1'){
+      primaryLevel();
+    }
+    if(widget.value=='2'){
+      mediumlevel();
+    }
     super.initState();
   }
 
@@ -50,13 +62,13 @@ class _DemoPageState extends State<DemoPage> {
   void didChangeDependencies() {
 
     playersPrvider=Provider.of<PlayersPrvider>(context,listen: true);
-    if(callOnce) {
-      callOnce = false;
-      playersPrvider.getCC().then((value) {
-        numberofPlayersCoin = value;
-        checkWhichLevelisCurrentUser(numberofPlayersCoin);
-      });
-    }
+    // if(callOnce) {
+    //   callOnce = false;
+    //   playersPrvider.getCC().then((value) {
+    //     numberofPlayersCoin = value;
+    //     checkWhichLevelisCurrentUser(numberofPlayersCoin);
+    //   });
+    // }
     super.didChangeDependencies();
   }
 
@@ -112,7 +124,7 @@ class _DemoPageState extends State<DemoPage> {
                                       .spaceBetween,
                                   children: [
                                     Text(
-                                      ' Higest Score :${helper.higestScore}',
+                                      widget.value,
                                       style: GoogleFonts.bubblegumSans(
                                           fontSize: 20, color: Colors.pinkAccent
                                       ),
@@ -142,7 +154,7 @@ class _DemoPageState extends State<DemoPage> {
                                     filterQuality: FilterQuality.high),
                               ),
                               child: Center(child: Text(
-                                'Score : ${helper.score}',
+                                'Score : $_score',
                                 style: GoogleFonts.bubblegumSans(
                                     color: Colors.white, fontSize: 20),)),
 
@@ -335,6 +347,7 @@ class _DemoPageState extends State<DemoPage> {
                             // ),
                             onPressed: () {
                               Navigator.pop(context);
+
                             },
                           ),
                           MaterialButton(
@@ -357,7 +370,7 @@ class _DemoPageState extends State<DemoPage> {
                             ),
                             // ),
                             onPressed: () {
-                              _rollTheDice();
+                            checkAndCalllevelFunction();
                             },
                           ),
                         ],
@@ -394,6 +407,7 @@ class _DemoPageState extends State<DemoPage> {
 
   void plusFunction() {
     setState(() {
+
       _index1 = helper.getRandomNumber(9);
       _index2 = helper.getRandomNumber(9);
       _rand1 = helper.getRandomNumber(24);
@@ -401,7 +415,7 @@ class _DemoPageState extends State<DemoPage> {
       _rand3 = helper.getRandomNumber(24);
       decideModesFunction=true;
       signChange='img/plus.png';
-
+      level=1;
       _result = _index1 + _index2 + 2;
       suffle(_rand1, _rand2, _rand3, _result);
 
@@ -412,6 +426,7 @@ class _DemoPageState extends State<DemoPage> {
     setState(() {
       _index1 = helper.getRandomNumber(9);
       _index2 = helper.getRandomNumber(9);
+      level=1;
       if(_index2>_index1)
       {
         setState(() {
@@ -436,7 +451,7 @@ class _DemoPageState extends State<DemoPage> {
       _rand1 = helper.getRandomNumber(81);
       _rand2 = helper.getRandomNumber(50);
       _rand3 = helper.getRandomNumber(81);
-
+      level=2;
       _result = (_index1+1) * (_index2+1) ;
       signChange='img/mup.png';
       // _score =_score +_index1 + _index2 + 2;
@@ -449,7 +464,7 @@ class _DemoPageState extends State<DemoPage> {
     setState(() {
       int aa = (helper.getRandomNumber(8) & -2)+1;
       int bb = (helper.getRandomNumber(8) & -2)+1;
-
+      level=2;
       if(aa<bb)
       {
         bb=aa;
@@ -476,7 +491,6 @@ class _DemoPageState extends State<DemoPage> {
       _rand1 = helper.getRandomNumber(9);
       _rand2 = helper.getRandomNumber(8);
       _rand3 = helper.getRandomNumber(9);
-
 
       suffle(_rand1, _rand2, _rand3, _result);
     });
@@ -545,15 +559,18 @@ class _DemoPageState extends State<DemoPage> {
         gravity: ToastGravity.CENTER,
         toastDuration: const Duration(milliseconds: 1000),
       );
-      if(numberofPlayersCoin!>=100&&numberofPlayersCoin!<=200)
-        {
-          primaryLevel();
-        }
-      if(numberofPlayersCoin!>=200&&numberofPlayersCoin!<=300)
-      {
+
+      //next call
+      if(widget.value=='1'){
+        primaryLevel();
+      }
+      if(widget.value=='2'){
         mediumlevel();
       }
-      // _score++;
+
+
+       _score=_score+1;
+
     } else {
       print("ERROR");
       showToast();
@@ -574,7 +591,7 @@ class _DemoPageState extends State<DemoPage> {
           fit: BoxFit.fill,
         ),
       ),
-      child: Container(
+      child: SizedBox(
         height: 80,
         width: MediaQuery.of(context).size.width,
         child: Padding(
@@ -617,12 +634,22 @@ class _DemoPageState extends State<DemoPage> {
   void mediumlevel() {
     if(decideModesFunction==false){
       decideModesFunction=true;
-
       divFunction();
     }
     else if(decideModesFunction==true){
       decideModesFunction=false;
       mupFunction();
+    }
+  }
+
+  void checkAndCalllevelFunction() {
+    if(numberofPlayersCoin!>=100&&numberofPlayersCoin!<=200)
+    {
+      primaryLevel();
+    }
+    if(numberofPlayersCoin!>=200&&numberofPlayersCoin!<=300)
+    {
+      mediumlevel();
     }
   }
 

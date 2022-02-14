@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:random_game_new_version/pages/playerslevelpage.dart';
 
 class LevelDashboard extends StatefulWidget {
 
@@ -32,7 +33,7 @@ class _LevelDashboardState extends State<LevelDashboard> {
                   children: [
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                          shape: const CircleBorder(), primary: Color(
+                          shape: const CircleBorder(), primary: const Color(
                           0xffff1dcd)),
                       child: Container(
                         width: 20,
@@ -44,12 +45,17 @@ class _LevelDashboardState extends State<LevelDashboard> {
                           style: TextStyle(fontSize: 20),
                         ),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context)=>PlayersLevelPage( value: '1',)));
+
+                        //   Navigator.pushNamed(context, PlayersLevelPage.routeName,arguments:"1" );
+
+                      },
 
                     ),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                          shape: const CircleBorder(), primary: Color(
+                          shape: const CircleBorder(), primary: const Color(
                           0xffff1dcd)),
                       child: Container(
                         width: 20,
@@ -61,11 +67,13 @@ class _LevelDashboardState extends State<LevelDashboard> {
                           style: TextStyle(fontSize: 20),
                         ),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context)=>PlayersLevelPage( value: '2',)));
+                      },
                     ),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                          shape: const CircleBorder(), primary: Color(
+                          shape: const CircleBorder(), primary: const Color(
                           0xffff1dcd)),
                       child: Container(
                         width: 20,

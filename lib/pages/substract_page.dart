@@ -343,7 +343,6 @@ class SubPage extends StatefulWidget {
                              // ),
                              onPressed: () {
                                replacePlayersInfo();
-
                                saveHigestScoreToSharedPref(_higestScore);
                                Navigator.pop(context);
                              },
