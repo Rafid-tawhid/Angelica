@@ -49,10 +49,16 @@ class _PlayersLevelPageState extends State<PlayersLevelPage> {
     fToast = FToast();
     fToast.init(context);
     if(widget.value=='1'){
-      primaryLevel();
+      levelOne();
     }
     if(widget.value=='2'){
-      mediumlevel();
+      levelTwo();
+    }
+    if(widget.value=='3'){
+      levelThree();
+    }
+    if(widget.value=='4'){
+      levelFour();
     }
     super.initState();
   }
@@ -124,7 +130,7 @@ class _PlayersLevelPageState extends State<PlayersLevelPage> {
                                       .spaceBetween,
                                   children: [
                                     Text(
-                                      widget.value,
+                                      'Level : ${widget.value}',
                                       style: GoogleFonts.bubblegumSans(
                                           fontSize: 20, color: Colors.pinkAccent
                                       ),
@@ -401,7 +407,9 @@ class _PlayersLevelPageState extends State<PlayersLevelPage> {
 
   }
 
-  primaryLevel() {
+
+  //plus and minus
+  levelOne() {
    _rollTheDice();
   }
 
@@ -500,11 +508,11 @@ class _PlayersLevelPageState extends State<PlayersLevelPage> {
 
   void checkWhichLevelisCurrentUser(int? a) {
     if(a!>=100&&a<=200){
-      primaryLevel();
+      levelOne();
     }
     else if (a!>200&&a<300)
       {
-        mediumlevel();
+        levelTwo();
       }
     if(a<100){
       const snackBar = SnackBar(
@@ -562,10 +570,16 @@ class _PlayersLevelPageState extends State<PlayersLevelPage> {
 
       //next call
       if(widget.value=='1'){
-        primaryLevel();
+        levelOne();
       }
       if(widget.value=='2'){
-        mediumlevel();
+        levelTwo();
+      }
+      if(widget.value=='3'){
+        levelThree();
+      }
+      if(widget.value=='4'){
+        levelFour();
       }
 
 
@@ -631,7 +645,9 @@ class _PlayersLevelPageState extends State<PlayersLevelPage> {
     // Custom Toast Position
   }
 
-  void mediumlevel() {
+
+  //mup and div
+  void levelTwo() {
     if(decideModesFunction==false){
       decideModesFunction=true;
       divFunction();
@@ -642,14 +658,40 @@ class _PlayersLevelPageState extends State<PlayersLevelPage> {
     }
   }
 
+  //plus and mup
+  void levelThree() {
+    if(decideModesFunction==false){
+      decideModesFunction=true;
+      plusFunction();
+    }
+    else if(decideModesFunction==true){
+      decideModesFunction=false;
+      mupFunction();
+    }
+  }
+
+  //subtract and divisor
+
+  void levelFour(){
+    if(decideModesFunction==false){
+      decideModesFunction=true;
+      divFunction();
+
+    }
+    else if(decideModesFunction==true){
+      decideModesFunction=false;
+      minusFunction();
+    }
+  }
+
   void checkAndCalllevelFunction() {
     if(numberofPlayersCoin!>=100&&numberofPlayersCoin!<=200)
     {
-      primaryLevel();
+      levelOne();
     }
     if(numberofPlayersCoin!>=200&&numberofPlayersCoin!<=300)
     {
-      mediumlevel();
+      levelTwo();
     }
   }
 

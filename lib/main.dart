@@ -191,7 +191,7 @@ class _HomePageState extends State<HomePage> {
                                 child: GestureDetector(
                                   onTap: (){
 
-                                    Navigator.pushNamed(context, PlayersLevelPage.routeName);
+                                    Navigator.pushNamed(context, PlusPage.routeName);
                                     sendNametoAnotherPage();
                                     // sendUserScoretoAnotherPage();
 

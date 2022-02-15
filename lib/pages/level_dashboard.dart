@@ -85,7 +85,9 @@ class _LevelDashboardState extends State<LevelDashboard> {
                           style: TextStyle(fontSize: 20),
                         ),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context)=>PlayersLevelPage( value: '3',)));
+                      },
                     ),
 
                   ],
@@ -107,7 +109,9 @@ class _LevelDashboardState extends State<LevelDashboard> {
                           style: TextStyle(fontSize: 20),
                         ),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context)=>PlayersLevelPage( value: '4',)));
+                      },
                     ),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
