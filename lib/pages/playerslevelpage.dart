@@ -1,6 +1,6 @@
-import 'dart:math';
 
 import 'package:audioplayers/audioplayers.dart';
+import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -44,6 +44,9 @@ class _PlayersLevelPageState extends State<PlayersLevelPage> {
   int? numberofPlayersCoin;
   int _score=0;
   int level=0;
+  bool showTimer=false;
+  bool demo=true;
+  CountDownController controller = CountDownController();
   @override
   void initState() {
     fToast = FToast();
@@ -96,6 +99,49 @@ class _PlayersLevelPageState extends State<PlayersLevelPage> {
               Stack(
 
                 children: [
+                  Visibility(
+                    visible: showTimer,
+                    child: Align(
+                      alignment: Alignment.topCenter,
+                      child: CircularCountDownTimer(
+
+                        duration: 5,
+                        initialDuration: 0,
+                        controller: controller,
+                        width: 40,
+                        height: 40,
+                        ringColor: Colors.yellowAccent,
+                        ringGradient: null,
+                        fillColor: Colors.purpleAccent,
+                        fillGradient: null,
+                        backgroundColor: Colors.purple[500],
+                        backgroundGradient: null,
+                        strokeWidth: 10.0,
+                        strokeCap: StrokeCap.round,
+                        textStyle: const TextStyle(
+                            fontSize: 15.0, color: Colors.white, fontWeight: FontWeight.bold),
+                        textFormat: CountdownTextFormat.S,
+                        isReverse: false,
+                        isReverseAnimation: false,
+                        isTimerTextShown: true,
+                        autoStart: false,
+                        onStart: () {
+                          print('Countdown Started');
+                        },
+                        onComplete: () {
+                            // timerPlusMinusModeFunction
+                        if(widget.value=='5'){
+                          functionInterChangForLevelFive();
+                        }
+                        else if(widget.value=='6'){
+                          functionInterChangForLevelSix();
+                        }
+
+                          controller.start();
+                        },
+                      ),
+                    ),
+                  ),
                   // Image.asset('img/number_bg.png',fit: BoxFit.cover,filterQuality: FilterQuality.high),
                   Align(
                     alignment: Alignment.center,
@@ -151,7 +197,8 @@ class _PlayersLevelPageState extends State<PlayersLevelPage> {
                               child: Center(child: Text(
                                 'Score : $_score',
                                 style: GoogleFonts.bubblegumSans(
-                                    color: Colors.white, fontSize: 20),)),
+                                    color: Colors.white, fontSize: 20),
+                              )),
 
                             ),
                           ],
@@ -495,26 +542,26 @@ class _PlayersLevelPageState extends State<PlayersLevelPage> {
 
 
 
-  void checkWhichLevelisCurrentUser(int? a) {
-    if(a!>=100&&a<=200){
-      levelOne();
-    }
-    else if (a!>200&&a<300)
-      {
-        levelTwo();
-      }
-    if(a<100){
-      const snackBar = SnackBar(
-        content: Text('Yo dont have enough Coin '),
-        duration: Duration(microseconds: 100000),
-        backgroundColor: Colors.pink,
-        padding: EdgeInsets.all(15),
-
-      );
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-      return;
-    }
-  }
+  // void checkWhichLevelisCurrentUser(int? a) {
+  //   if(a!>=100&&a<=200){
+  //     levelOne();
+  //   }
+  //   else if (a!>200&&a<300)
+  //     {
+  //       levelTwo();
+  //     }
+  //   if(a<100){
+  //     const snackBar = SnackBar(
+  //       content: Text('Yo dont have enough Coin '),
+  //       duration: Duration(microseconds: 100000),
+  //       backgroundColor: Colors.pink,
+  //       padding: EdgeInsets.all(15),
+  //
+  //     );
+  //     ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  //     return;
+  //   }
+  // }
 
   void suffle(int rand1, int rand2, int rand3, int sum) {
     if (rand1 == rand2||rand2==rand3) {
@@ -547,6 +594,9 @@ class _PlayersLevelPageState extends State<PlayersLevelPage> {
     // print(a);
     int aa = a;
     if (aa == _result) {
+      if(widget.value=='5'||widget.value=='6'){
+        controller.start();
+      }
       final player = AudioCache();
       // congrats sound
       player.play('play.wav');
@@ -564,12 +614,16 @@ class _PlayersLevelPageState extends State<PlayersLevelPage> {
        _score=_score+1;
 
     } else {
+      controller.pause();
       print("ERROR");
       showToast();
     }
   }
   showToast() {
     //buzzer sound
+    // if(widget.value==5){
+    //   controller.pause();
+    // }
     final player = AudioCache();
     player.play('buzzer.wav');
 
@@ -661,6 +715,16 @@ class _PlayersLevelPageState extends State<PlayersLevelPage> {
       minusFunction();
     }
   }
+  //timer
+  void levelFive(){
+
+    timerPlusMinusModeFunction();
+  }
+  void levelSix(){
+
+    timerMupDivModeFunction();
+  }
+
 
   void checkAndCalllevelFunction() {
     if(numberofPlayersCoin!>=100&&numberofPlayersCoin!<=200)
@@ -686,6 +750,73 @@ class _PlayersLevelPageState extends State<PlayersLevelPage> {
     }
     if(widget.value=='4'){
       levelFour();
+    }
+    if(widget.value=='5'){
+
+       setState(() {
+         showTimer=true;
+       });
+      levelFive();
+    }
+    if(widget.value=='6'){
+      setState(() {
+        showTimer=true;
+
+      });
+      levelSix();
+    }
+  }
+
+  void timerPlusMinusModeFunction() {
+
+
+    if(decideModesFunction==false){
+      decideModesFunction=true;
+      print("ONLY PLUS");
+
+      plusFunction();
+    }
+    else if(decideModesFunction==true){
+      decideModesFunction=false;
+      print("ONLY MINUS");
+      minusFunction();
+    }
+
+  }
+
+  void timerMupDivModeFunction() {
+    if(decideModesFunction==false){
+      decideModesFunction=true;
+      divFunction();
+
+    }
+    else if(decideModesFunction==true){
+      decideModesFunction=false;
+      mupFunction();
+    }
+  }
+
+  void functionInterChangForLevelFive() {
+    if(demo==true){
+      demo=false;
+      plusFunction();
+    }
+
+    else if (demo==false){
+      demo=true;
+      minusFunction();
+    }
+  }
+
+  void functionInterChangForLevelSix() {
+    if(demo==true){
+      demo=false;
+      mupFunction();
+    }
+
+    else if (demo==false){
+      demo=true;
+      divFunction();
     }
   }
 
