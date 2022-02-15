@@ -25,6 +25,7 @@ class _PlusPageState extends State<PlusPage> {
 
    String? userName;
    late PlayersPrvider _playersPrvider;
+
    PlayerInfoModel _playerInfoModel=PlayerInfoModel();
 
   // late Timer _timer;

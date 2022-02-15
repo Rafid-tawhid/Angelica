@@ -48,18 +48,7 @@ class _PlayersLevelPageState extends State<PlayersLevelPage> {
   void initState() {
     fToast = FToast();
     fToast.init(context);
-    if(widget.value=='1'){
-      levelOne();
-    }
-    if(widget.value=='2'){
-      levelTwo();
-    }
-    if(widget.value=='3'){
-      levelThree();
-    }
-    if(widget.value=='4'){
-      levelFour();
-    }
+    choseLevelAndUpdateUi();
     super.initState();
   }
 
@@ -353,7 +342,7 @@ class _PlayersLevelPageState extends State<PlayersLevelPage> {
                             // ),
                             onPressed: () {
                               Navigator.pop(context);
-
+                              // print('SCORE: $_score');
                             },
                           ),
                           MaterialButton(
@@ -376,7 +365,7 @@ class _PlayersLevelPageState extends State<PlayersLevelPage> {
                             ),
                             // ),
                             onPressed: () {
-                            checkAndCalllevelFunction();
+                            choseLevelAndUpdateUi();
                             },
                           ),
                         ],
@@ -569,18 +558,7 @@ class _PlayersLevelPageState extends State<PlayersLevelPage> {
       );
 
       //next call
-      if(widget.value=='1'){
-        levelOne();
-      }
-      if(widget.value=='2'){
-        levelTwo();
-      }
-      if(widget.value=='3'){
-        levelThree();
-      }
-      if(widget.value=='4'){
-        levelFour();
-      }
+      choseLevelAndUpdateUi();
 
 
        _score=_score+1;
@@ -692,6 +670,22 @@ class _PlayersLevelPageState extends State<PlayersLevelPage> {
     if(numberofPlayersCoin!>=200&&numberofPlayersCoin!<=300)
     {
       levelTwo();
+    }
+  }
+
+  void choseLevelAndUpdateUi() {
+
+    if(widget.value=='1'){
+      levelOne();
+    }
+    if(widget.value=='2'){
+      levelTwo();
+    }
+    if(widget.value=='3'){
+      levelThree();
+    }
+    if(widget.value=='4'){
+      levelFour();
     }
   }
 

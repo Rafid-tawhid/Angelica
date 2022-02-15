@@ -46,6 +46,7 @@ class _LevelDashboardState extends State<LevelDashboard> {
                         ),
                       ),
                       onPressed: () {
+
                         Navigator.of(context).push(MaterialPageRoute(builder: (context)=>PlayersLevelPage( value: '1',)));
 
                         //   Navigator.pushNamed(context, PlayersLevelPage.routeName,arguments:"1" );
@@ -109,7 +110,9 @@ class _LevelDashboardState extends State<LevelDashboard> {
                           style: TextStyle(fontSize: 20),
                         ),
                       ),
+
                       onPressed: () {
+
                         Navigator.of(context).push(MaterialPageRoute(builder: (context)=>PlayersLevelPage( value: '4',)));
                       },
                     ),
