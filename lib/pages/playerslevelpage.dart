@@ -8,19 +8,16 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:random_game_new_version/providers/helper_class.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../auth/firebase_auth_services.dart';
 import '../custom_widget/animation_toast.dart';
 import '../custom_widget/helper class.dart';
-import '../models/players_info_model.dart';
 import '../providers/players_info_provider.dart';
 
 class PlayersLevelPage extends StatefulWidget {
 
   static const String routeName='/demo';
 
-  String value;
-  PlayersLevelPage({required this.value});
+  String value='1';
+  // PlayersLevelPage({required this.value});
 
 
   @override
@@ -47,11 +44,14 @@ class _PlayersLevelPageState extends State<PlayersLevelPage> {
   bool showTimer=false;
   bool demo=true;
   CountDownController controller = CountDownController();
+
+  var levelScore;
   @override
   void initState() {
     fToast = FToast();
     fToast.init(context);
     choseLevelAndUpdateUi();
+    fetchHigestScoreFromSharedPref();
     super.initState();
   }
 
@@ -73,6 +73,7 @@ class _PlayersLevelPageState extends State<PlayersLevelPage> {
   @override
   Widget build(BuildContext context) {
     // _rollTheDice();
+    upgradeLevelByScore();
     return Scaffold(
 
       body: Container(
@@ -610,20 +611,18 @@ class _PlayersLevelPageState extends State<PlayersLevelPage> {
       //next call
       choseLevelAndUpdateUi();
 
-
        _score=_score+1;
 
     } else {
-      controller.pause();
       print("ERROR");
-      showToast();
+       showToast();
     }
   }
   showToast() {
     //buzzer sound
-    // if(widget.value==5){
-    //   controller.pause();
-    // }
+    if(widget.value==5||widget.value==6){
+      controller.pause();
+    }
     final player = AudioCache();
     player.play('buzzer.wav');
 
@@ -652,12 +651,12 @@ class _PlayersLevelPageState extends State<PlayersLevelPage> {
                 Navigator.pop(context);
               },),
               GestureDetector(child: Image.asset("img/yes.png",fit: BoxFit.cover,width: 120,),onTap: (){
-                // saveHigestScoreToSharedPref(_higestScore);
+                 saveHigestScoreToSharedPref(widget.value);
                 fToast.removeCustomToast();
                 setState(() {
-                  // _score=0;
+                   _score=0;
                 });
-
+                choseLevelAndUpdateUi();
 
               },),
               const SizedBox(width: 10,)
@@ -726,16 +725,16 @@ class _PlayersLevelPageState extends State<PlayersLevelPage> {
   }
 
 
-  void checkAndCalllevelFunction() {
-    if(numberofPlayersCoin!>=100&&numberofPlayersCoin!<=200)
-    {
-      levelOne();
-    }
-    if(numberofPlayersCoin!>=200&&numberofPlayersCoin!<=300)
-    {
-      levelTwo();
-    }
-  }
+  // void checkAndCalllevelFunction() {
+  //   if(numberofPlayersCoin!>=100&&numberofPlayersCoin!<=200)
+  //   {
+  //     levelOne();
+  //   }
+  //   if(numberofPlayersCoin!>=200&&numberofPlayersCoin!<=300)
+  //   {
+  //     levelTwo();
+  //   }
+  // }
 
   void choseLevelAndUpdateUi() {
 
@@ -753,9 +752,6 @@ class _PlayersLevelPageState extends State<PlayersLevelPage> {
     }
     if(widget.value=='5'){
 
-       setState(() {
-         showTimer=true;
-       });
       levelFive();
     }
     if(widget.value=='6'){
@@ -820,7 +816,60 @@ class _PlayersLevelPageState extends State<PlayersLevelPage> {
     }
   }
 
+  void upgradeLevelByScore() {
+    if(_score>5&&_score<10){
+      setState(() {
+        widget.value='2';
+      });
+    }
+    if(_score>10&&_score<15){
+      setState(() {
+        widget.value='3';
+      });
+    }
+    if(_score>15&&_score<20){
+      setState(() {
+        widget.value='4';
+      });
+    }
+    if(_score>20&&_score<25){
+      setState(() {
+        widget.value='5';
+        showTimer=true;
+      });
+    }
+    if(_score>25&&_score<35){
+      setState(() {
+        widget.value='6';
+        showTimer=true;
+      });
+    }
 
+  }
+
+
+
+  //save value to sf
+  void saveHigestScoreToSharedPref(String level) async {
+    var now = DateTime.now();
+    var formatter = DateFormat('MMM-dd / h:mm');
+    String formattedDate = formatter.format(now);
+
+    var sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.setString("level", level);
+    // sharedPreferences.setString("minDt", formattedDate);
+
+  }
+
+  //get value
+  Future<String> fetchHigestScoreFromSharedPref() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      widget.value = prefs.getString("level")!;
+
+    });
+    return widget.value;
+  }
 }
 
 

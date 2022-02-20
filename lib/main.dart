@@ -26,15 +26,14 @@ import 'pages/multiplication_page.dart';
 import 'pages/plus_page.dart';
 import 'pages/splash_screen.dart';
 
-void main() async{
-
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
   runApp(MultiProvider(
     providers: [
-      ChangeNotifierProvider(create:(context)=> RegisterProvider()),
-      ChangeNotifierProvider(create:(context)=> PlayersPrvider()),
+      ChangeNotifierProvider(create: (context) => RegisterProvider()),
+      ChangeNotifierProvider(create: (context) => PlayersPrvider()),
     ],
     child: MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -50,18 +49,17 @@ void main() async{
         LoginPage.routeName: (context) => LoginPage(),
         SignUpPage.routeName: (context) => SignUpPage(),
         Amature.routeName: (context) => Amature(),
-        ProfessionalMode.routeName:(context)=>ProfessionalMode(),
-        Modes.routeName:(context)=>Modes(),
-        AllPlayers.routeName:(context)=>AllPlayers(),
-        LevelDashboard.routeName:(context)=>LevelDashboard(),
-        PlayersLevelPage.routeName:(context)=>PlayersLevelPage(value: 'Angelica',)
-
+        ProfessionalMode.routeName: (context) => ProfessionalMode(),
+        Modes.routeName: (context) => Modes(),
+        AllPlayers.routeName: (context) => AllPlayers(),
+        LevelDashboard.routeName: (context) => LevelDashboard(),
+        PlayersLevelPage.routeName: (context) => PlayersLevelPage()
       },
     ),
   ));
 }
-class HomePage extends StatefulWidget {
 
+class HomePage extends StatefulWidget {
   static const String routeName = '/home_page';
 
   @override
@@ -79,32 +77,27 @@ class _HomePageState extends State<HomePage> {
   // late PlayersPrvider _playersPrvider;
   //players score
 
-
-
   void didChangeDependencies() {
-    if(FirebaseAuth.instance.currentUser!=null)
-      {
-        _registerProvider=Provider.of<RegisterProvider>(context);
-        _registerProvider.getName();
+    if (FirebaseAuth.instance.currentUser != null) {
+      _registerProvider = Provider.of<RegisterProvider>(context);
+      _registerProvider.getName();
 
-        playersPrvider=Provider.of<PlayersPrvider>(context,listen: false);
-        playersPrvider.getPlayers();
-      }
+      playersPrvider = Provider.of<PlayersPrvider>(context, listen: false);
+      playersPrvider.getPlayers();
+    }
     super.didChangeDependencies();
   }
 
-
   @override
   void initState() {
-    image1 = Image.asset("img/angle.png",fit: BoxFit.cover,filterQuality: FilterQuality.high);
+    image1 = Image.asset("img/angle.png",
+        fit: BoxFit.cover, filterQuality: FilterQuality.high);
 
     super.initState();
-
   }
 
   @override
   Widget build(BuildContext context) {
-
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
@@ -112,89 +105,89 @@ class _HomePageState extends State<HomePage> {
       ),
       home: SafeArea(
         child: Scaffold(
-          drawer: Drawer(
-
-          ),
-            // appBar: AppBar(
-            //   title: Text("Honey Bunny",style: GoogleFonts.bubblegumSans(
-            //     fontWeight: FontWeight.w900,
-            //     fontStyle: FontStyle.normal,
-            //     fontSize: 26,
-            //     letterSpacing: 1
-            //   ),),
-            //   centerTitle: true,
-            //   backgroundColor: Color(0xffF61ABC),
-            //
-            // ),
+          drawer: Drawer(),
+          // appBar: AppBar(
+          //   title: Text("Honey Bunny",style: GoogleFonts.bubblegumSans(
+          //     fontWeight: FontWeight.w900,
+          //     fontStyle: FontStyle.normal,
+          //     fontSize: 26,
+          //     letterSpacing: 1
+          //   ),),
+          //   centerTitle: true,
+          //   backgroundColor: Color(0xffF61ABC),
+          //
+          // ),
           body: GestureDetector(
-            onTap: (){
+            onTap: () {
               fToast.removeCustomToast();
               fToast.removeQueuedCustomToasts();
             },
             child: Container(
               decoration: const BoxDecoration(
                 image: DecorationImage(
-                  image: ExactAssetImage("img/bg.jpg"),
-                  fit: BoxFit.fill,
-                  filterQuality: FilterQuality.high
-
-                ),
+                    image: ExactAssetImage("img/bg.jpg"),
+                    fit: BoxFit.fill,
+                    filterQuality: FilterQuality.high),
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Expanded(
-
                     child: Container(
-                      padding: const EdgeInsets.only(top: 30),
-                      margin: const EdgeInsets.only(left: 20,right: 20),
-                      child: Stack(
-                        children: [
-                          Image.asset('img/title.png',filterQuality: FilterQuality.high,fit: BoxFit.contain,),
-                          Positioned(
-                            right: -10,
-
-                            child: IconButton(onPressed: (){
-
-                              fToast = FToast();
-                              fToast.init(context);
-                              Widget widget=SettingToast(fToast);
-                              fToast.showToast(child: widget,
-                                gravity: ToastGravity.CENTER,
-                                toastDuration: Duration(seconds: 5),);
-                            }, icon: const Icon(Icons.settings,),iconSize: 30,
-                              color: Colors.pinkAccent,
+                        padding: const EdgeInsets.only(top: 30),
+                        margin: const EdgeInsets.only(left: 20, right: 20),
+                        child: Stack(
+                          children: [
+                            Image.asset(
+                              'img/title.png',
+                              filterQuality: FilterQuality.high,
+                              fit: BoxFit.contain,
                             ),
-                          )
-                        ],
-                      )
-                    ),
+                            Positioned(
+                              right: -10,
+                              child: IconButton(
+                                onPressed: () {
+                                  fToast = FToast();
+                                  fToast.init(context);
+                                  Widget widget = SettingToast(fToast);
+                                  fToast.showToast(
+                                    child: widget,
+                                    gravity: ToastGravity.CENTER,
+                                    toastDuration: Duration(seconds: 5),
+                                  );
+                                },
+                                icon: const Icon(
+                                  Icons.settings,
+                                ),
+                                iconSize: 30,
+                                color: Colors.pinkAccent,
+                              ),
+                            )
+                          ],
+                        )),
                   ),
-
                   Expanded(
                     child: Container(
                       margin: EdgeInsets.all(5),
-
                       child: image1,
                     ),
                   ),
                   Container(
-                    padding: const EdgeInsets.only(left: 60,right: 60,bottom: 60),
+                    padding:
+                        const EdgeInsets.only(left: 60, right: 60, bottom: 60),
                     child: Column(
                       children: [
                         Row(
-
                           children: [
                             Expanded(
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: GestureDetector(
-                                  onTap: (){
-
-                                    Navigator.pushNamed(context, PlusPage.routeName);
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                        context, PlusPage.routeName);
                                     sendNametoAnotherPage();
                                     // sendUserScoretoAnotherPage();
-
                                   },
                                   child: Center(
                                     child: Image.asset('img/plus.png'),
@@ -206,9 +199,9 @@ class _HomePageState extends State<HomePage> {
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: GestureDetector(
-                                  onTap: (){
-
-                                    Navigator.pushNamed(context, SubPage.routeName);
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                        context, SubPage.routeName);
                                     sendNametoAnotherPage();
                                   },
                                   child: Center(
@@ -217,7 +210,6 @@ class _HomePageState extends State<HomePage> {
                                 ),
                               ),
                             ),
-
                           ],
                         ),
                         Row(
@@ -226,11 +218,10 @@ class _HomePageState extends State<HomePage> {
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: GestureDetector(
-                                  onTap: (){
-
-                                    Navigator.pushNamed(context, MultiplicationPage.routeName);
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                        context, MultiplicationPage.routeName);
                                     sendNametoAnotherPage();
-
                                   },
                                   child: Center(
                                     child: Image.asset('img/mup.png'),
@@ -242,13 +233,10 @@ class _HomePageState extends State<HomePage> {
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: GestureDetector(
-                                  onTap: (){
-
-                                    Navigator.pushNamed(context, DivisorPage.routeName);
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                        context, DivisorPage.routeName);
                                     sendNametoAnotherPage();
-
-
-
                                   },
                                   child: Center(
                                     child: Image.asset('img/div.png'),
@@ -256,16 +244,14 @@ class _HomePageState extends State<HomePage> {
                                 ),
                               ),
                             ),
-
                           ],
                         ),
-                        const SizedBox(height: 30,),
-
-
+                        const SizedBox(
+                          height: 30,
+                        ),
                       ],
                     ),
                   )
-
                 ],
               ),
             ),
@@ -276,17 +262,12 @@ class _HomePageState extends State<HomePage> {
   }
 
   void sendNametoAnotherPage() {
-    if(_registerProvider.nameList[0].isEmpty)
-      {
-        Value.setString('Hello !');
-      }
-    else
-      {
-        Value.setString(_registerProvider.nameList[0].toString());
-      }
-
+    if (_registerProvider.nameList[0].isEmpty) {
+      Value.setString('Hello !');
+    } else {
+      Value.setString(_registerProvider.nameList[0].toString());
+    }
   }
-
 
   // void sendUserScoretoAnotherPage() {
   //   if(_playersPrvider.higestScoreList[0]==0)
@@ -300,5 +281,3 @@ class _HomePageState extends State<HomePage> {
   //
   // }
 }
-
-

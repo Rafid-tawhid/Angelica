@@ -11,7 +11,8 @@ class LevelDashboard extends StatefulWidget {
 
 class _LevelDashboardState extends State<LevelDashboard> {
 
-
+var status=false;
+int onBtnColor=0xffff1dcd;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -31,30 +32,9 @@ class _LevelDashboardState extends State<LevelDashboard> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+            
                     ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          shape: const CircleBorder(), primary: const Color(
-                          0xffff1dcd)),
-                      child: Container(
-                        width: 20,
-                        height: 20,
-                        alignment: Alignment.center,
-                        decoration: const BoxDecoration(shape: BoxShape.circle),
-                        child: const Text(
-                          '1',
-                          style: TextStyle(fontSize: 20),
-                        ),
-                      ),
-                      onPressed: () {
 
-                        Navigator.of(context).push(MaterialPageRoute(builder: (context)=>PlayersLevelPage( value: '1',)));
-
-                        //   Navigator.pushNamed(context, PlayersLevelPage.routeName,arguments:"1" );
-
-                      },
-
-                    ),
-                    ElevatedButton(
                       style: ElevatedButton.styleFrom(
                           shape: const CircleBorder(), primary: const Color(
                           0xffff1dcd)),
@@ -68,9 +48,8 @@ class _LevelDashboardState extends State<LevelDashboard> {
                           style: TextStyle(fontSize: 20),
                         ),
                       ),
-                      onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(builder: (context)=>PlayersLevelPage( value: '2',)));
-                      },
+                      onPressed:(){false;}
+
                     ),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
@@ -87,7 +66,7 @@ class _LevelDashboardState extends State<LevelDashboard> {
                         ),
                       ),
                       onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(builder: (context)=>PlayersLevelPage( value: '3',)));
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context)=>PlayersLevelPage()));
                       },
                     ),
 
@@ -113,7 +92,7 @@ class _LevelDashboardState extends State<LevelDashboard> {
 
                       onPressed: () {
 
-                        Navigator.of(context).push(MaterialPageRoute(builder: (context)=>PlayersLevelPage( value: '4',)));
+                      //  Navigator.of(context).push(MaterialPageRoute(builder: (context)=>PlayersLevelPage( value: '4',)));
                       },
                     ),
                     ElevatedButton(
@@ -131,13 +110,14 @@ class _LevelDashboardState extends State<LevelDashboard> {
                         ),
                       ),
                       onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(builder: (context)=>PlayersLevelPage( value: '5',)));
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context)=>PlayersLevelPage()));
                       },
                     ),
                     ElevatedButton(
+
                       style: ElevatedButton.styleFrom(
                           shape: const CircleBorder(), primary: Color(
-                          0xffff1dcd)),
+                          onBtnColor)),
                       child: Container(
                         width: 20,
                         height: 20,
@@ -149,7 +129,11 @@ class _LevelDashboardState extends State<LevelDashboard> {
                         ),
                       ),
                       onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(builder: (context)=>PlayersLevelPage( value: '6',)));
+                        setState(() {
+                          status = !status;
+                          onBtnColor=status?0xffff1dcd:0xFF1E88E5;
+                        });
+                      //  Navigator.of(context).push(MaterialPageRoute(builder: (context)=>PlayersLevelPage( value: '6',)));
                       },
                     ),
 
