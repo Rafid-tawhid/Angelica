@@ -17,6 +17,7 @@ class PlayersLevelPage extends StatefulWidget {
   static const String routeName='/demo';
 
   String value='1';
+
   // PlayersLevelPage({required this.value});
 
 
@@ -31,6 +32,7 @@ class _PlayersLevelPageState extends State<PlayersLevelPage> {
   var _rand1 = 0;
   var _rand2 = 0;
   var _rand3 = 0;
+
   int a=0,b=0,c=0,d=0;
   var signChange='img/plus.png';
   var _result = 0;
@@ -648,6 +650,7 @@ class _PlayersLevelPageState extends State<PlayersLevelPage> {
               GestureDetector(child: Image.asset("img/no.png",fit: BoxFit.cover,width: 120,),onTap: (){
                 // saveHigestScoreToSharedPref(_higestScore);
                 fToast.removeCustomToast();
+                saveHigestScoreToSharedPref(widget.value);
                 Navigator.pop(context);
               },),
               GestureDetector(child: Image.asset("img/yes.png",fit: BoxFit.cover,width: 120,),onTap: (){
