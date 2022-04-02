@@ -32,6 +32,9 @@ int onBtnColor=0xffff1dcd;
   Future.delayed(Duration(microseconds: 2000),(){
     findWhichLevelAreOpen();
   });
+  setState(() {
+
+  });
     super.initState();
   }
 

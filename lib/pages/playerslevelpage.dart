@@ -6,6 +6,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:random_game_new_version/pages/level_dashboard.dart';
 import 'package:random_game_new_version/providers/helper_class.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../custom_widget/animation_toast.dart';
@@ -17,6 +18,7 @@ class PlayersLevelPage extends StatefulWidget {
   static const String routeName='/demo';
 
   String value='1';
+
 
   PlayersLevelPage({Key? key, required this.value}) : super(key: key);
 
@@ -32,7 +34,7 @@ class _PlayersLevelPageState extends State<PlayersLevelPage> {
   var _rand1 = 0;
   var _rand2 = 0;
   var _rand3 = 0;
-
+  String previousLevel='0';
   int a=0,b=0,c=0,d=0;
   var signChange='img/plus.png';
   var _result = 0;
@@ -53,7 +55,7 @@ class _PlayersLevelPageState extends State<PlayersLevelPage> {
     fToast = FToast();
     fToast.init(context);
     choseLevelAndUpdateUi();
-    // fetchHigestScoreFromSharedPref();
+     fetchHigestScoreFromSharedPref();
     super.initState();
   }
 
@@ -391,7 +393,7 @@ class _PlayersLevelPageState extends State<PlayersLevelPage> {
                             ),
                             // ),
                             onPressed: () {
-                              Navigator.pop(context);
+                              Navigator.of(context).push(MaterialPageRoute(builder: (context)=>LevelDashboard()));
                               saveHigestScoreToSharedPref(widget.value);
                               // print('SCORE: $_score');
                             },
@@ -859,9 +861,19 @@ class _PlayersLevelPageState extends State<PlayersLevelPage> {
     var now = DateTime.now();
     var formatter = DateFormat('MMM-dd / h:mm');
     String formattedDate = formatter.format(now);
-
     var sharedPreferences = await SharedPreferences.getInstance();
-    sharedPreferences.setString("level", level);
+    if(int.parse(previousLevel)>int.parse(level)){
+      sharedPreferences.setString("level", previousLevel);
+      print("hello......"+previousLevel);
+    }
+    else{
+      sharedPreferences.setString("level", level);
+      print("hello......"+level);
+    }
+
+
+
+
     // sharedPreferences.setString("minDt", formattedDate);
 
   }
@@ -870,7 +882,7 @@ class _PlayersLevelPageState extends State<PlayersLevelPage> {
   Future<String> fetchHigestScoreFromSharedPref() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
-      widget.value = prefs.getString("level")!;
+      previousLevel = prefs.getString("level")!;
 
     });
     return widget.value;
