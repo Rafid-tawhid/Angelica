@@ -53,7 +53,7 @@ void main() async {
         Modes.routeName: (context) => Modes(),
         AllPlayers.routeName: (context) => AllPlayers(),
         LevelDashboard.routeName: (context) => LevelDashboard(),
-        PlayersLevelPage.routeName: (context) => PlayersLevelPage()
+        PlayersLevelPage.routeName: (context) => PlayersLevelPage(value: '',)
       },
     ),
   ));

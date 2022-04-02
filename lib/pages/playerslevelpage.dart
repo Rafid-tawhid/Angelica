@@ -18,7 +18,7 @@ class PlayersLevelPage extends StatefulWidget {
 
   String value='1';
 
-  // PlayersLevelPage({required this.value});
+  PlayersLevelPage({Key? key, required this.value}) : super(key: key);
 
 
   @override
@@ -53,7 +53,7 @@ class _PlayersLevelPageState extends State<PlayersLevelPage> {
     fToast = FToast();
     fToast.init(context);
     choseLevelAndUpdateUi();
-    fetchHigestScoreFromSharedPref();
+    // fetchHigestScoreFromSharedPref();
     super.initState();
   }
 
@@ -392,6 +392,7 @@ class _PlayersLevelPageState extends State<PlayersLevelPage> {
                             // ),
                             onPressed: () {
                               Navigator.pop(context);
+                              saveHigestScoreToSharedPref(widget.value);
                               // print('SCORE: $_score');
                             },
                           ),
@@ -651,6 +652,7 @@ class _PlayersLevelPageState extends State<PlayersLevelPage> {
                 // saveHigestScoreToSharedPref(_higestScore);
                 fToast.removeCustomToast();
                 saveHigestScoreToSharedPref(widget.value);
+                
                 Navigator.pop(context);
               },),
               GestureDetector(child: Image.asset("img/yes.png",fit: BoxFit.cover,width: 120,),onTap: (){

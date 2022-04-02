@@ -14,12 +14,12 @@ class LevelDashboard extends StatefulWidget {
 
 class _LevelDashboardState extends State<LevelDashboard> {
 
-var status1=false;
-var status2=false;
-var status3=false;
-var status4=false;
-var status5=false;
-var status6=false;
+var status1=true;
+var status2=true;
+var status3=true;
+var status4=true;
+var status5=true;
+var status6=true;
 
 int onBtnColor=0xffff1dcd;
  String levelCount='';
@@ -60,10 +60,8 @@ int onBtnColor=0xffff1dcd;
                     RaisedButton(
                       disabledColor: Colors.black,
                       disabledTextColor: Colors.white,
-                      onPressed: status1
-                          ? null
-                          : () {
-                        print("Clicked");
+                      onPressed: (){
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context)=>PlayersLevelPage( value: '1',)));
                       },
                       child: Text("1"),
                     ),
@@ -73,7 +71,7 @@ int onBtnColor=0xffff1dcd;
                       onPressed: status2
                           ? null
                           : () {
-                        print("Clicked");
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context)=>PlayersLevelPage( value: '2',)));
                       },
                       child: Text("2"),
                     ),
@@ -83,7 +81,8 @@ int onBtnColor=0xffff1dcd;
                       onPressed: status3
                           ? null
                           : () {
-                        print("Clicked");
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context)=>PlayersLevelPage( value: '3',)));
+                        print("Clicked 33");
                       },
                       child: Text("3"),
                     ),
@@ -108,7 +107,7 @@ int onBtnColor=0xffff1dcd;
                       onPressed: status5
                           ? null
                           : () {
-                        print("Clicked");
+                        print("Clicked 5");
                       },
                       child: Text("5"),
                     ),
@@ -119,7 +118,7 @@ int onBtnColor=0xffff1dcd;
                       onPressed: status6
                           ? null
                           : () {
-                        Navigator.of(context).push(MaterialPageRoute(builder: (context)=>PlayersLevelPage()));
+
                       },
                       child: Text("6"),
                     ),
@@ -173,42 +172,42 @@ Future<String> fetchHigestScoreFromSharedPref() async {
   print("Now"+levelCount);
   if(levelCount=='2'){
     setState(() {
-      status1=true;
-      status2=true;
+      status1=false;
+      status2=false;
     });
   }
   else if(levelCount=='3'){
     setState(() {
-      status1=true;
-      status2=true;
-      status3=true;
+      status1=false;
+      status2=false;
+      status3=false;
     });
   }
   else if(levelCount=='4'){
     setState(() {
-      status1=true;
-      status2=true;
-      status3=true;
-      status4=true;
+      status1=false;
+      status2=false;
+      status3=false;
+      status4=false;
     });
   }
   else if(levelCount=='5'){
     setState(() {
-      status1=true;
-      status2=true;
-      status3=true;
-      status4=true;
-      status5=true;
+      status1=false;
+      status2=false;
+      status3=false;
+      status4=false;
+      status5=false;
     });
   }
   else if(levelCount=='6'){
     setState(() {
-      status1=true;
-      status2=true;
-      status3=true;
-      status4=true;
-      status5=true;
-      status6=true;
+      status1=false;
+      status2=false;
+      status3=false;
+      status4=false;
+      status5=false;
+      status6=false;
     });
   }
   }
