@@ -9,7 +9,7 @@ import 'package:random_game_new_version/pages/pro_mode.dart';
 class SettingToast extends StatefulWidget {
 
   final FToast ftoast;
-  SettingToast(this.ftoast);
+   SettingToast(this.ftoast);
 
   @override
   _SettingToastState createState() => _SettingToastState();

@@ -5,214 +5,243 @@ import 'package:random_game_new_version/pages/playerslevelpage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LevelDashboard extends StatefulWidget {
+  static const String routeName = '/levelboard';
 
-  static const String routeName='/levelboard';
 
   @override
   _LevelDashboardState createState() => _LevelDashboardState();
 }
 
 class _LevelDashboardState extends State<LevelDashboard> {
+  var status1 = true;
+  var status2 = true;
+  var status3 = true;
+  var status4 = true;
+  var status5 = true;
+  var status6 = true;
+  late double height;
+  int onBtnColor = 0xffff1dcd;
+  String levelCount = '';
 
-var status1=true;
-var status2=true;
-var status3=true;
-var status4=true;
-var status5=true;
-var status6=true;
-
-int onBtnColor=0xffff1dcd;
- String levelCount='';
-
-
-@override
+  @override
   void initState() {
 
-  fetchHigestScoreFromSharedPref();
-  Future.delayed(Duration(microseconds: 2000),(){
-    findWhichLevelAreOpen();
-  });
-  setState(() {
+    fetchHigestScoreFromSharedPref();
+    Future.delayed(Duration(microseconds: 2000), () {
+      findWhichLevelAreOpen();
+    });
+    setState(() {
 
-  });
+    });
     super.initState();
   }
 
-
   @override
   Widget build(BuildContext context) {
-
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: SafeArea(
         child: Scaffold(
           body: Container(
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('img/bg.jpg'),
-                fit: BoxFit.fill
-              )
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
+              height: MediaQuery.of(context).size.height,
+              decoration: const BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage('img/level_bg.png'), fit: BoxFit.fill)),
+              child: Stack(
+                children: [
+                  Align(
+                    alignment: const Alignment(-.1,1),
+                    child: Container(
+                      margin: const EdgeInsets.only(bottom: 25),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          CircleAvatar(
+                            backgroundImage: const AssetImage('img/level_number.png'),
+                            backgroundColor: Colors.red.shade800,
+                            radius: 17,
+                            child: Text("1"),
+                          ),
+                          Image.asset('img/loli.png',height: 55,),
 
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    RaisedButton(
-                      disabledColor: Colors.black,
-                      disabledTextColor: Colors.white,
-                      onPressed: (){
-                        Navigator.of(context).push(MaterialPageRoute(builder: (context)=>PlayersLevelPage( value: '1',)));
-                      },
-                      child: Text("1"),
-                    ),
-                    RaisedButton(
-                      disabledColor: Colors.black,
-                      disabledTextColor: Colors.white,
-                      onPressed: status2
-                          ? null
-                          : () {
-                        Navigator.of(context).push(MaterialPageRoute(builder: (context)=>PlayersLevelPage( value: '2',)));
-                      },
-                      child: Text("2"),
-                    ),
-                    RaisedButton(
-                      disabledColor: Colors.black,
-                      disabledTextColor: Colors.white,
-                      onPressed: status3
-                          ? null
-                          : () {
-                        Navigator.of(context).push(MaterialPageRoute(builder: (context)=>PlayersLevelPage( value: '3',)));
-                        print("Clicked 33");
-                      },
-                      child: Text("3"),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    RaisedButton(
-                      disabledColor: Colors.black,
-                      disabledTextColor: Colors.white,
-                      onPressed: status4
-                          ? null
-                          : () {
-                        print("Clicked");
-                      },
-                      child: Text("4"),
-                    ),
-                    RaisedButton(
-                      disabledColor: Colors.black,
-                      disabledTextColor: Colors.white,
-                      onPressed: status5
-                          ? null
-                          : () {
-                        print("Clicked 5");
-                      },
-                      child: Text("5"),
-                    ),
-                    RaisedButton(
+                        ],
+                      ),
+                    )),
+                  Align(
+                    alignment: const Alignment(-.45,.80),
+                    child: Container(
+                      margin: const EdgeInsets.only(bottom: 25),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          CircleAvatar(
+                            backgroundImage: const AssetImage('img/level_number.png'),
+                            backgroundColor: Colors.red.shade800,
+                            radius: 17,
+                            child: Text("2"),
+                          ),
+                          Image.asset('img/loli.png',height: 50,),
 
-                      disabledColor: Colors.black,
-                      disabledTextColor: Colors.white,
-                      onPressed: status6
-                          ? null
-                          : () {
+                        ],
+                      ),
+                    )),
+                  Align(
+                      alignment: const Alignment(-.75,.60),
+                      child: Container(
+                        margin: const EdgeInsets.only(bottom: 25),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            CircleAvatar(
+                              backgroundImage: const AssetImage('img/level_number.png'),
+                              backgroundColor: Colors.red.shade800,
+                              radius: 17,
+                              child: Text("3"),
+                            ),
+                            Image.asset('img/loli.png',height: 45,),
 
-                      },
-                      child: Text("6"),
-                    ),
+                          ],
+                        ),
+                      )),
+                  Align(
+                      alignment: const Alignment(-.65,.30),
+                      child: Container(
+                        margin: const EdgeInsets.only(bottom: 25),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            CircleAvatar(
+                              backgroundImage: const AssetImage('img/level_number.png'),
+                              backgroundColor: Colors.red.shade800,
+                              radius: 17,
+                              child: Text("4"),
+                            ),
+                            Image.asset('img/loli.png',height: 40,),
 
-                  ],
-                ),
-                    // ElevatedButton(
-                    //
-                    //   style: ElevatedButton.styleFrom(
-                    //       shape: const CircleBorder(), primary: Color(
-                    //       onBtnColor)),
-                    //   child: Container(
-                    //     width: 20,
-                    //     height: 20,
-                    //     alignment: Alignment.center,
-                    //     decoration: const BoxDecoration(shape: BoxShape.circle),
-                    //     child: const Text(
-                    //       '6',
-                    //       style: TextStyle(fontSize: 20),
-                    //     ),
-                    //   ),
-                    //
-                    //   onPressed: () {
-                    //     setState(() {
-                    //       status = !status;
-                    //       onBtnColor=status?0xffff1dcd:0xFF1E88E5;
-                    //     });
-                    //   //  Navigator.of(context).push(MaterialPageRoute(builder: (context)=>PlayersLevelPage( value: '6',)));
-                    //   },
-                    // ),
+                          ],
+                        ),
+                      )),
+                  Align(
+                      alignment: const Alignment(-.30,.15),
+                      child: Container(
+                        margin: const EdgeInsets.only(bottom: 25),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            CircleAvatar(
+                              backgroundImage: const AssetImage('img/level_number.png'),
+                              backgroundColor: Colors.red.shade800,
+                              radius: 17,
+                              child: Text("5"),
+                            ),
+                            Image.asset('img/loli.png',height: 30,),
 
-                  ],
+                          ],
+                        ),
+                      )),
+                  Align(
+                      alignment: const Alignment(0,0.3),
+                      child: Container(
+                        margin: const EdgeInsets.only(bottom: 25),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            CircleAvatar(
+                              backgroundImage: const AssetImage('img/level_number.png'),
+                              backgroundColor: Colors.red.shade800,
+                              radius: 17,
+                              child: Text("6"),
+                            ),
+                            Image.asset('img/loli.png',height: 40,),
 
-            ),
-          ),
+                          ],
+                        ),
+                      )),
+                  // Align(
+                  //     alignment: Alignment(-.15, 1),
+                  //     child: Container(
+                  //
+                  //       margin: const EdgeInsets.only(bottom: 20),
+                  //       child: Column(
+                  //         mainAxisSize: MainAxisSize.min,
+                  //         children: [
+                  //           MaterialButton(
+                  //             textColor: Colors.white,
+                  //
+                  //             child: Container(
+                  //               margin: const EdgeInsets.only(top: 5),
+                  //               decoration: const BoxDecoration(
+                  //                 image: DecorationImage(
+                  //                     image: AssetImage('img/level_number.png',),
+                  //                     fit: BoxFit.fitWidth),
+                  //               ),
+                  //               child: const Padding(
+                  //                 padding: EdgeInsets.all(12.0),
+                  //                 child: Text("1"),
+                  //               ),
+                  //             ),
+                  //             // ),
+                  //             onPressed: () {
+                  //               print('Tapped');
+                  //             },
+                  //           ),
+                  //           Image.asset('img/loli.png',height: 55,),
+                  //         ],
+                  //       ),
+                  //     )),
+
+                ],
+              )),
         ),
       ),
     );
-
   }
-Future<String> fetchHigestScoreFromSharedPref() async {
-  final prefs = await SharedPreferences.getInstance();
-  setState(() {
-    levelCount = prefs.getString("level")!;
 
-  });
-  return levelCount;
-}
+  Future<String> fetchHigestScoreFromSharedPref() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      levelCount = prefs.getString("level")!;
+    });
+    return levelCount;
+  }
 
   void findWhichLevelAreOpen() {
-  print("Now"+levelCount);
-  if(levelCount=='2'){
-    setState(() {
-      status1=false;
-      status2=false;
-    });
+    print("Now" + levelCount);
+    if (levelCount == '2') {
+      setState(() {
+        status1 = false;
+        status2 = false;
+      });
+    } else if (levelCount == '3') {
+      setState(() {
+        status1 = false;
+        status2 = false;
+        status3 = false;
+      });
+    } else if (levelCount == '4') {
+      setState(() {
+        status1 = false;
+        status2 = false;
+        status3 = false;
+        status4 = false;
+      });
+    } else if (levelCount == '5') {
+      setState(() {
+        status1 = false;
+        status2 = false;
+        status3 = false;
+        status4 = false;
+        status5 = false;
+      });
+    } else if (levelCount == '6') {
+      setState(() {
+        status1 = false;
+        status2 = false;
+        status3 = false;
+        status4 = false;
+        status5 = false;
+        status6 = false;
+      });
+    }
   }
-  else if(levelCount=='3'){
-    setState(() {
-      status1=false;
-      status2=false;
-      status3=false;
-    });
-  }
-  else if(levelCount=='4'){
-    setState(() {
-      status1=false;
-      status2=false;
-      status3=false;
-      status4=false;
-    });
-  }
-  else if(levelCount=='5'){
-    setState(() {
-      status1=false;
-      status2=false;
-      status3=false;
-      status4=false;
-      status5=false;
-    });
-  }
-  else if(levelCount=='6'){
-    setState(() {
-      status1=false;
-      status2=false;
-      status3=false;
-      status4=false;
-      status5=false;
-      status6=false;
-    });
-  }
-  }
-
 }

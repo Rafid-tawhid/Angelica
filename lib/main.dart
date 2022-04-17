@@ -143,32 +143,13 @@ class _HomePageState extends State<HomePage> {
                               filterQuality: FilterQuality.high,
                               fit: BoxFit.contain,
                             ),
-                            Positioned(
-                              right: -10,
-                              child: IconButton(
-                                onPressed: () {
-                                  fToast = FToast();
-                                  fToast.init(context);
-                                  Widget widget = SettingToast(fToast);
-                                  fToast.showToast(
-                                    child: widget,
-                                    gravity: ToastGravity.CENTER,
-                                    toastDuration: Duration(seconds: 5),
-                                  );
-                                },
-                                icon: const Icon(
-                                  Icons.settings,
-                                ),
-                                iconSize: 30,
-                                color: Colors.pinkAccent,
-                              ),
-                            )
+
                           ],
                         )),
                   ),
                   Expanded(
                     child: Container(
-                      margin: EdgeInsets.all(5),
+                      margin: EdgeInsets.only(top: 20),
                       child: image1,
                     ),
                   ),
@@ -213,6 +194,7 @@ class _HomePageState extends State<HomePage> {
                           ],
                         ),
                         Row(
+
                           children: [
                             Expanded(
                               child: Padding(
@@ -243,6 +225,63 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 ),
                               ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+
+
+                            // MaterialButton(
+                            //   padding: const EdgeInsets.all(18.0),
+                            //   textColor: Colors.white,
+                            //   splashColor: Colors.greenAccent,
+                            //   elevation: 8.0,
+                            //   child: Container(
+                            //     height: 50,
+                            //     width: 130,
+                            //     decoration: const BoxDecoration(
+                            //
+                            //       image: DecorationImage(
+                            //           image: AssetImage('img/change.png',),
+                            //           fit: BoxFit.cover,filterQuality: FilterQuality.high),
+                            //     ),
+                            //
+                            //   ),
+                            //   // ),
+                            //   onPressed: () {
+                            //
+                            //   },
+                            // ),
+
+                            GestureDetector(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Container(
+                                  height: 50,
+                                  width: 155,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(25),
+                                    image: const DecorationImage(
+
+                                        image: AssetImage('img/change.png',),
+                                        fit: BoxFit.cover,filterQuality: FilterQuality.high),
+                                  ),
+
+
+                                ),
+                              ),
+                              onTap: (){
+                                fToast = FToast();
+                                fToast.init(context);
+                                Widget widget = SettingToast(fToast);
+                                fToast.showToast(
+                                  child: widget,
+                                  gravity: ToastGravity.CENTER,
+                                  toastDuration: const Duration(seconds: 5),
+                                );
+                              },
                             ),
                           ],
                         ),

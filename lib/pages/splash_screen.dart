@@ -1,8 +1,10 @@
 import 'package:animated_widgets/widgets/rotation_animated.dart';
 import 'package:animated_widgets/widgets/shake_animated_widget.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
 import 'package:random_game_new_version/auth/firebase_auth_services.dart';
 import 'package:random_game_new_version/custom_widget/helper%20class.dart';
@@ -20,8 +22,22 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   late bool showTxt;
 
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final GoogleSignIn _googleSignIn = GoogleSignIn(
+    scopes: [
+      'email'
+    ]
+  );
+  GoogleSignInAccount? _currentUser;
   @override
   void initState() {
+
+    _googleSignIn.onCurrentUserChanged.listen((account) {
+      setState(() {
+        _currentUser=account;
+      });
+    });
+    _googleSignIn.signInSilently();
 
     if(FirebaseAuthServices.currentUser==null)
       {
@@ -38,17 +54,17 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+    GoogleSignInAccount? user=_currentUser;
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
-
       // _registerProvider.nameList[0].toString();
     ]);
     return Center(
       child: SafeArea(
         child: Scaffold(
           body: Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               image: DecorationImage(
                   image: ExactAssetImage("img/wc.jpg",),
                   fit: BoxFit.fill,
@@ -79,7 +95,7 @@ class _SplashScreenState extends State<SplashScreen> {
                               child: Container(
                                 height: MediaQuery.of(context).size.height/10,
                                 width: MediaQuery.of(context).size.width/2,
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
 
                                   image: DecorationImage(
 
@@ -114,10 +130,26 @@ class _SplashScreenState extends State<SplashScreen> {
                             Navigator.pushNamed(context, LoginPage.routeName);
 
                           },
-                            child: Text('Sign Up Free',style: TextStyle(color: Colors.pinkAccent,fontSize: 16),),),
+                            child: const Text('Sign Up Free',style: TextStyle(color: Colors.pinkAccent,fontSize: 16),),),
                         ),
                       ),
                     ),
+
+                   // Row(
+                   //   children: [
+                   //     ElevatedButton(onPressed:_signIn , child: Text("Sign In")),
+                   //     ElevatedButton(onPressed: _signOut , child: Text("Sign Out")),
+                   //   ],
+                   // ),
+
+
+                   if(user!=null) ListTile(
+                     leading: GoogleUserCircleAvatar(identity: user,),
+                     title: Text(user.displayName!!),
+                     subtitle: Text(user.email),
+                   )
+
+
                   ],
                 ),
               ],
@@ -127,5 +159,16 @@ class _SplashScreenState extends State<SplashScreen> {
         ),
       ),
     );
+  }
+
+  Future<void> _signIn() async {
+    try{
+      await _googleSignIn.signIn();
+    }catch(e){
+      print('Error sign in $e');
+    }
+  }
+  void _signOut() {
+    _googleSignIn.disconnect();
   }
 }
