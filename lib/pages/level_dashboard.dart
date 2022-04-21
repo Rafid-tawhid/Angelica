@@ -19,6 +19,13 @@ class _LevelDashboardState extends State<LevelDashboard> {
   var status4 = true;
   var status5 = true;
   var status6 = true;
+  var level_bg2=const AssetImage('img/level_number.png');
+  var level_bg3=const AssetImage('img/level_number.png');
+  var level_bg4=const AssetImage('img/level_number.png');
+  var level_bg5=const AssetImage('img/level_number.png');
+  var level_bg6=const AssetImage('img/level_number.png');
+  var level_bg7=const AssetImage('img/level_number.png');
+  var level_bg8=const AssetImage('img/level_number.png');
   late double height;
   int onBtnColor = 0xffff1dcd;
   String levelCount = '';
@@ -27,7 +34,7 @@ class _LevelDashboardState extends State<LevelDashboard> {
   void initState() {
 
     fetchHigestScoreFromSharedPref();
-    Future.delayed(Duration(microseconds: 2000), () {
+    Future.delayed(const Duration(microseconds: 1000), () {
       findWhichLevelAreOpen();
     });
     setState(() {
@@ -56,11 +63,17 @@ class _LevelDashboardState extends State<LevelDashboard> {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          CircleAvatar(
-                            backgroundImage: const AssetImage('img/level_number.png'),
-                            backgroundColor: Colors.red.shade800,
-                            radius: 17,
-                            child: Text("1"),
+                          GestureDetector(
+                            child: CircleAvatar(
+                              backgroundImage: const AssetImage('img/level_number_on.png'),
+                              backgroundColor: Colors.red.shade800,
+                              radius: 17,
+                              child: const Text("1",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white,fontSize: 18)),
+                            ),
+                            onTap:(){
+                               Navigator.of(context).push(MaterialPageRoute(builder: (context)=>PlayersLevelPage(value: '1',)));
+
+                            },
                           ),
                           Image.asset('img/loli.png',height: 55,),
 
@@ -74,11 +87,22 @@ class _LevelDashboardState extends State<LevelDashboard> {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          CircleAvatar(
-                            backgroundImage: const AssetImage('img/level_number.png'),
-                            backgroundColor: Colors.red.shade800,
-                            radius: 17,
-                            child: Text("2"),
+                          GestureDetector(
+                            child: CircleAvatar(
+                              backgroundImage: level_bg2,
+                              backgroundColor: Colors.red.shade800,
+                              radius: 17,
+                              child: const Text("2",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white,fontSize: 18)),
+                            ),
+                           onTap: (){
+                             if(!status2){
+                               Navigator.of(context).push(MaterialPageRoute(builder: (context)=>PlayersLevelPage(value: '2',)));
+                             }
+                             else{
+                               print("Failed...........2");
+                             }
+
+                           },
                           ),
                           Image.asset('img/loli.png',height: 50,),
 
@@ -92,11 +116,21 @@ class _LevelDashboardState extends State<LevelDashboard> {
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            CircleAvatar(
-                              backgroundImage: const AssetImage('img/level_number.png'),
-                              backgroundColor: Colors.red.shade800,
-                              radius: 17,
-                              child: Text("3"),
+                            GestureDetector(
+                              child: CircleAvatar(
+                                backgroundImage: level_bg3,
+                                backgroundColor: Colors.red.shade800,
+                                radius: 17,
+                                child: const Text("3",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white,fontSize: 18)),
+                              ),
+                              onTap: (){
+                                if(!status3){
+                                  Navigator.of(context).push(MaterialPageRoute(builder: (context)=>PlayersLevelPage(value: '3',)));
+                                }
+                                else{
+                                  print("Failed...........3");
+                                }
+                              },
                             ),
                             Image.asset('img/loli.png',height: 45,),
 
@@ -110,11 +144,21 @@ class _LevelDashboardState extends State<LevelDashboard> {
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            CircleAvatar(
-                              backgroundImage: const AssetImage('img/level_number.png'),
-                              backgroundColor: Colors.red.shade800,
-                              radius: 17,
-                              child: Text("4"),
+                            GestureDetector(
+                              child: CircleAvatar(
+                                backgroundImage: level_bg4,
+                                backgroundColor: Colors.red.shade800,
+                                radius: 17,
+                                child: Text("4",style: const TextStyle(fontWeight: FontWeight.bold,color: Colors.white,fontSize: 18)),
+                              ),
+                              onTap: (){
+                                if(!status4){
+                                  Navigator.of(context).push(MaterialPageRoute(builder: (context)=>PlayersLevelPage(value: '4',)));
+                                }
+                                else{
+                                  print("Failed...........4");
+                                }
+                              },
                             ),
                             Image.asset('img/loli.png',height: 40,),
 
@@ -128,11 +172,21 @@ class _LevelDashboardState extends State<LevelDashboard> {
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            CircleAvatar(
-                              backgroundImage: const AssetImage('img/level_number.png'),
-                              backgroundColor: Colors.red.shade800,
-                              radius: 17,
-                              child: Text("5"),
+                            GestureDetector(
+                              child: CircleAvatar(
+                                backgroundImage: level_bg5,
+                                backgroundColor: Colors.red.shade800,
+                                radius: 17,
+                                child: Text("5",style: const TextStyle(fontWeight: FontWeight.bold,color: Colors.white,fontSize: 18)),
+                              ),
+                              onTap: (){
+                                if(!status5){
+                                  Navigator.of(context).push(MaterialPageRoute(builder: (context)=>PlayersLevelPage(value: '5',)));
+                                }
+                                else{
+                                  print("Failed...........5");
+                                }
+                              },
                             ),
                             Image.asset('img/loli.png',height: 30,),
 
@@ -140,17 +194,63 @@ class _LevelDashboardState extends State<LevelDashboard> {
                         ),
                       )),
                   Align(
-                      alignment: const Alignment(0,0.3),
+                      alignment: const Alignment(0,0.24),
+                      child: Container(
+                        margin: const EdgeInsets.only(bottom: 25),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            GestureDetector(
+                              child: CircleAvatar(
+                                backgroundImage: level_bg6,
+                                backgroundColor: Colors.red.shade800,
+                                radius: 17,
+                                child: Text("6",style: const TextStyle(fontWeight: FontWeight.bold,color: Colors.white,fontSize: 18)),
+                              ),
+                              onTap: (){
+                                if(!status6){
+                                  Navigator.of(context).push(MaterialPageRoute(builder: (context)=>PlayersLevelPage(value: '6',)));
+                                }
+                                else{
+                                  print("Failed...........6");
+                                }
+                              },
+                            ),
+                            Image.asset('img/loli.png',height: 40,),
+
+                          ],
+                        ),
+                      )),
+                  Align(
+                      alignment: const Alignment(-.2,0.40),
                       child: Container(
                         margin: const EdgeInsets.only(bottom: 25),
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             CircleAvatar(
-                              backgroundImage: const AssetImage('img/level_number.png'),
+                              backgroundImage: level_bg7,
                               backgroundColor: Colors.red.shade800,
                               radius: 17,
-                              child: Text("6"),
+                              child: Text("7",style: const TextStyle(fontWeight: FontWeight.bold,color: Colors.white,fontSize: 18)),
+                            ),
+                            Image.asset('img/loli.png',height: 40,),
+
+                          ],
+                        ),
+                      )),
+                  Align(
+                      alignment: const Alignment(.3,0.48),
+                      child: Container(
+                        margin: const EdgeInsets.only(bottom: 25),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            CircleAvatar(
+                              backgroundImage: level_bg8,
+                              backgroundColor: Colors.red.shade800,
+                              radius: 17,
+                              child: const Text("8",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white,fontSize: 18),),
                             ),
                             Image.asset('img/loli.png',height: 40,),
 
@@ -211,12 +311,15 @@ class _LevelDashboardState extends State<LevelDashboard> {
       setState(() {
         status1 = false;
         status2 = false;
+        level_bg2=const AssetImage('img/level_number_on.png');
       });
     } else if (levelCount == '3') {
       setState(() {
         status1 = false;
         status2 = false;
         status3 = false;
+        level_bg2=const AssetImage('img/level_number_on.png');
+        level_bg3=const AssetImage('img/level_number_on.png');
       });
     } else if (levelCount == '4') {
       setState(() {
@@ -224,6 +327,9 @@ class _LevelDashboardState extends State<LevelDashboard> {
         status2 = false;
         status3 = false;
         status4 = false;
+        level_bg2=const AssetImage('img/level_number_on.png');
+        level_bg3=const AssetImage('img/level_number_on.png');
+        level_bg4=const AssetImage('img/level_number_on.png');
       });
     } else if (levelCount == '5') {
       setState(() {

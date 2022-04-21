@@ -17,10 +17,9 @@ class PlayersLevelPage extends StatefulWidget {
 
   static const String routeName='/demo';
 
-  String value='1';
-
-
   PlayersLevelPage({Key? key, required this.value}) : super(key: key);
+  var value;
+
 
 
   @override
@@ -55,7 +54,7 @@ class _PlayersLevelPageState extends State<PlayersLevelPage> {
     fToast = FToast();
     fToast.init(context);
     choseLevelAndUpdateUi();
-     fetchHigestScoreFromSharedPref();
+    fetchHigestScoreFromSharedPref();
     super.initState();
   }
 
@@ -134,13 +133,13 @@ class _PlayersLevelPageState extends State<PlayersLevelPage> {
                           print('Countdown Started');
                         },
                         onComplete: () {
-                            // timerPlusMinusModeFunction
-                        if(widget.value=='5'){
-                          functionInterChangForLevelFive();
-                        }
-                        else if(widget.value=='6'){
-                          functionInterChangForLevelSix();
-                        }
+                          // timerPlusMinusModeFunction
+                          if(widget.value=='5'){
+                            functionInterChangForLevelFive();
+                          }
+                          else if(widget.value=='6'){
+                            functionInterChangForLevelSix();
+                          }
 
                           controller.start();
                         },
@@ -418,7 +417,7 @@ class _PlayersLevelPageState extends State<PlayersLevelPage> {
                             ),
                             // ),
                             onPressed: () {
-                            choseLevelAndUpdateUi();
+                              choseLevelAndUpdateUi();
                             },
                           ),
                         ],
@@ -452,7 +451,7 @@ class _PlayersLevelPageState extends State<PlayersLevelPage> {
 
   //plus and minus
   levelOne() {
-   _rollTheDice();
+    _rollTheDice();
   }
 
   void plusFunction() {
@@ -616,11 +615,11 @@ class _PlayersLevelPageState extends State<PlayersLevelPage> {
       //next call
       choseLevelAndUpdateUi();
 
-       _score=_score+1;
+      _score=_score+1;
 
     } else {
       print("ERROR");
-       showToast();
+      showToast();
     }
   }
   showToast() {
@@ -654,14 +653,14 @@ class _PlayersLevelPageState extends State<PlayersLevelPage> {
                 // saveHigestScoreToSharedPref(_higestScore);
                 fToast.removeCustomToast();
                 saveHigestScoreToSharedPref(widget.value);
-                
+
                 Navigator.pop(context);
               },),
               GestureDetector(child: Image.asset("img/yes.png",fit: BoxFit.cover,width: 120,),onTap: (){
-                 saveHigestScoreToSharedPref(widget.value);
+                saveHigestScoreToSharedPref(widget.value);
                 fToast.removeCustomToast();
                 setState(() {
-                   _score=0;
+                  _score=0;
                 });
                 choseLevelAndUpdateUi();
 
@@ -745,7 +744,9 @@ class _PlayersLevelPageState extends State<PlayersLevelPage> {
 
   void choseLevelAndUpdateUi() {
 
+
     if(widget.value=='1'){
+
       levelOne();
     }
     if(widget.value=='2'){
