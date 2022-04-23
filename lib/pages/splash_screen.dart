@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
 import 'package:random_game_new_version/auth/firebase_auth_services.dart';
@@ -130,7 +131,9 @@ class _SplashScreenState extends State<SplashScreen> {
                             Navigator.pushNamed(context, LoginPage.routeName);
 
                           },
-                            child: const Text('Sign Up Free',style: TextStyle(color: Colors.pinkAccent,fontSize: 16),),),
+                            child:  Text('Sign Up Free',style: GoogleFonts.bubblegumSans(
+                                fontSize: 16,color: Colors.pinkAccent)),
+                          ),
                         ),
                       ),
                     ),

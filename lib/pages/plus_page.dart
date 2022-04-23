@@ -108,7 +108,6 @@ class _PlusPageState extends State<PlusPage> {
       //   elevation: 0,
       // ),
       body: Container(
-
         width: double.maxFinite,
         height: double.maxFinite,
         padding: const EdgeInsets.only(top: 100,left: 10,right: 10),
@@ -126,14 +125,13 @@ class _PlusPageState extends State<PlusPage> {
           child: Stack(
 
             children: [
-
               Stack(
                 children: [
-                  FutureBuilder(future: _playersPrvider.getCC(),
-                    builder: (context,snapshot){
-                    return Text('COIN : ${snapshot.data}');
-                    },
-                  ),
+                  // FutureBuilder(future: _playersPrvider.getCC(),
+                  //   builder: (context,snapshot){
+                  //   return Text('COIN : ${snapshot.data}');
+                  //   },
+                  // ),
 
                    // Image.asset('img/number_bg.png',fit: BoxFit.cover,filterQuality: FilterQuality.high),
                  Align(
@@ -141,192 +139,193 @@ class _PlusPageState extends State<PlusPage> {
                    child:  Image.asset('img/number_bg.png',fit: BoxFit.cover,filterQuality: FilterQuality.high),
                  ),
 
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Center(
-                        child:Column(
-                          children: [
+                  Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Center(
+                          child:Column(
+                            children: [
 
-                             Container(
-                               child:  Padding(
-                                 padding:
-                                 const EdgeInsets.only(left: 27.0, right: 27,top: 40),
-                                 child: Row(
-                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                   children: [
+                               Container(
+                                 child:  Padding(
+                                   padding:
+                                   const EdgeInsets.only(left: 27.0, right: 27,top: 40),
+                                   child: Row(
+                                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                     children: [
 
-                                   Text(' Higest Score :$_higestScore',
-                                               style: GoogleFonts.bubblegumSans(
-                                                   fontSize: 20,color: Colors.pinkAccent
-                                               ),
-                                             ),
-                                            // Return empty container to avoid build errors
+                                       Text('Higest Score :$_higestScore',
+                                                 style: GoogleFonts.bubblegumSans(
+                                                     fontSize: 20,color: Colors.pinkAccent
+                                                 ),
+                                               ), // Return empty container to avoid build error
+                                       Text(Value.getString().toString()
 
-                                     Text(Value.getString().toString()
-
-                                       ,
-                                       style: GoogleFonts.bubblegumSans(
-                                           fontSize: 20,color: Colors.pinkAccent
-                                       ),
-                                     ), //Retriving name
-                                   ],
+                                         ,
+                                         style: GoogleFonts.bubblegumSans(
+                                             fontSize: 20,color: Colors.pinkAccent
+                                         ),
+                                       ), //Retriving name
+                                     ],
+                                   ),
                                  ),
                                ),
-                             ),
-                            const SizedBox(height: 15,),
-                            Container(
-                              height: 40,
-                              width: 149,
+                              const SizedBox(height: 15,),
+                              Container(
+                                height: 40,
+                                width: 149,
 
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(25),
-                                image: const DecorationImage(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(25),
+                                  image: const DecorationImage(
 
-                                    image: AssetImage('img/score_btn.png',),
-                                    fit: BoxFit.cover,filterQuality: FilterQuality.high),
+                                      image: AssetImage('img/score_btn.png',),
+                                      fit: BoxFit.cover,filterQuality: FilterQuality.high),
+                                ),
+                                child: Center(child: Text('Score : $_score',style: GoogleFonts.bubblegumSans(color: Colors.white,fontSize: 20),)),
+
                               ),
-                              child: Center(child: Text('Score : $_score',style: GoogleFonts.bubblegumSans(color: Colors.white,fontSize: 20),)),
-
-                            ),
+                            ],
+                          ),),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Container(
+                              margin: EdgeInsets.all(15),
+                              child: Row(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Image.asset(
+                                      _diceList[_index1],
+                                      height: 80,
+                                      width: 80,
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Image.asset(
+                                      'img/plus.png',
+                                      height: 80,
+                                      width: 80,
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Image.asset(
+                                      _diceList[_index2],
+                                      height: 80,
+                                      width: 80,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
                           ],
-                        ),),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Container(
-                            margin: EdgeInsets.all(15),
-                            child: Row(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Image.asset(
-                                    _diceList[_index1],
-                                    height: 80,
-                                    width: 80,
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Image.asset(
-                                    'img/plus.png',
-                                    height: 80,
-                                    width: 80,
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Image.asset(
-                                    _diceList[_index2],
-                                    height: 80,
-                                    width: 80,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                GestureDetector(
-                                  child: Container(
-                                    height: 42,
-                                    width: 135,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(25),
-                                      image: const DecorationImage(
+                        ),
+                        Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  GestureDetector(
+                                    child: Container(
+                                      height: 42,
+                                      width: 135,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(25),
+                                        image: const DecorationImage(
 
-                                          image: AssetImage('img/score_btn.png',),
-                                          fit: BoxFit.cover,filterQuality: FilterQuality.high),
+                                            image: AssetImage('img/score_btn.png',),
+                                            fit: BoxFit.cover,filterQuality: FilterQuality.high),
+                                      ),
+                                      child: Center(child: Text('$a',style: GoogleFonts.bubblegumSans(color: Colors.white,fontSize: 20),)),
+
                                     ),
-                                    child: Center(child: Text('$a',style: GoogleFonts.bubblegumSans(color: Colors.white,fontSize: 20),)),
-
+                                    onTap: (){
+                                      checkRes(a);
+                                    },
                                   ),
-                                  onTap: (){
-                                    checkRes(a);
-                                  },
-                                ),
-                                SizedBox(width: 10,),
-                                GestureDetector(
-                                  child: Container(
-                                    height: 42,
-                                    width: 135,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(25),
-                                      image: const DecorationImage(
+                                  SizedBox(width: 10,),
+                                  GestureDetector(
+                                    child: Container(
+                                      height: 42,
+                                      width: 135,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(25),
+                                        image: const DecorationImage(
 
-                                          image: AssetImage('img/score_btn.png',),
-                                          fit: BoxFit.cover,filterQuality: FilterQuality.high),
+                                            image: AssetImage('img/score_btn.png',),
+                                            fit: BoxFit.cover,filterQuality: FilterQuality.high),
+                                      ),
+                                      child: Center(child: Text('$b',style: GoogleFonts.bubblegumSans(color: Colors.white,fontSize: 20),)),
+
                                     ),
-                                    child: Center(child: Text('$b',style: GoogleFonts.bubblegumSans(color: Colors.white,fontSize: 20),)),
-
+                                    onTap: (){
+                                      checkRes(b);
+                                    },
                                   ),
-                                  onTap: (){
-                                    checkRes(b);
-                                  },
-                                ),
-                              ],
-                            ),
+                                ],
+                              ),
 
-                          ),//buttns1,2
-                          Padding(
-                            padding: const EdgeInsets.only(left: 8.0,right: 8),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                GestureDetector(
-                                  child: Container(
-                                    height: 42,
-                                    width: 135,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(25),
-                                      image: const DecorationImage(
+                            ),//buttns1,2
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8.0,right: 8),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  GestureDetector(
+                                    child: Container(
+                                      height: 42,
+                                      width: 135,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(25),
+                                        image: const DecorationImage(
 
-                                          image: AssetImage('img/score_btn.png',),
-                                          fit: BoxFit.cover,filterQuality: FilterQuality.high),
+                                            image: AssetImage('img/score_btn.png',),
+                                            fit: BoxFit.cover,filterQuality: FilterQuality.high),
+                                      ),
+                                      child: Center(child: Text('$c',style: GoogleFonts.bubblegumSans(color: Colors.white,fontSize: 20),)),
+
                                     ),
-                                    child: Center(child: Text('$c',style: GoogleFonts.bubblegumSans(color: Colors.white,fontSize: 20),)),
-
+                                    onTap: (){
+                                      checkRes(c);
+                                    },
                                   ),
-                                  onTap: (){
-                                    checkRes(c);
-                                  },
-                                ),
-                                SizedBox(width: 10,),
-                                GestureDetector(
-                                  child: Container(
-                                    height: 42,
-                                    width: 135,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(25),
-                                      image: DecorationImage(
+                                  SizedBox(width: 10,),
+                                  GestureDetector(
+                                    child: Container(
+                                      height: 42,
+                                      width: 135,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(25),
+                                        image: DecorationImage(
 
-                                          image: AssetImage('img/score_btn.png',),
-                                          fit: BoxFit.cover,filterQuality: FilterQuality.high),
+                                            image: AssetImage('img/score_btn.png',),
+                                            fit: BoxFit.cover,filterQuality: FilterQuality.high),
+                                      ),
+                                      child: Center(child: Text('$d',style: GoogleFonts.bubblegumSans(color: Colors.white,fontSize: 20),)),
+
                                     ),
-                                    child: Center(child: Text('$d',style: GoogleFonts.bubblegumSans(color: Colors.white,fontSize: 20),)),
-
+                                    onTap: (){
+                                      checkRes(d);
+                                    },
                                   ),
-                                  onTap: (){
-                                    checkRes(d);
-                                  },
-                                ),
-                              ],
-                            ),
-                          ), //buttns3,4
+                                ],
+                              ),
+                            ), //buttns3,4
 
-                        ],
-                      ),
-                      SizedBox(height: 60,)
-                    ],
+                          ],
+                        ),
+                        SizedBox(height: 60,)
+                      ],
+                    ),
                   )
 
                 ],

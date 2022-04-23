@@ -61,7 +61,9 @@ class _SignUpPageState extends State<SignUpPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const SizedBox(height:180,),
+                 SizedBox(
+                  height: MediaQuery.of(context).size.width/1.5,
+                ),
                 Stack(
                   children: [
 
@@ -170,15 +172,13 @@ class _SignUpPageState extends State<SignUpPage> {
                                     mainAxisSize: MainAxisSize.min,
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Center(child: Expanded(
-                                        child: GestureDetector(
-                                          child: Center(
-                                            child: Image.asset('img/register.png',fit: BoxFit.cover,),
-                                          ),
-                                          onTap: (){
-                                            _createUser();
-                                          },
+                                      Center(child: GestureDetector(
+                                        child: Center(
+                                          child: Image.asset('img/register.png',fit: BoxFit.cover,),
                                         ),
+                                        onTap: (){
+                                          _createUser();
+                                        },
                                       ),),
                                     ],
                                   ),

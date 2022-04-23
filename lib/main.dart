@@ -106,17 +106,7 @@ class _HomePageState extends State<HomePage> {
       home: SafeArea(
         child: Scaffold(
           drawer: Drawer(),
-          // appBar: AppBar(
-          //   title: Text("Honey Bunny",style: GoogleFonts.bubblegumSans(
-          //     fontWeight: FontWeight.w900,
-          //     fontStyle: FontStyle.normal,
-          //     fontSize: 26,
-          //     letterSpacing: 1
-          //   ),),
-          //   centerTitle: true,
-          //   backgroundColor: Color(0xffF61ABC),
-          //
-          // ),
+
           body: GestureDetector(
             onTap: () {
               fToast.removeCustomToast();
