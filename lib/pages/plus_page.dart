@@ -22,11 +22,10 @@ class PlusPage extends StatefulWidget {
 }
 
 class _PlusPageState extends State<PlusPage> {
+  String? userName;
+  late PlayersPrvider _playersPrvider;
 
-   String? userName;
-   late PlayersPrvider _playersPrvider;
-
-   PlayerInfoModel _playerInfoModel=PlayerInfoModel();
+  PlayerInfoModel _playerInfoModel = PlayerInfoModel();
 
   // late Timer _timer;
   int _start = 120;
@@ -43,14 +42,13 @@ class _PlusPageState extends State<PlusPage> {
   var c = 0;
   var d = 0;
 
-   late String formattedDate;
+  late String formattedDate;
   bool showMsg = false;
   bool hideNumber = true;
-  bool showHigestAndName=true;
+  bool showHigestAndName = true;
 
   String _title = 'Noob';
   final _achivement = 'Beginner';
-
 
   DateTime now = DateTime.now();
   AudioPlayer player = AudioPlayer(mode: PlayerMode.LOW_LATENCY);
@@ -86,44 +84,36 @@ class _PlusPageState extends State<PlusPage> {
 
     fetchHigestScoreFromSharedPref();
   }
-   void didChangeDependencies() {
-     _playersPrvider=Provider.of<PlayersPrvider>(context,listen: false);
-     _playersPrvider.getCC();
-     super.didChangeDependencies();
-   }
 
-
+  void didChangeDependencies() {
+    // _playersPrvider = Provider.of<PlayersPrvider>(context, listen: false);
+    // _playersPrvider.getCC();
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
-
     _rollTheDice();
     //initial call
 
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text('Plus'),
-      //   centerTitle: true,
-      //   backgroundColor: Color(0xffF61ABC),
-      //   elevation: 0,
-      // ),
+
       body: Container(
         width: double.maxFinite,
         height: double.maxFinite,
-        padding: const EdgeInsets.only(top: 100,left: 10,right: 10),
+        padding: const EdgeInsets.only(top: 100, left: 10, right: 10),
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: ExactAssetImage('img/game_bg2.png',),
-            fit: BoxFit.fill,
-           filterQuality: FilterQuality.high
-          ),
+              image: ExactAssetImage(
+                'img/game_bg2.png',
+              ),
+              fit: BoxFit.fill,
+              filterQuality: FilterQuality.high),
         ),
         child: SizedBox(
           width: double.maxFinite,
           height: double.infinity,
-
           child: Stack(
-
             children: [
               Stack(
                 children: [
@@ -133,11 +123,12 @@ class _PlusPageState extends State<PlusPage> {
                   //   },
                   // ),
 
-                   // Image.asset('img/number_bg.png',fit: BoxFit.cover,filterQuality: FilterQuality.high),
-                 Align(
-                   alignment: Alignment.center,
-                   child:  Image.asset('img/number_bg.png',fit: BoxFit.cover,filterQuality: FilterQuality.high),
-                 ),
+                  // Image.asset('img/number_bg.png',fit: BoxFit.cover,filterQuality: FilterQuality.high),
+                  Align(
+                    alignment: Alignment.center,
+                    child: Image.asset('img/number_bg.png',
+                        fit: BoxFit.cover, filterQuality: FilterQuality.high),
+                  ),
 
                   Center(
                     child: Column(
@@ -145,50 +136,63 @@ class _PlusPageState extends State<PlusPage> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Center(
-                          child:Column(
+                          child: Column(
                             children: [
-
-                               Container(
-                                 child:  Padding(
-                                   padding:
-                                   const EdgeInsets.only(left: 27.0, right: 27,top: 40),
-                                   child: Row(
-                                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                     children: [
-
-                                       Text('Higest Score :$_higestScore',
-                                                 style: GoogleFonts.bubblegumSans(
-                                                     fontSize: 20,color: Colors.pinkAccent
-                                                 ),
-                                               ), // Return empty container to avoid build error
-                                       Text(Value.getString().toString()
-
-                                         ,
-                                         style: GoogleFonts.bubblegumSans(
-                                             fontSize: 20,color: Colors.pinkAccent
-                                         ),
-                                       ), //Retriving name
-                                     ],
-                                   ),
-                                 ),
-                               ),
-                              const SizedBox(height: 15,),
+                              Container(
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 27.0, right: 27, top: 40),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      Text(
+                                        'Higest Score :$_higestScore',
+                                        style: GoogleFonts.bubblegumSans(
+                                            fontSize: 20,
+                                            color: Colors.pinkAccent),
+                                      ), // Return empty container to avoid build error
+                                      Container(
+                                        alignment: Alignment.center,
+                                        width: 80,
+                                        child: FittedBox(
+                                          child: Text(
+                                            Value.getString().toString(),
+                                            style: GoogleFonts.bubblegumSans(
+                                                fontSize: 20,
+                                                color: Colors.pinkAccent),
+                                          ),
+                                        ),
+                                      ), //Retriving name
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 15,
+                              ),
                               Container(
                                 height: 40,
                                 width: 149,
-
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(25),
                                   image: const DecorationImage(
-
-                                      image: AssetImage('img/score_btn.png',),
-                                      fit: BoxFit.cover,filterQuality: FilterQuality.high),
+                                      image: AssetImage(
+                                        'img/score_btn.png',
+                                      ),
+                                      fit: BoxFit.cover,
+                                      filterQuality: FilterQuality.high),
                                 ),
-                                child: Center(child: Text('Score : $_score',style: GoogleFonts.bubblegumSans(color: Colors.white,fontSize: 20),)),
-
+                                child: Center(
+                                    child: Text(
+                                  'Score : $_score',
+                                  style: GoogleFonts.bubblegumSans(
+                                      color: Colors.white, fontSize: 20),
+                                )),
                               ),
                             ],
-                          ),),
+                          ),
+                        ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
@@ -240,18 +244,26 @@ class _PlusPageState extends State<PlusPage> {
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(25),
                                         image: const DecorationImage(
-
-                                            image: AssetImage('img/score_btn.png',),
-                                            fit: BoxFit.cover,filterQuality: FilterQuality.high),
+                                            image: AssetImage(
+                                              'img/score_btn.png',
+                                            ),
+                                            fit: BoxFit.cover,
+                                            filterQuality: FilterQuality.high),
                                       ),
-                                      child: Center(child: Text('$a',style: GoogleFonts.bubblegumSans(color: Colors.white,fontSize: 20),)),
-
+                                      child: Center(
+                                          child: Text(
+                                        '$a',
+                                        style: GoogleFonts.bubblegumSans(
+                                            color: Colors.white, fontSize: 20),
+                                      )),
                                     ),
-                                    onTap: (){
+                                    onTap: () {
                                       checkRes(a);
                                     },
                                   ),
-                                  SizedBox(width: 10,),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
                                   GestureDetector(
                                     child: Container(
                                       height: 42,
@@ -259,23 +271,29 @@ class _PlusPageState extends State<PlusPage> {
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(25),
                                         image: const DecorationImage(
-
-                                            image: AssetImage('img/score_btn.png',),
-                                            fit: BoxFit.cover,filterQuality: FilterQuality.high),
+                                            image: AssetImage(
+                                              'img/score_btn.png',
+                                            ),
+                                            fit: BoxFit.cover,
+                                            filterQuality: FilterQuality.high),
                                       ),
-                                      child: Center(child: Text('$b',style: GoogleFonts.bubblegumSans(color: Colors.white,fontSize: 20),)),
-
+                                      child: Center(
+                                          child: Text(
+                                        '$b',
+                                        style: GoogleFonts.bubblegumSans(
+                                            color: Colors.white, fontSize: 20),
+                                      )),
                                     ),
-                                    onTap: (){
+                                    onTap: () {
                                       checkRes(b);
                                     },
                                   ),
                                 ],
                               ),
-
-                            ),//buttns1,2
+                            ), //buttns1,2
                             Padding(
-                              padding: const EdgeInsets.only(left: 8.0,right: 8),
+                              padding:
+                                  const EdgeInsets.only(left: 8.0, right: 8),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -287,18 +305,26 @@ class _PlusPageState extends State<PlusPage> {
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(25),
                                         image: const DecorationImage(
-
-                                            image: AssetImage('img/score_btn.png',),
-                                            fit: BoxFit.cover,filterQuality: FilterQuality.high),
+                                            image: AssetImage(
+                                              'img/score_btn.png',
+                                            ),
+                                            fit: BoxFit.cover,
+                                            filterQuality: FilterQuality.high),
                                       ),
-                                      child: Center(child: Text('$c',style: GoogleFonts.bubblegumSans(color: Colors.white,fontSize: 20),)),
-
+                                      child: Center(
+                                          child: Text(
+                                        '$c',
+                                        style: GoogleFonts.bubblegumSans(
+                                            color: Colors.white, fontSize: 20),
+                                      )),
                                     ),
-                                    onTap: (){
+                                    onTap: () {
                                       checkRes(c);
                                     },
                                   ),
-                                  SizedBox(width: 10,),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
                                   GestureDetector(
                                     child: Container(
                                       height: 42,
@@ -306,32 +332,36 @@ class _PlusPageState extends State<PlusPage> {
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(25),
                                         image: DecorationImage(
-
-                                            image: AssetImage('img/score_btn.png',),
-                                            fit: BoxFit.cover,filterQuality: FilterQuality.high),
+                                            image: AssetImage(
+                                              'img/score_btn.png',
+                                            ),
+                                            fit: BoxFit.cover,
+                                            filterQuality: FilterQuality.high),
                                       ),
-                                      child: Center(child: Text('$d',style: GoogleFonts.bubblegumSans(color: Colors.white,fontSize: 20),)),
-
+                                      child: Center(
+                                          child: Text(
+                                        '$d',
+                                        style: GoogleFonts.bubblegumSans(
+                                            color: Colors.white, fontSize: 20),
+                                      )),
                                     ),
-                                    onTap: (){
+                                    onTap: () {
                                       checkRes(d);
                                     },
                                   ),
                                 ],
                               ),
                             ), //buttns3,4
-
                           ],
                         ),
-                        SizedBox(height: 60,)
+                        SizedBox(
+                          height: 60,
+                        )
                       ],
                     ),
                   )
-
                 ],
               ),
-
-
               Center(
                 child: Padding(
                   padding: const EdgeInsets.only(bottom: 10.0),
@@ -349,18 +379,18 @@ class _PlusPageState extends State<PlusPage> {
                               height: 45,
                               width: 120,
                               decoration: const BoxDecoration(
-
                                 image: DecorationImage(
-                                    image: AssetImage('img/back.png',),
-                                    fit: BoxFit.cover,filterQuality: FilterQuality.high),
+                                    image: AssetImage(
+                                      'img/back.png',
+                                    ),
+                                    fit: BoxFit.cover,
+                                    filterQuality: FilterQuality.high),
                               ),
-
                             ),
                             // ),
-                            onPressed: () async{
-
+                            onPressed: () async {
                               // savePlayersInfoToFirebase();
-                             // await _playersPrvider.savePlayersInfo(_playerInfoModel);
+                              // await _playersPrvider.savePlayersInfo(_playerInfoModel);
                               replacePlayersInfo();
                               saveHigestScoreToSharedPref(_higestScore);
                               Navigator.pop(context);
@@ -375,43 +405,32 @@ class _PlusPageState extends State<PlusPage> {
                               height: 45,
                               width: 120,
                               decoration: const BoxDecoration(
-
                                 image: DecorationImage(
-
-                                    image: AssetImage('img/skip.png',),
-                                    fit: BoxFit.cover,filterQuality: FilterQuality.high),
+                                    image: AssetImage(
+                                      'img/skip.png',
+                                    ),
+                                    fit: BoxFit.cover,
+                                    filterQuality: FilterQuality.high),
                               ),
-
                             ),
                             // ),
                             onPressed: () {
                               _rollTheDice();
-
-
                             },
                           ),
                         ],
-                      )
-                  ),
+                      )),
                 ),
               ),
-
             ],
           ),
         ),
-
-
-
-
-
       ),
     );
   }
 
-
   void _rollTheDice() {
     // _fetchUserInfo();
-
 
     if (_score > _higestScore) {
       _higestScore = _score;
@@ -443,14 +462,13 @@ class _PlusPageState extends State<PlusPage> {
   }
 
   void suffle(int rand1, int rand2, int rand3, int sum) {
-    if (rand1 == rand2||rand2==rand3) {
+    if (rand1 == rand2 || rand2 == rand3) {
       _rand2 = _rand2 + 1;
-
     }
-    if (rand1 == rand3||rand3==rand2) {
+    if (rand1 == rand3 || rand3 == rand2) {
       _rand3 = _rand3 + 1;
     }
-    if (rand1 == rand3||rand1==rand2) {
+    if (rand1 == rand3 || rand1 == rand2) {
       _rand1 = _rand1 + 1;
     }
     if (_rand1 == sum || _rand2 == sum || _rand3 == sum) {
@@ -476,21 +494,17 @@ class _PlusPageState extends State<PlusPage> {
 
     //show congratulations toast
 
-
-
     if (aa == _sum) {
       final player = AudioCache();
       // congrats sound
       player.play('play.wav');
-      Widget toast= CustomCongoToast.showCongratsMsg();
+      Widget toast = CustomCongoToast.showCongratsMsg();
       fToast.showToast(
         child: toast,
         gravity: ToastGravity.CENTER,
         toastDuration: const Duration(milliseconds: 900),
       );
-      setState(() {
-
-      });
+      setState(() {});
       // setState(() {
       //   showMsg = true;
       //   hideNumber = false;
@@ -505,7 +519,6 @@ class _PlusPageState extends State<PlusPage> {
     } else {
       print("ERROR");
       showToast();
-
     }
   }
 
@@ -514,13 +527,15 @@ class _PlusPageState extends State<PlusPage> {
     final player = AudioCache();
     player.play('buzzer.wav');
 
-    Widget toast=Container(
+    Widget toast = Container(
       alignment: Alignment.bottomCenter,
-      height: MediaQuery.of(context).size.height/2,
+      height: MediaQuery.of(context).size.height / 2,
       width: MediaQuery.of(context).size.width,
       decoration: const BoxDecoration(
         image: DecorationImage(
-          image: AssetImage("img/wrng.png",),
+          image: AssetImage(
+            "img/wrng.png",
+          ),
           fit: BoxFit.fill,
         ),
       ),
@@ -532,23 +547,38 @@ class _PlusPageState extends State<PlusPage> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              const SizedBox(width: 10,),
-              GestureDetector(child: Image.asset("img/no.png",fit: BoxFit.cover,width: 120,),onTap: (){
-                saveHigestScoreToSharedPref(_higestScore);
-                fToast.removeCustomToast();
-                Navigator.pop(context);
-              },),
-              GestureDetector(child: Image.asset("img/yes.png",fit: BoxFit.cover,width: 120,),onTap: (){
-                // saveHigestScoreToSharedPref(_higestScore);
-                fToast.removeCustomToast();
-                setState(() {
-                  _score=0;
-                });
-
-
-              },),
-              const SizedBox(width: 10,)
-
+              const SizedBox(
+                width: 10,
+              ),
+              GestureDetector(
+                child: Image.asset(
+                  "img/no.png",
+                  fit: BoxFit.cover,
+                  width: 120,
+                ),
+                onTap: () {
+                  saveHigestScoreToSharedPref(_higestScore);
+                  fToast.removeCustomToast();
+                  Navigator.pop(context);
+                },
+              ),
+              GestureDetector(
+                child: Image.asset(
+                  "img/yes.png",
+                  fit: BoxFit.cover,
+                  width: 120,
+                ),
+                onTap: () {
+                  // saveHigestScoreToSharedPref(_higestScore);
+                  fToast.removeCustomToast();
+                  setState(() {
+                    _score = 0;
+                  });
+                },
+              ),
+              const SizedBox(
+                width: 10,
+              )
             ],
           ),
         ),
@@ -571,37 +601,27 @@ class _PlusPageState extends State<PlusPage> {
   //   // _rollTheDice();
   // }
 
-
-
-
-
-
-
   void savePlayersInfoToFirebase() {
     var now = DateTime.now();
     var formatter = DateFormat('MMM-dd / h:mm');
     formattedDate = formatter.format(now);
     String? mail;
-    if(FirebaseAuthServices.currentUser==null)
-      {
-      mail="bot@gmail.com";
-      }
-    else
-      {
-        mail=FirebaseAuthServices.currentUser!.email;
-      }
-    _playerInfoModel.name=Value.getString().toString();
-    _playerInfoModel.email=mail;
-    _playerInfoModel.titel=_title;
-    _playerInfoModel.plus=_higestScore;
-    _playerInfoModel.min=_score;
-    _playerInfoModel.mup=_score;
-    _playerInfoModel.div=_score;
-    _playerInfoModel.achivement=_achivement;
-    _playerInfoModel.time=formattedDate;
+    if (FirebaseAuthServices.currentUser == null) {
+      mail = "bot@gmail.com";
+    } else {
+      mail = FirebaseAuthServices.currentUser!.email;
+    }
+    _playerInfoModel.name = Value.getString().toString();
+    _playerInfoModel.email = mail;
+    _playerInfoModel.titel = _title;
+    _playerInfoModel.plus = _higestScore;
+    _playerInfoModel.min = _score;
+    _playerInfoModel.mup = _score;
+    _playerInfoModel.div = _score;
+    _playerInfoModel.achivement = _achivement;
+    _playerInfoModel.time = formattedDate;
 
     print('firebase saving');
-
   }
 
   // void checkUserLoginOrNot() {
@@ -618,46 +638,37 @@ class _PlusPageState extends State<PlusPage> {
   //   }
   // }
 
-  void replacePlayersInfo() async{
-      var now = new DateTime.now();
-      var formatter = DateFormat('MMM-dd / h:mm');
-      formattedDate = formatter.format(now);
+  void replacePlayersInfo() async {
+    var now = new DateTime.now();
+    var formatter = DateFormat('MMM-dd / h:mm');
+    formattedDate = formatter.format(now);
 
-      _playerInfoModel=(await _playersPrvider.findPlayersAllInfo(FirebaseAuthServices.currentUser!.email.toString()))!;
-      if(_playerInfoModel!=null)
-        {
-          savePlayersInfoToFirebase();
-          await _playersPrvider.updateProfileScore(_playerInfoModel,"plus");
-          print("found");
-        }
-      else
-        {
-          print("Not found");
-        }
-
+    _playerInfoModel = (await _playersPrvider.findPlayersAllInfo(
+        FirebaseAuthServices.currentUser!.email.toString()))!;
+    if (_playerInfoModel != null) {
+      savePlayersInfoToFirebase();
+      await _playersPrvider.updateProfileScore(_playerInfoModel, "plus");
+      print("found");
+    } else {
+      print("Not found");
+    }
   }
 
-   void saveHigestScoreToSharedPref(int higest) async {
-     var now = DateTime.now();
-     var formatter = DateFormat('MMM-dd / h:mm');
-     String formattedDate = formatter.format(now);
+  void saveHigestScoreToSharedPref(int higest) async {
+    var now = DateTime.now();
+    var formatter = DateFormat('MMM-dd / h:mm');
+    String formattedDate = formatter.format(now);
 
-     var sharedPreferences = await SharedPreferences.getInstance();
-     sharedPreferences.setInt("plus", higest);
-     // sharedPreferences.setString("minDt", formattedDate);
+    var sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.setInt("plus", higest);
+    // sharedPreferences.setString("minDt", formattedDate);
+  }
 
-   }
-   Future<int> fetchHigestScoreFromSharedPref() async {
-     final prefs = await SharedPreferences.getInstance();
-     setState(() {
-       _higestScore = prefs.getInt("plus")!;
-
-     });
-     return _higestScore;
-   }
-
-
-
-
-
+  Future<int> fetchHigestScoreFromSharedPref() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _higestScore = prefs.getInt("plus")!;
+    });
+    return _higestScore;
+  }
 }

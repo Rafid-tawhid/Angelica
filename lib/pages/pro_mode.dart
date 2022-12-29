@@ -157,16 +157,21 @@ class _ProfessionalModeState extends State<ProfessionalMode> {
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      ' Higest Score :$_higestScore',
+                                      'Higest Score :$_higestScore',
                                       style: GoogleFonts.bubblegumSans(
-                                          fontSize: 20,color: Colors.pinkAccent
-                                      ),
-                                    ),
-                                    Text(
-                                      Value.getString().toString(),
-
-                                      style: GoogleFonts.bubblegumSans(
-                                          fontSize: 20,color: Colors.pinkAccent
+                                          fontSize: 20,
+                                          color: Colors.pinkAccent),
+                                    ), // Return empty container to avoid build error
+                                    Container(
+                                      alignment: Alignment.center,
+                                      width: 80,
+                                      child: FittedBox(
+                                        child: Text(
+                                          Value.getString().toString(),
+                                          style: GoogleFonts.bubblegumSans(
+                                              fontSize: 20,
+                                              color: Colors.pinkAccent),
+                                        ),
                                       ),
                                     ),
                                   ],

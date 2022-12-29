@@ -8,6 +8,9 @@ import 'package:random_game_new_version/auth/firebase_auth_services.dart';
 import 'package:random_game_new_version/main.dart';
 import 'package:random_game_new_version/pages/signUpPage.dart';
 import 'package:random_game_new_version/providers/reg_provider.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+
+import '../providers/players_info_provider.dart';
 
 class LoginPage extends StatefulWidget {
   static const String routeName='/login_page';
@@ -20,11 +23,15 @@ class _LoginPageState extends State<LoginPage> {
   String? _email,_pass;
   String _errorMsg='';
   bool _isObscure=true;
-
+  late PlayersPrvider _playersPrvider;
 
   final form_key=GlobalKey<FormState>();
 
 
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+  }
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -203,15 +210,20 @@ class _LoginPageState extends State<LoginPage> {
     if(form_key.currentState!.validate())
     {
       form_key.currentState!.save();
+      EasyLoading.show(status: 'loading...');
+     await FirebaseAuthServices.logOutUser();
 
       try{
-        final user= await FirebaseAuthServices.loginUser(_email!, _pass!);
-        if(user !=null)
-        {
+        final user= await FirebaseAuthServices.loginUser(_email!, _pass!).then((value){
+          _playersPrvider=Provider.of<PlayersPrvider>(context,listen: false);
+          _playersPrvider.getHigestScore();
+          EasyLoading.dismiss();
           Navigator.pushReplacementNamed(context, HomePage.routeName);
-        }
+        });
+
       }
       on FirebaseAuthException catch(e){
+        EasyLoading.dismiss();
         setState(() {
           _errorMsg=e.message!;
         });

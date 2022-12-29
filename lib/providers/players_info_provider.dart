@@ -18,8 +18,12 @@ class PlayersPrvider extends ChangeNotifier{
 
 
   Future<int?> getHigestScore() async  {
-    return FireStoreHelper.getHigestScore().then((value) async =>
-    await value.docs.first.data()['plus']);
+    var profile;
+    await FireStoreHelper.getHigestScore().then((value)  {
+       profile=value.docs.first.data()['plus'];
+    });
+    return profile;
+
   }
 
 

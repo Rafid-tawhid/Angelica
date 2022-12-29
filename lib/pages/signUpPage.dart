@@ -2,6 +2,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:random_game_new_version/auth/firebase_auth_services.dart';
@@ -177,6 +178,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                           child: Image.asset('img/register.png',fit: BoxFit.cover,),
                                         ),
                                         onTap: (){
+
                                           _createUser();
                                         },
                                       ),),
@@ -235,23 +237,27 @@ class _SignUpPageState extends State<SignUpPage> {
     {
       form_key.currentState!.save();
       try{
-
-
+        EasyLoading.show();
         //create new user with email and pass
 
-        final user= await FirebaseAuthServices.createUser(_email!, _pass!);
-        if(user !=null)
-        {
-          //add user info to firebase with provider
+        final user= await FirebaseAuthServices.createUser(_email!, _pass!).then((value) {
+          _registerProvider.registerNewUser(_registerUserModel).then((value){
+            savePlayersInfoToFirebase();
+            _playersPrvider.savePlayersInfo(_playerInfoModel).then((value) {
+              EasyLoading.dismiss();
+            });
+          });
 
-          _registerProvider.registerNewUser(_registerUserModel);
-          savePlayersInfoToFirebase();
-          _playersPrvider.savePlayersInfo(_playerInfoModel);
+
 
           Navigator.pushReplacementNamed(context, HomePage.routeName);
-        }
+
+          EasyLoading.dismiss();
+        });
+
       }
       on FirebaseAuthException catch(e){
+        EasyLoading.dismiss();
         setState(() {
           _errorMsg=e.message!;
         });

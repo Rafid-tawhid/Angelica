@@ -133,19 +133,24 @@ class _DivisorPageState extends State<DivisorPage> {
                                   padding:
                                   const EdgeInsets.only(left: 27.0, right: 27,top: 40),
                                   child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                     children: [
                                       Text(
-                                        ' Higest Score :$_higestScore',
+                                        'Higest Score :$_higestScore',
                                         style: GoogleFonts.bubblegumSans(
-                                            fontSize: 20,color: Colors.pinkAccent
-                                        ),
-                                      ),
-                                      Text(
-                                        Value.getString().toString(),
-
-                                        style: GoogleFonts.bubblegumSans(
-                                            fontSize: 20,color: Colors.pinkAccent
+                                            fontSize: 20,
+                                            color: Colors.pinkAccent),
+                                      ), // Return empty container to avoid build error
+                                      Container(
+                                        alignment: Alignment.center,
+                                        width: 80,
+                                        child: FittedBox(
+                                          child: Text(
+                                            Value.getString().toString(),
+                                            style: GoogleFonts.bubblegumSans(
+                                                fontSize: 20,
+                                                color: Colors.pinkAccent),
+                                          ),
                                         ),
                                       ),
                                     ],

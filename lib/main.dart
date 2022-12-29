@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -26,6 +27,8 @@ import 'pages/multiplication_page.dart';
 import 'pages/plus_page.dart';
 import 'pages/splash_screen.dart';
 
+
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -38,6 +41,7 @@ void main() async {
     child: MaterialApp(
       debugShowCheckedModeBanner: false,
       initialRoute: SplashScreen.routeName,
+      builder: EasyLoading.init(),
       routes: {
         SplashScreen.routeName: (context) => SplashScreen(),
         HomePage.routeName: (context) => HomePage(),
@@ -100,6 +104,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      builder: EasyLoading.init(),
       theme: ThemeData(
         primaryColor: Colors.pinkAccent,
       ),
@@ -221,30 +226,6 @@ class _HomePageState extends State<HomePage> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-
-
-                            // MaterialButton(
-                            //   padding: const EdgeInsets.all(18.0),
-                            //   textColor: Colors.white,
-                            //   splashColor: Colors.greenAccent,
-                            //   elevation: 8.0,
-                            //   child: Container(
-                            //     height: 50,
-                            //     width: 130,
-                            //     decoration: const BoxDecoration(
-                            //
-                            //       image: DecorationImage(
-                            //           image: AssetImage('img/change.png',),
-                            //           fit: BoxFit.cover,filterQuality: FilterQuality.high),
-                            //     ),
-                            //
-                            //   ),
-                            //   // ),
-                            //   onPressed: () {
-                            //
-                            //   },
-                            // ),
-
                             GestureDetector(
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
@@ -298,15 +279,4 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  // void sendUserScoretoAnotherPage() {
-  //   if(_playersPrvider.higestScoreList[0]==0)
-  //   {
-  //     UserName.setString('00');
-  //   }
-  //   else
-  //   {
-  //     UserName.setString(_playersPrvider.higestScoreList[0].toString());
-  //   }
-  //
-  // }
 }

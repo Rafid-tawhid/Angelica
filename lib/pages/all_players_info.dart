@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:provider/provider.dart';
 import 'package:random_game_new_version/providers/players_info_provider.dart';
 
@@ -25,6 +26,7 @@ class _AllPlayersState extends State<AllPlayers> {
       appBar: AppBar(
         title: const Text('Records'),
       ),
+
       body: ListView.builder(itemCount: playersPrvider.playerList.length,
             itemBuilder: (context,index){
               final players=playersPrvider.playerList[index];
