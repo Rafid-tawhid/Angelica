@@ -212,7 +212,6 @@ class _LoginPageState extends State<LoginPage> {
       form_key.currentState!.save();
       EasyLoading.show(status: 'loading...');
      await FirebaseAuthServices.logOutUser();
-
       try{
         final user= await FirebaseAuthServices.loginUser(_email!, _pass!).then((value){
           _playersPrvider=Provider.of<PlayersPrvider>(context,listen: false);

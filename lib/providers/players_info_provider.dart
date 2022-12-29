@@ -9,6 +9,7 @@ class PlayersPrvider extends ChangeNotifier{
   List<PlayerInfoModel> playerList=[];
    Future<int>? coin;
    Future<int>? score_databse;
+  PlayerInfoModel? playerinfoModel;
 
 
 
@@ -42,7 +43,7 @@ class PlayersPrvider extends ChangeNotifier{
     final snapshot=await FireStoreHelper.findPlayersAllInfoByEmail(FirebaseAuthServices.currentUser!.email.toString());
 
     if(snapshot.docs.isNotEmpty){
-      final playerinfoModel=PlayerInfoModel.fromMap(snapshot.docs.first.data());
+       playerinfoModel=PlayerInfoModel.fromMap(snapshot.docs.first.data());
       return playerinfoModel;
     }
     return null;

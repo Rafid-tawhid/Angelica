@@ -83,11 +83,12 @@ class _HomePageState extends State<HomePage> {
 
   void didChangeDependencies() {
     if (FirebaseAuth.instance.currentUser != null) {
-      _registerProvider = Provider.of<RegisterProvider>(context);
+      _registerProvider = Provider.of<RegisterProvider>(context,listen: false);
       _registerProvider.getName();
 
       playersPrvider = Provider.of<PlayersPrvider>(context, listen: false);
       playersPrvider.getPlayers();
+      playersPrvider.findPlayersAllInfo(FirebaseAuth.instance.currentUser!.email!);
     }
     super.didChangeDependencies();
   }
@@ -272,6 +273,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   void sendNametoAnotherPage() {
+    _registerProvider = Provider.of<RegisterProvider>(context,listen: false);
     if (_registerProvider.nameList[0].isEmpty) {
       Value.setString('Hello !');
     } else {
