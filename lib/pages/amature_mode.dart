@@ -6,8 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:random_game_new_version/custom_widget/animation_toast.dart';
 import 'package:random_game_new_version/custom_widget/helper%20class.dart';
+import 'package:random_game_new_version/models/players_info_model.dart';
+import 'package:random_game_new_version/providers/players_info_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Amature extends StatefulWidget {
@@ -72,6 +75,9 @@ class _AmatureState extends State<Amature> {
     fToast.init(context);
     fetchHigestScoreFromSharedPref();
   }
+
+
+
   @override
   Widget build(BuildContext context) {
     _rollTheDice();
@@ -117,7 +123,7 @@ class _AmatureState extends State<Amature> {
                                 padding:
                                 const EdgeInsets.only(left: 27.0, right: 27,top: 40),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                   children: [
                                     Text(
                                       'Higest Score :$_higestScore',
@@ -326,6 +332,7 @@ class _AmatureState extends State<Amature> {
                             // ),
                             onPressed: () {
                               saveHigestScoreToSharedPref(_higestScore);
+                              checkHigestScoreToUpgradeCoin(_score);
                               Navigator.pop(context);
                             },
                           ),
@@ -480,11 +487,13 @@ class _AmatureState extends State<Amature> {
               SizedBox(width: 10,),
               GestureDetector(child: Image.asset("img/no.png",fit: BoxFit.cover,width: 120,),onTap: (){
                 saveHigestScoreToSharedPref(_higestScore);
+                checkHigestScoreToUpgradeCoin(_score);
                 fToast.removeCustomToast();
                 Navigator.pop(context);
               },),
               GestureDetector(child: Image.asset("img/yes.png",fit: BoxFit.cover,width: 120,),onTap: (){
                 saveHigestScoreToSharedPref(_higestScore);
+                checkHigestScoreToUpgradeCoin(_score);
                 fToast.removeCustomToast();
                 setState(() {
                   _score=0;
@@ -512,12 +521,27 @@ class _AmatureState extends State<Amature> {
   void customToastShow() {
     fToast.removeCustomToast();
     _score = 0;
-
     // _rollTheDice();
   }
 
 
-
+  void checkHigestScoreToUpgradeCoin(int higest) async{
+    final provider=Provider.of<PlayersPrvider>(context,listen: false);
+    PlayerInfoModel? profile=await provider.findPlayersAllInfo();
+    print(profile.toString());
+    if(higest>10&&higest<20){
+      profile!.coin=profile.coin!+10;
+      provider.updateProfileScore(profile, 'amature');
+    }
+    if(higest>20&&higest<40){
+      profile!.coin=profile.coin!+20;
+      provider.updateProfileScore(profile, 'amature');
+    }
+    if(higest>40){
+      profile!.coin=profile.coin!+30;
+      provider.updateProfileScore(profile, 'amature');
+    }
+  }
 
   void saveHigestScoreToSharedPref(int higest) async {
     var now = DateTime.now();

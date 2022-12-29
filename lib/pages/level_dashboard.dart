@@ -1,8 +1,12 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:random_game_new_version/models/players_info_model.dart';
 import 'package:random_game_new_version/pages/playerslevelpage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../providers/players_info_provider.dart';
 
 class LevelDashboard extends StatefulWidget {
   static const String routeName = '/levelboard';
@@ -36,20 +40,28 @@ class _LevelDashboardState extends State<LevelDashboard> {
   late double height;
   int onBtnColor = 0xffff1dcd;
   String levelCount = '';
-
-
+  late PlayersPrvider prvider;
+  PlayerInfoModel? playersInfo;
 
   @override
   void initState() {
 
-    fetchHigestScoreFromSharedPref();
-    Future.delayed(const Duration(microseconds: 1000), () {
-      findWhichLevelAreOpen();
-    });
-    setState(() {
-
-    });
+    // fetchHigestScoreFromSharedPref();
+    // Future.delayed(const Duration(microseconds: 1000), () {
+    //   findWhichLevelAreOpen();
+    // });
+    // setState(() {
+    //
+    // });
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+     playersInfo=ModalRoute.of(context)!.settings.arguments as PlayerInfoModel?;
+     prvider=Provider.of(context,listen: true);
+
+    super.didChangeDependencies();
   }
 
   @override
@@ -65,6 +77,19 @@ class _LevelDashboardState extends State<LevelDashboard> {
                       image: AssetImage('img/level_bg.png'), fit: BoxFit.fill)),
               child: Stack(
                 children: [
+                  // FutureBuilder<PlayerInfoModel?>(
+                  //   future: prvider.findPlayersAllInfo(),
+                  //   builder: (context,snapshot){
+                  //     return Column(
+                  //       children: [
+                  //         Text(snapshot.data!.name!),
+                  //         Text(snapshot.data!.email!),
+                  //         Text(snapshot.data!.coin.toString()),
+                  //       ],
+                  //     );
+                  //   },
+                  // ),
+                  playersInfo==null?Text('Please Login'):Text(playersInfo!.name!),
                   Align(
                     alignment: const Alignment(-.1,1),
                     child: Container(

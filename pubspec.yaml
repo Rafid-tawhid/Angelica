@@ -49,6 +49,8 @@ dependencies:
   circular_countdown_timer: ^0.2.0
   google_sign_in: ^5.2.4
   flutter_easyloading: ^3.0.5
+  stop_watch_timer:
+  art_sweetalert: ^0.0.5
 
 
   flutter_lints: ^1.0.0

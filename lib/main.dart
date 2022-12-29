@@ -23,6 +23,7 @@ import 'package:random_game_new_version/pages/substract_page.dart';
 import 'package:random_game_new_version/providers/players_info_provider.dart';
 import 'package:random_game_new_version/providers/reg_provider.dart';
 import 'custom_widget/helper class.dart';
+import 'models/players_info_model.dart';
 import 'pages/multiplication_page.dart';
 import 'pages/plus_page.dart';
 import 'pages/splash_screen.dart';
@@ -75,6 +76,7 @@ class _HomePageState extends State<HomePage> {
   // String? userName;
   late RegisterProvider _registerProvider;
   late PlayersPrvider playersPrvider;
+  PlayerInfoModel? playerInfoModel;
   late FToast fToast;
 
   // players name
@@ -83,11 +85,13 @@ class _HomePageState extends State<HomePage> {
 
   void didChangeDependencies() {
     if (FirebaseAuth.instance.currentUser != null) {
-      _registerProvider = Provider.of<RegisterProvider>(context);
+      _registerProvider = Provider.of<RegisterProvider>(context,listen: false);
       _registerProvider.getName();
 
       playersPrvider = Provider.of<PlayersPrvider>(context, listen: false);
-      playersPrvider.getPlayers();
+      playersPrvider.findPlayersAllInfo().then((value) {
+        playerInfoModel=value;
+      });
     }
     super.didChangeDependencies();
   }
@@ -99,6 +103,8 @@ class _HomePageState extends State<HomePage> {
 
     super.initState();
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -246,7 +252,7 @@ class _HomePageState extends State<HomePage> {
                               onTap: (){
                                 fToast = FToast();
                                 fToast.init(context);
-                                Widget widget = SettingToast(fToast);
+                                Widget widget = SettingToast(ftoast: fToast,playersInfoModel: playerInfoModel,);
                                 fToast.showToast(
                                   child: widget,
                                   gravity: ToastGravity.CENTER,
@@ -272,6 +278,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   void sendNametoAnotherPage() {
+    _registerProvider = Provider.of<RegisterProvider>(context,listen: false);
     if (_registerProvider.nameList[0].isEmpty) {
       Value.setString('Hello !');
     } else {

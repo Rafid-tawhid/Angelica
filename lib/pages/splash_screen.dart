@@ -30,6 +30,8 @@ class _SplashScreenState extends State<SplashScreen> {
     ]
   );
   GoogleSignInAccount? _currentUser;
+
+
   @override
   void initState() {
 
@@ -52,6 +54,8 @@ class _SplashScreenState extends State<SplashScreen> {
 
     super.initState();
   }
+
+
 
   @override
   Widget build(BuildContext context) {

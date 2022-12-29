@@ -86,7 +86,7 @@ class _PlusPageState extends State<PlusPage> {
   }
 
   void didChangeDependencies() {
-    // _playersPrvider = Provider.of<PlayersPrvider>(context, listen: false);
+    _playersPrvider = Provider.of<PlayersPrvider>(context, listen: false);
     // _playersPrvider.getCC();
     super.didChangeDependencies();
   }
@@ -643,8 +643,7 @@ class _PlusPageState extends State<PlusPage> {
     var formatter = DateFormat('MMM-dd / h:mm');
     formattedDate = formatter.format(now);
 
-    _playerInfoModel = (await _playersPrvider.findPlayersAllInfo(
-        FirebaseAuthServices.currentUser!.email.toString()))!;
+    _playerInfoModel = (await _playersPrvider.findPlayersAllInfo())!;
     if (_playerInfoModel != null) {
       savePlayersInfoToFirebase();
       await _playersPrvider.updateProfileScore(_playerInfoModel, "plus");

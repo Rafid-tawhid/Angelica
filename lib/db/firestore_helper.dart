@@ -87,6 +87,10 @@ class FireStoreHelper{
         break;
       case "div":
        await docRef.update({'email': playerInfoModel.email, 'div' :playerInfoModel.div });
+       break;
+
+      case "amature":
+        await docRef.update(playerInfoModel.toMap());
         break;
     }
   }

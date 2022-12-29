@@ -4,11 +4,14 @@ import 'package:random_game_new_version/auth/firebase_auth_services.dart';
 import 'package:random_game_new_version/db/firestore_helper.dart';
 import 'package:random_game_new_version/models/players_info_model.dart';
 
+import '../custom_widget/helper class.dart';
+
 class PlayersPrvider extends ChangeNotifier{
   List<int> higestScoreList=[];
   List<PlayerInfoModel> playerList=[];
    Future<int>? coin;
    Future<int>? score_databse;
+  PlayerInfoModel? playerinfoModel;
 
 
 
@@ -37,12 +40,14 @@ class PlayersPrvider extends ChangeNotifier{
 
 
 
-  Future<PlayerInfoModel?> findPlayersAllInfo(String mail)async
+  Future<PlayerInfoModel?> findPlayersAllInfo()async
   {
     final snapshot=await FireStoreHelper.findPlayersAllInfoByEmail(FirebaseAuthServices.currentUser!.email.toString());
 
     if(snapshot.docs.isNotEmpty){
-      final playerinfoModel=PlayerInfoModel.fromMap(snapshot.docs.first.data());
+       playerinfoModel=PlayerInfoModel.fromMap(snapshot.docs.first.data());
+       ProfileInfo.setProfile(playerinfoModel!);
+      notifyListeners();
       return playerinfoModel;
     }
     return null;
@@ -52,7 +57,6 @@ class PlayersPrvider extends ChangeNotifier{
   Future<void> updateProfileScore(PlayerInfoModel playerInfoModel,String types)async
   {
     FireStoreHelper.playerInfoUpdate(playerInfoModel,types);
-    print(playerInfoModel.toString());
     print(playerInfoModel.toString());
   }
 

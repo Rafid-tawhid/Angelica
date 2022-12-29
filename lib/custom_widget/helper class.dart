@@ -20,20 +20,21 @@ class Value {
   }
 }
 
-class UserName {
-  static String? value;
-  static void setString(String newValue) {
-    value = newValue;
+class ProfileInfo {
+  static PlayerInfoModel? profile;
+  static void setProfile(PlayerInfoModel newValue) {
+    profile = newValue;
   }
 
-  static String? getString() {
-    if(value==null)
+  static PlayerInfoModel? getProfile() {
+    if(profile==null)
     {
-      return "hello.!";
+
+      return null;
     }
     else
       {
-        return value;
+        return profile;
       }
   }
 

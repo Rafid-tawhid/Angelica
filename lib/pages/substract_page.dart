@@ -568,7 +568,7 @@ class SubPage extends StatefulWidget {
      var formatter = DateFormat('MMM-dd / h:mm');
      formattedDate = formatter.format(now);
 
-     _playerInfoModel=(await _playersPrvider.findPlayersAllInfo(FirebaseAuthServices.currentUser!.email.toString()))!;
+     _playerInfoModel=(await _playersPrvider.findPlayersAllInfo())!;
      if(_playerInfoModel!=null)
      {
        savePlayersInfoToFirebase();

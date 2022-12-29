@@ -9,6 +9,7 @@ import 'package:random_game_new_version/main.dart';
 import 'package:random_game_new_version/pages/signUpPage.dart';
 import 'package:random_game_new_version/providers/reg_provider.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../providers/players_info_provider.dart';
 
@@ -212,11 +213,16 @@ class _LoginPageState extends State<LoginPage> {
       form_key.currentState!.save();
       EasyLoading.show(status: 'loading...');
      await FirebaseAuthServices.logOutUser();
-
       try{
-        final user= await FirebaseAuthServices.loginUser(_email!, _pass!).then((value){
+        final user= await FirebaseAuthServices.loginUser(_email!, _pass!).then((value) async {
           _playersPrvider=Provider.of<PlayersPrvider>(context,listen: false);
-          _playersPrvider.getHigestScore();
+          // _playersPrvider.getHigestScore();
+         _playersPrvider.findPlayersAllInfo().then((player) async {
+           final prefs = await SharedPreferences.getInstance();
+           prefs.setStringList('info',[player!.achivement!,player.coin.toString(),player.div.toString(),player.email!,player.id!,player.min.toString(),player.mup.toString(),player.name.toString(),player.plus.toString(),player.time.toString(),player.titel!]);
+           final List<String>? items = prefs.getStringList('info');
+           print(items);
+         });
           EasyLoading.dismiss();
           Navigator.pushReplacementNamed(context, HomePage.routeName);
         });

@@ -11,6 +11,7 @@ import 'package:random_game_new_version/models/players_info_model.dart';
 import 'package:random_game_new_version/models/register_user_model.dart';
 import 'package:random_game_new_version/providers/players_info_provider.dart';
 import 'package:random_game_new_version/providers/reg_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignUpPage extends StatefulWidget {
   static const String routeName='/signUp_page';
@@ -93,7 +94,10 @@ class _SignUpPageState extends State<SignUpPage> {
 
                                     validator: (value){
                                       if(value==null || value.isEmpty) {
-                                        return 'This field must not be empty';
+                                        return 'username must not be empty';
+                                      }
+                                      if(value.length>11) {
+                                        return 'Username must be less than 10 charecter';
                                       }
                                       return null;
                                     },
@@ -117,9 +121,9 @@ class _SignUpPageState extends State<SignUpPage> {
                                     keyboardType: TextInputType.emailAddress,
                                     validator: (value){
                                       if(value==null || value.isEmpty) {
-                                        return 'This field must not be empty';
+                                        return 'email must not be empty';
                                       }
-                                      return null;
+                                     else return null;
                                     },
                                     onSaved: (value){
                                       _email=value;
@@ -166,8 +170,6 @@ class _SignUpPageState extends State<SignUpPage> {
                                             })),
 
                                   ),
-
-
                                   const SizedBox(height: 20,),
                                   Row(
                                     mainAxisSize: MainAxisSize.min,
@@ -178,7 +180,6 @@ class _SignUpPageState extends State<SignUpPage> {
                                           child: Image.asset('img/register.png',fit: BoxFit.cover,),
                                         ),
                                         onTap: (){
-
                                           _createUser();
                                         },
                                       ),),
@@ -188,9 +189,6 @@ class _SignUpPageState extends State<SignUpPage> {
                                     padding: const EdgeInsets.all(6.0),
                                     child: Center(child: Text(_errorMsg,style: TextStyle(fontSize: 15,color: Colors.red),)),
                                   ),
-
-
-
                                 ],
                               ))
                         ),
@@ -244,6 +242,13 @@ class _SignUpPageState extends State<SignUpPage> {
           _registerProvider.registerNewUser(_registerUserModel).then((value){
             savePlayersInfoToFirebase();
             _playersPrvider.savePlayersInfo(_playerInfoModel).then((value) {
+              _playersPrvider.findPlayersAllInfo().then((player) async {
+                final prefs = await SharedPreferences.getInstance();
+                prefs.setStringList('info',[player!.achivement!,player.coin.toString(),player.div.toString(),player.email!,player.id!,player.min.toString(),player.mup.toString(),player.name.toString(),player.plus.toString(),player.time.toString(),player.titel!]);
+                final List<String>? items = prefs.getStringList('info');
+                print(items);
+              });
+
               EasyLoading.dismiss();
             });
           });

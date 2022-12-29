@@ -6,10 +6,13 @@ import 'package:random_game_new_version/pages/amature_mode.dart';
 import 'package:random_game_new_version/pages/level_dashboard.dart';
 import 'package:random_game_new_version/pages/pro_mode.dart';
 
+import '../models/players_info_model.dart';
+
 class SettingToast extends StatefulWidget {
 
   final FToast ftoast;
-   SettingToast(this.ftoast);
+  final PlayerInfoModel? playersInfoModel;
+   SettingToast({required this.ftoast, this.playersInfoModel});
 
   @override
   _SettingToastState createState() => _SettingToastState();
@@ -45,7 +48,7 @@ class _SettingToastState extends State<SettingToast> {
                onTap: (){
                  widget.ftoast.removeCustomToast();
                  widget.ftoast.removeQueuedCustomToasts();
-                 Navigator.pushNamed(context, LevelDashboard.routeName);
+                 Navigator.pushNamed(context, LevelDashboard.routeName,arguments: widget.playersInfoModel);
                },),
              ),
              Padding(
