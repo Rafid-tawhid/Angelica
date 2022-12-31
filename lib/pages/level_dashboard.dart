@@ -59,6 +59,9 @@ class _LevelDashboardState extends State<LevelDashboard> {
   @override
   void didChangeDependencies() {
      playersInfo=ModalRoute.of(context)!.settings.arguments as PlayerInfoModel?;
+     if(playersInfo!.coin!>100){
+       circle3=true;
+     }
      prvider=Provider.of(context,listen: true);
 
     super.didChangeDependencies();
@@ -77,19 +80,67 @@ class _LevelDashboardState extends State<LevelDashboard> {
                       image: AssetImage('img/level_bg.png'), fit: BoxFit.fill)),
               child: Stack(
                 children: [
-                  // FutureBuilder<PlayerInfoModel?>(
-                  //   future: prvider.findPlayersAllInfo(),
-                  //   builder: (context,snapshot){
-                  //     return Column(
-                  //       children: [
-                  //         Text(snapshot.data!.name!),
-                  //         Text(snapshot.data!.email!),
-                  //         Text(snapshot.data!.coin.toString()),
-                  //       ],
-                  //     );
-                  //   },
-                  // ),
-                  playersInfo==null?Text('Please Login'):Text(playersInfo!.name!),
+
+
+                  Align(
+                    alignment: Alignment.topCenter,
+                    child: Container(
+                      height: 200,
+                      alignment: Alignment.center,
+                      width: MediaQuery.of(context).size.width/1.4,
+                      decoration: const BoxDecoration(
+                        color: Colors.transparent,
+                      ),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Image.asset('img/profile.png',height: 80,width: 80,),
+                              Column(
+                                mainAxisSize: MainAxisSize.min,
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  playersInfo==null?Text('Please Login'):Text(playersInfo!.name!),
+                                  Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Image.asset('img/coin.png',height: 25,width: 25,),
+                                      SizedBox(width: 10,),
+                                      Text(playersInfo!.coin.toString())
+                                    ],
+                                  )
+                                ],
+                              )
+                            ],
+                          ),
+                          SizedBox(height: 20,),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Image.asset('img/trophy.png',height: 25,width: 25,),
+                                  SizedBox(width: 10,),
+                                  Text(playersInfo!.titel!)
+                                ],
+                              ),
+                              Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Image.asset('img/title.png',height: 25,width: 25,),
+                                  SizedBox(width: 10,),
+                                  Text(playersInfo!.achivement!)
+                                ],
+                              )
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
                   Align(
                     alignment: const Alignment(-.1,1),
                     child: Container(

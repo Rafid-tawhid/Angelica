@@ -140,7 +140,7 @@ class _HomePageState extends State<HomePage> {
                         child: Stack(
                           children: [
                             Image.asset(
-                              'img/title.png',
+                              'img/math_title.png',
                               filterQuality: FilterQuality.high,
                               fit: BoxFit.contain,
                             ),
