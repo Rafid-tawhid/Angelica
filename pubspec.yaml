@@ -34,7 +34,6 @@ dependencies:
   fluttertoast: ^8.0.8
   shared_preferences: ^2.0.8
   audioplayers: ^0.20.1
-  flutter_svg: ^0.23.0+1
   intl: ^0.17.0
   animated_widgets: ^1.1.0
   google_fonts: ^2.1.0
@@ -51,6 +50,8 @@ dependencies:
   flutter_easyloading: ^3.0.5
   stop_watch_timer:
   art_sweetalert: ^0.0.5
+  flutter_svg: ^1.1.6
+
 
 
   flutter_lints: ^1.0.0
@@ -78,6 +79,7 @@ flutter:
     - assets/play.wav
     - assets/buzzer.wav
     - assets/svg/play.svg
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

@@ -108,7 +108,6 @@ class _PlayersLevelPageState extends State<PlayersLevelPage> {
                     child: Align(
                       alignment: Alignment.topCenter,
                       child: CircularCountDownTimer(
-
                         duration: 5,
                         initialDuration: 0,
                         controller: controller,

@@ -8,11 +8,15 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:random_game_new_version/custom_widget/animation_toast.dart';
 import 'package:random_game_new_version/custom_widget/helper%20class.dart';
+import 'package:random_game_new_version/providers/players_info_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
 import 'package:art_sweetalert/art_sweetalert.dart';
+
+import '../models/players_info_model.dart';
 
 class ProfessionalMode extends StatefulWidget {
 
@@ -45,21 +49,18 @@ class _ProfessionalModeState extends State<ProfessionalMode> {
   int _start = 10;
   final stopWatchTimer = StopWatchTimer(
     mode: StopWatchMode.countDown,
-    presetMillisecond: StopWatchTimer.getMilliSecFromMinute(1),
+    presetMillisecond: StopWatchTimer.getMilliSecFromMinute(2),
     onEnded: (){
      calltimerEnd();
     }
     // millisecond => minute.
   );
 
+  late PlayersPrvider provider;
 
   DateTime now = DateTime.now();
   AudioPlayer player = AudioPlayer(mode: PlayerMode.LOW_LATENCY);
 
-  String nameS = "Bot User",
-      idS = "00",
-      mailS = "user@",
-      emailFromLogin = "email@from_user";
   List<int> list = [];
   final _random = Random.secure();
   final _diceList = <String>[
@@ -76,11 +77,8 @@ class _ProfessionalModeState extends State<ProfessionalMode> {
   late FToast fToast;
   bool callOnce=true;
   CountDownController controller = CountDownController();
-  // @override
-  // void dispose() {
-  //   _timer.cancel();
-  //   super.dispose();
-  // }
+
+
   @override
   void initState() {
     super.initState();
@@ -94,6 +92,13 @@ class _ProfessionalModeState extends State<ProfessionalMode> {
   void dispose() async {
     super.dispose();
     await stopWatchTimer.dispose();  // Need to call dispose function.
+  }
+
+
+  @override
+  void didChangeDependencies() {
+    provider=Provider.of<PlayersPrvider>(context,listen: false);
+    super.didChangeDependencies();
   }
 
 
@@ -429,6 +434,7 @@ class _ProfessionalModeState extends State<ProfessionalMode> {
                             // ),
                             onPressed: () {
                               saveHigestScoreToSharedPref(_higestScore);
+                              checkHigestScoreToUpgradeCoin(_score);
                               Navigator.pop(context);
                             },
                           ),
@@ -599,11 +605,13 @@ class _ProfessionalModeState extends State<ProfessionalMode> {
               GestureDetector(child: Image.asset("img/no.png",fit: BoxFit.cover,width: 120,),onTap: (){
                 saveHigestScoreToSharedPref(_higestScore);
                 fToast.removeCustomToast();
+                checkHigestScoreToUpgradeCoin(_score);
                 Navigator.pop(context);
               },),
               GestureDetector(child: Image.asset("img/yes.png",fit: BoxFit.cover,width: 120,),onTap: (){
                 saveHigestScoreToSharedPref(_higestScore);
                 controller.start();
+                checkHigestScoreToUpgradeCoin(_score);
                 fToast.removeCustomToast();
                 setState(() {
                   _score=0;
@@ -773,10 +781,41 @@ class _ProfessionalModeState extends State<ProfessionalMode> {
     showMsg=true;
   }
 
-  void showStopDialog(String displayTime) {
-    if(displayTime=='00:55'){
 
-      callOnce=false;
+
+  void checkHigestScoreToUpgradeCoin(int higest) async{
+    final provider=Provider.of<PlayersPrvider>(context,listen: false);
+    PlayerInfoModel? profile=await provider.findPlayersAllInfo();
+    print(profile.toString());
+
+    if(higest>20&&higest<40){
+        profile!.coin=profile.coin!+10;
+        profile.titel=getTitelByCoin(profile!.coin);
+        provider.updateProfileScore(profile, 'pro');
+      }
+
+    if(higest>40&&higest<60){
+      profile!.coin=profile.coin!+20;
+      profile.titel=getTitelByCoin(profile!.coin);
+      provider.updateProfileScore(profile, 'pro');
     }
+    if(higest>60){
+      profile!.coin=profile.coin!+30;
+      profile.titel=getTitelByCoin(profile!.coin);
+      provider.updateProfileScore(profile, 'pro');
+    }
+  }
+
+  String? getTitelByCoin(int? coin) {
+    if(coin!>500&&coin<1000){
+      return 'Amature';
+    }
+    else if(coin>1000&&coin<1500){
+      return 'Hero';
+    }
+   else if(coin>2000){
+      return 'Legend';
+    }
+
   }
 }

@@ -39,8 +39,8 @@ class SubPage extends StatefulWidget {
    late String formattedDate;
    bool showMsg = false;
    bool hideNumber = true;
-   String _title = 'Noob';
-   final _achivement = 'Beginner';
+    String? _title;
+    String? _achivement;
 
    DateTime now = DateTime.now();
    AudioPlayer player = AudioPlayer(mode: PlayerMode.LOW_LATENCY);
@@ -396,18 +396,6 @@ class SubPage extends StatefulWidget {
    void _rollTheDice() {
      // _fetchUserInfo();
 
-     if (_score > _higestScore) {
-       _higestScore = _score;
-       if (_score > 5) {
-         _title = 'amature';
-       }
-       if (_score > 10) {
-         _title = 'pro';
-       }
-       if (_score > 15) {
-         _title = 'legend';
-       }
-     }
      // _saveLastScore(_higestScore);
      setState(() {
        _index1 = _random.nextInt(9);

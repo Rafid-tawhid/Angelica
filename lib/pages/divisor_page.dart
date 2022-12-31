@@ -40,8 +40,8 @@ class _DivisorPageState extends State<DivisorPage> {
   // late String BOT;
   bool showMsg = false;
   bool hideNumber = true;
-  String _title = 'Noob';
-  final _achivement = 'Beginner';
+  String? _title;
+  String? _achivement ;
   late String formattedDate;
 
 
@@ -391,19 +391,6 @@ class _DivisorPageState extends State<DivisorPage> {
   }
   void _rollTheDice() {
     // _fetchUserInfo();
-
-    if (_score > _higestScore) {
-      _higestScore = _score;
-      if (_score > 5) {
-        _title = 'amature';
-      }
-      if (_score > 10) {
-        _title = 'pro';
-      }
-      if (_score > 15) {
-        _title = 'legend';
-      }
-    }
     // _saveLastScore(_higestScore);
 
     setState(() {

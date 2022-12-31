@@ -92,6 +92,9 @@ class FireStoreHelper{
       case "amature":
         await docRef.update(playerInfoModel.toMap());
         break;
+      case "pro":
+        await docRef.update(playerInfoModel.toMap());
+        break;
     }
   }
 

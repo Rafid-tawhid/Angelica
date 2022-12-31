@@ -37,11 +37,12 @@ class _AmatureState extends State<Amature> {
   var d = 0;
   bool showMsg = false;
   bool hideNumber = true;
-  String _title = 'Noob';
-  var _achivement = 'Beginner';
+  String? _title;
+  String? _achivement ;
   var _date;
    late Timer _timer;
   int _start = 10;
+  late PlayersPrvider provider;
 
 
 
@@ -76,6 +77,11 @@ class _AmatureState extends State<Amature> {
     fetchHigestScoreFromSharedPref();
   }
 
+  @override
+  void didChangeDependencies() {
+    provider=Provider.of<PlayersPrvider>(context,listen: false);
+    super.didChangeDependencies();
+  }
 
 
   @override
@@ -378,18 +384,18 @@ class _AmatureState extends State<Amature> {
 
   void _rollTheDice() {
     // _fetchUserInfo();
-    if (_score > _higestScore) {
-      _higestScore = _score;
-      if (_score > 5) {
-        _title = 'amature';
-      }
-      if (_score > 10) {
-        _title = 'pro';
-      }
-      if (_score > 15) {
-        _title = 'legend';
-      }
-    }
+    // if (_score > _higestScore) {
+    //   _higestScore = _score;
+    //   if (_score > 5) {
+    //     _title = 'amature';
+    //   }
+    //   if (_score > 10) {
+    //     _title = 'pro';
+    //   }
+    //   if (_score > 15) {
+    //     _title = 'legend';
+    //   }
+    // }
     // _saveLastScore(_higestScore);
     //generate random number to call each method at a time
    int _randFun=_random.nextInt(4);
@@ -526,7 +532,7 @@ class _AmatureState extends State<Amature> {
 
 
   void checkHigestScoreToUpgradeCoin(int higest) async{
-    final provider=Provider.of<PlayersPrvider>(context,listen: false);
+
     PlayerInfoModel? profile=await provider.findPlayersAllInfo();
     print(profile.toString());
     if(higest>10&&higest<20){

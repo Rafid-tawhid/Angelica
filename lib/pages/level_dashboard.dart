@@ -1,6 +1,7 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:random_game_new_version/models/players_info_model.dart';
 import 'package:random_game_new_version/pages/playerslevelpage.dart';
@@ -59,8 +60,10 @@ class _LevelDashboardState extends State<LevelDashboard> {
   @override
   void didChangeDependencies() {
      playersInfo=ModalRoute.of(context)!.settings.arguments as PlayerInfoModel?;
-     if(playersInfo!.coin!>100){
-       circle3=true;
+     if(playersInfo!=null){
+       if(playersInfo!.coin!>100){
+         circle3=true;
+       }
      }
      prvider=Provider.of(context,listen: true);
 
@@ -84,60 +87,117 @@ class _LevelDashboardState extends State<LevelDashboard> {
 
                   Align(
                     alignment: Alignment.topCenter,
-                    child: Container(
-                      height: 200,
-                      alignment: Alignment.center,
-                      width: MediaQuery.of(context).size.width/1.4,
-                      decoration: const BoxDecoration(
-                        color: Colors.transparent,
-                      ),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Image.asset('img/profile.png',height: 80,width: 80,),
-                              Column(
-                                mainAxisSize: MainAxisSize.min,
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  playersInfo==null?Text('Please Login'):Text(playersInfo!.name!),
-                                  Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Image.asset('img/coin.png',height: 25,width: 25,),
-                                      SizedBox(width: 10,),
-                                      Text(playersInfo!.coin.toString())
-                                    ],
-                                  )
-                                ],
-                              )
-                            ],
-                          ),
-                          SizedBox(height: 20,),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Image.asset('img/trophy.png',height: 25,width: 25,),
-                                  SizedBox(width: 10,),
-                                  Text(playersInfo!.titel!)
-                                ],
-                              ),
-                              Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Image.asset('img/title.png',height: 25,width: 25,),
-                                  SizedBox(width: 10,),
-                                  Text(playersInfo!.achivement!)
-                                ],
-                              )
-                            ],
-                          )
-                        ],
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Container(
+                        height: MediaQuery.of(context).size.height/3.2,width: MediaQuery.of(context).size.width,
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Image.asset('img/score_bg.png',height: MediaQuery.of(context).size.height/3.2,width: MediaQuery.of(context).size.width,),
+                            Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                SizedBox(height: 35,),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Image.asset('img/trophy.png',height: 26,),
+                                    SizedBox(width: 5,),
+                                    Text('Ameature',style: TextStyle(fontSize: 16),)
+                                  ],
+                                ),
+                                 SizedBox(height: 10,),
+                                 Row(
+                                 mainAxisAlignment: MainAxisAlignment.center,
+                                 children: [
+                                   Container(
+                                     width: 80,
+                                     padding: EdgeInsets.all(5),
+                                     decoration: BoxDecoration(
+                                         borderRadius: BorderRadius.circular(10),
+                                         border: Border.all(
+                                             color: Colors.pinkAccent,
+                                             width: 1
+                                         )
+                                     ),
+                                     child: Row(
+                                       mainAxisSize: MainAxisSize.min,
+                                       children: [
+                                         Image.asset('img/title.png',height: 20,),
+                                         SizedBox(width: 5,),
+                                         Text('Legend',style: TextStyle(fontSize: 12),)
+                                       ],
+                                     ),
+                                   ),
+                                   SizedBox(width: 10,),
+                                   Container(
+                                     width: 80,
+                                     alignment: Alignment.center,
+                                     padding: EdgeInsets.all(5),
+                                     decoration: BoxDecoration(
+                                         borderRadius: BorderRadius.circular(10),
+                                         border: Border.all(
+                                             color: Colors.pinkAccent,
+                                             width: 1
+                                         )
+                                     ),
+                                     child: Row(
+                                       mainAxisSize: MainAxisSize.min,
+                                       children: [
+                                         Image.asset('img/coin.png',height: 20,),
+                                         SizedBox(width: 5,),
+                                         Text('100',style: TextStyle(fontSize: 12),)
+                                       ],
+                                     ),
+                                   ),
+                                 ],
+                               ),
+                                SizedBox(height: 10,),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Image.asset('img/plus.png',height: 25,),
+                                    SizedBox(width: 10,),
+                                    Image.asset('img/score_btn2.png',height: 25,),
+
+                                  ],
+                                ),
+                                SizedBox(height: 5,),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Image.asset('img/min.png',height: 25,),
+                                    SizedBox(width: 10,),
+                                    Image.asset('img/score_btn2.png',height: 25,),
+
+                                  ],
+                                ),
+                                SizedBox(height: 5,),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Image.asset('img/mup.png',height: 25,),
+                                    SizedBox(width: 10,),
+                                    Image.asset('img/score_btn2.png',height: 25,),
+
+                                  ],
+                                ),
+                                SizedBox(height: 5,),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Image.asset('img/div.png',height: 25,),
+                                    SizedBox(width: 10,),
+                                    Image.asset('img/score_btn2.png',height: 25,),
+
+                                  ],
+                                )
+
+                              ],
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ),
