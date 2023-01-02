@@ -14,6 +14,8 @@ import 'package:random_game_new_version/models/players_info_model.dart';
 import 'package:random_game_new_version/providers/players_info_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../custom_widget/name_widget.dart';
+
 class SubPage extends StatefulWidget {
   static const String routeName = '/sub_page';
 
@@ -41,6 +43,7 @@ class SubPage extends StatefulWidget {
    bool hideNumber = true;
     String? _title;
     String? _achivement;
+   List<String>? playerInfo;
 
    DateTime now = DateTime.now();
    AudioPlayer player = AudioPlayer(mode: PlayerMode.LOW_LATENCY);
@@ -147,12 +150,7 @@ class SubPage extends StatefulWidget {
                                          alignment: Alignment.center,
                                          width: 80,
                                          child: FittedBox(
-                                           child: Text(
-                                             Value.getString().toString(),
-                                             style: GoogleFonts.bubblegumSans(
-                                                 fontSize: 20,
-                                                 color: Colors.pinkAccent),
-                                           ),
+                                           child: ShowName(playerInfo),
                                          ),
                                        ),
                                      ],
@@ -347,8 +345,8 @@ class SubPage extends StatefulWidget {
                              ),
                              // ),
                              onPressed: () {
-                               replacePlayersInfo();
                                saveHigestScoreToSharedPref(_higestScore);
+                               savePlayersInfoToFirebase();
                                Navigator.pop(context);
                              },
                            ),
@@ -397,6 +395,9 @@ class SubPage extends StatefulWidget {
      // _fetchUserInfo();
 
      // _saveLastScore(_higestScore);
+     if (_score > _higestScore) {
+       _higestScore = _score;
+     }
      setState(() {
        _index1 = _random.nextInt(9);
        _index2 = _random.nextInt(9);
@@ -500,11 +501,13 @@ class SubPage extends StatefulWidget {
                const SizedBox(width: 10,),
                GestureDetector(child: Image.asset("img/no.png",fit: BoxFit.cover,width: 120,),onTap: (){
                  saveHigestScoreToSharedPref(_higestScore);
+                 savePlayersInfoToFirebase();
                  fToast.removeCustomToast();
                  Navigator.pop(context);
                },),
                GestureDetector(child: Image.asset("img/yes.png",fit: BoxFit.cover,width: 120,),onTap: (){
                  saveHigestScoreToSharedPref(_higestScore);
+                 savePlayersInfoToFirebase();
                  fToast.removeCustomToast();
                  setState(() {
                    _score=0;
@@ -543,6 +546,8 @@ class SubPage extends StatefulWidget {
    }
    Future<int> fetchHigestScoreFromSharedPref() async {
      final prefs = await SharedPreferences.getInstance();
+     playerInfo = prefs.getStringList('info');
+
      setState(() {
        _higestScore = prefs.getInt("min")!;
 
@@ -551,48 +556,23 @@ class SubPage extends StatefulWidget {
    }
 
 
-   void replacePlayersInfo() async{
-     var now = new DateTime.now();
-     var formatter = DateFormat('MMM-dd / h:mm');
-     formattedDate = formatter.format(now);
 
-     _playerInfoModel=(await _playersPrvider.findPlayersAllInfo())!;
-     if(_playerInfoModel!=null)
-     {
-       savePlayersInfoToFirebase();
-       await _playersPrvider.updateProfileScore(_playerInfoModel,"min");
-       print("found");
-     }
-     else
-     {
+   Future<void> savePlayersInfoToFirebase() async {
+     _playerInfoModel = (await _playersPrvider.findPlayersAllInfo())!;
+     if (_playerInfoModel != null) {
+       if(_playerInfoModel.min!<_higestScore) {
+         var now = DateTime.now();
+         var formatter = DateFormat('MMM-dd / h:mm');
+         formattedDate = formatter.format(now);
+         _playerInfoModel.min=_higestScore;
+         _playerInfoModel.time=formattedDate;
+         await _playersPrvider.updateProfileScore(_playerInfoModel, "min").then((value) {
+           print('firebase saving');
+         });
+
+       }
+     } else {
        print("Not found");
      }
-
-   }
-
-   void savePlayersInfoToFirebase() {
-     var now = DateTime.now();
-     var formatter = DateFormat('MMM-dd / h:mm');
-     formattedDate = formatter.format(now);
-     String? mail;
-     if(FirebaseAuthServices.currentUser==null)
-     {
-       mail="bot@gmail.com";
-     }
-     else
-     {
-       mail=FirebaseAuthServices.currentUser!.email;
-     }
-     _playerInfoModel.name=Value.getString().toString();
-     _playerInfoModel.email=mail;
-     _playerInfoModel.titel=_title;
-     _playerInfoModel.plus=_score;
-     _playerInfoModel.min=_higestScore;
-     _playerInfoModel.mup=_score;
-     _playerInfoModel.div=_score;
-     _playerInfoModel.achivement=_achivement;
-     _playerInfoModel.time=formattedDate;
-     print('firebase saving');
-
    }
  }

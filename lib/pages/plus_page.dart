@@ -15,6 +15,8 @@ import 'package:random_game_new_version/models/players_info_model.dart';
 import 'package:random_game_new_version/providers/players_info_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../custom_widget/name_widget.dart';
+
 class PlusPage extends StatefulWidget {
   static const String routeName = '/plus_page';
   @override
@@ -41,22 +43,19 @@ class _PlusPageState extends State<PlusPage> {
   var b = 0;
   var c = 0;
   var d = 0;
+  List<String>? playerInfo;
 
   late String formattedDate;
   bool showMsg = false;
   bool hideNumber = true;
   bool showHigestAndName = true;
 
-  String? _title ;
+  String? _title;
   String? _achivement;
 
   DateTime now = DateTime.now();
   AudioPlayer player = AudioPlayer(mode: PlayerMode.LOW_LATENCY);
-
-  String nameS = "Bot User",
-      idS = "00",
-      mailS = "user@",
-      emailFromLogin = "email@from_user";
+  String nameS = "Bot User", idS = "00", mailS = "user@", emailFromLogin = "email@from_user";
   List<int> list = [];
   final _random = Random.secure();
   final _diceList = <String>[
@@ -97,7 +96,6 @@ class _PlusPageState extends State<PlusPage> {
     //initial call
 
     return Scaffold(
-
       body: Container(
         width: double.maxFinite,
         height: double.maxFinite,
@@ -155,14 +153,7 @@ class _PlusPageState extends State<PlusPage> {
                                       Container(
                                         alignment: Alignment.center,
                                         width: 80,
-                                        child: FittedBox(
-                                          child: Text(
-                                            Value.getString().toString(),
-                                            style: GoogleFonts.bubblegumSans(
-                                                fontSize: 20,
-                                                color: Colors.pinkAccent),
-                                          ),
-                                        ),
+                                        child: ShowName(playerInfo),
                                       ), //Retriving name
                                     ],
                                   ),
@@ -389,9 +380,8 @@ class _PlusPageState extends State<PlusPage> {
                             ),
                             // ),
                             onPressed: () async {
-                              // savePlayersInfoToFirebase();
+                               savePlayersInfoToFirebase();
                               // await _playersPrvider.savePlayersInfo(_playerInfoModel);
-                              replacePlayersInfo();
                               saveHigestScoreToSharedPref(_higestScore);
                               Navigator.pop(context);
                             },
@@ -429,9 +419,13 @@ class _PlusPageState extends State<PlusPage> {
     );
   }
 
+
+
   void _rollTheDice() {
     // _fetchUserInfo();
-
+    if (_score > _higestScore) {
+      _higestScore = _score;
+    }
     // if (_score > _higestScore) {
     //   _higestScore = _score;
     //   if (_score > 5) {
@@ -558,6 +552,7 @@ class _PlusPageState extends State<PlusPage> {
                 ),
                 onTap: () {
                   saveHigestScoreToSharedPref(_higestScore);
+                  savePlayersInfoToFirebase();
                   fToast.removeCustomToast();
                   Navigator.pop(context);
                 },
@@ -569,7 +564,8 @@ class _PlusPageState extends State<PlusPage> {
                   width: 120,
                 ),
                 onTap: () {
-                  // saveHigestScoreToSharedPref(_higestScore);
+                   saveHigestScoreToSharedPref(_higestScore);
+                   savePlayersInfoToFirebase();
                   fToast.removeCustomToast();
                   setState(() {
                     _score = 0;
@@ -601,27 +597,23 @@ class _PlusPageState extends State<PlusPage> {
   //   // _rollTheDice();
   // }
 
-  void savePlayersInfoToFirebase() {
-    var now = DateTime.now();
-    var formatter = DateFormat('MMM-dd / h:mm');
-    formattedDate = formatter.format(now);
-    String? mail;
-    if (FirebaseAuthServices.currentUser == null) {
-      mail = "bot@gmail.com";
-    } else {
-      mail = FirebaseAuthServices.currentUser!.email;
-    }
-    _playerInfoModel.name = Value.getString().toString();
-    _playerInfoModel.email = mail;
-    _playerInfoModel.titel = _title;
-    _playerInfoModel.plus = _higestScore;
-    _playerInfoModel.min = _score;
-    _playerInfoModel.mup = _score;
-    _playerInfoModel.div = _score;
-    _playerInfoModel.achivement = _achivement;
-    _playerInfoModel.time = formattedDate;
+  Future<void> savePlayersInfoToFirebase() async {
+    _playerInfoModel = (await _playersPrvider.findPlayersAllInfo())!;
+      if (_playerInfoModel != null) {
+        if(_playerInfoModel.plus!<_higestScore) {
+          var now = DateTime.now();
+          var formatter = DateFormat('MMM-dd / h:mm');
+          formattedDate = formatter.format(now);
+          _playerInfoModel.plus=_higestScore;
+          _playerInfoModel.time=formattedDate;
+          await _playersPrvider.updateProfileScore(_playerInfoModel, "plus").then((value) {
+            print('firebase saving');
+          });
 
-    print('firebase saving');
+        }
+    } else {
+    print("Not found");
+    }
   }
 
   // void checkUserLoginOrNot() {
@@ -638,20 +630,6 @@ class _PlusPageState extends State<PlusPage> {
   //   }
   // }
 
-  void replacePlayersInfo() async {
-    var now = new DateTime.now();
-    var formatter = DateFormat('MMM-dd / h:mm');
-    formattedDate = formatter.format(now);
-
-    _playerInfoModel = (await _playersPrvider.findPlayersAllInfo())!;
-    if (_playerInfoModel != null) {
-      savePlayersInfoToFirebase();
-      await _playersPrvider.updateProfileScore(_playerInfoModel, "plus");
-      print("found");
-    } else {
-      print("Not found");
-    }
-  }
 
   void saveHigestScoreToSharedPref(int higest) async {
     var now = DateTime.now();
@@ -665,6 +643,7 @@ class _PlusPageState extends State<PlusPage> {
 
   Future<int> fetchHigestScoreFromSharedPref() async {
     final prefs = await SharedPreferences.getInstance();
+    playerInfo =await prefs.getStringList('info');
     setState(() {
       _higestScore = prefs.getInt("plus")!;
     });

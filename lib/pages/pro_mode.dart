@@ -110,7 +110,6 @@ class _ProfessionalModeState extends State<ProfessionalMode> {
     return Scaffold(
 
       body: Container(
-
         width: double.maxFinite,
         height: double.maxFinite,
         padding: const EdgeInsets.only(top: 70,left: 10,right: 10),
@@ -484,15 +483,6 @@ class _ProfessionalModeState extends State<ProfessionalMode> {
 
     if (_score > _higestScore) {
       _higestScore = _score;
-      if (_score > 5) {
-        _title = 'amature';
-      }
-      if (_score > 10) {
-        _title = 'pro';
-      }
-      if (_score > 15) {
-        _title = 'legend';
-      }
     }
     // _saveLastScore(_higestScore);
     //generate random number to call each method at a time

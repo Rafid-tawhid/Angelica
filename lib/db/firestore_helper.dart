@@ -77,16 +77,16 @@ class FireStoreHelper{
     switch(type)
     {
       case "plus":
-       await docRef.update({'email': playerInfoModel.email, 'plus' :playerInfoModel.plus });
+       await docRef.update(playerInfoModel.toMap());
         break;
       case "min":
-       await docRef.update({'email': playerInfoModel.email, 'min' :playerInfoModel.min });
+       await docRef.update({'min' :playerInfoModel.min });
         break;
       case "mup":
-       await docRef.update({'email': playerInfoModel.email, 'mup' :playerInfoModel.mup });
+       await docRef.update({'mup' :playerInfoModel.mup });
         break;
       case "div":
-       await docRef.update({'email': playerInfoModel.email, 'div' :playerInfoModel.div });
+       await docRef.update({'div' :playerInfoModel.div });
        break;
 
       case "amature":

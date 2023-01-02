@@ -149,7 +149,6 @@ class _SplashScreenState extends State<SplashScreen> {
                    //   ],
                    // ),
 
-
                    if(user!=null) ListTile(
                      leading: GoogleUserCircleAvatar(identity: user,),
                      title: Text(user.displayName!!),

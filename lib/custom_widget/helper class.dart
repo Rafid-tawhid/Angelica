@@ -56,6 +56,5 @@ class ProfileInfo {
     _playerInfoModel.achivement='None';
     _playerInfoModel.time=formattedDate;
 
-
   }
 }

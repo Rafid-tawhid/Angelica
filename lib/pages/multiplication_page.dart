@@ -14,6 +14,8 @@ import 'package:random_game_new_version/models/players_info_model.dart';
 import 'package:random_game_new_version/providers/players_info_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../custom_widget/name_widget.dart';
+
 class MultiplicationPage extends StatefulWidget {
   static const String routeName = '/multi_page';
   @override
@@ -35,6 +37,7 @@ class _MultiplicationPageState extends State<MultiplicationPage> {
   var b = 0;
   var c = 0;
   var d = 0;
+  List<String>? playerInfo;
 
   // late int SCORE;
   // late String BOT;
@@ -145,12 +148,7 @@ class _MultiplicationPageState extends State<MultiplicationPage> {
                                         alignment: Alignment.center,
                                         width: 80,
                                         child: FittedBox(
-                                          child: Text(
-                                            Value.getString().toString(),
-                                            style: GoogleFonts.bubblegumSans(
-                                                fontSize: 20,
-                                                color: Colors.pinkAccent),
-                                          ),
+                                          child: ShowName(playerInfo),
                                         ),
                                       ),
                                     ],
@@ -346,7 +344,7 @@ class _MultiplicationPageState extends State<MultiplicationPage> {
                             // ),
                             onPressed: () {
                               saveHigestScoreToSharedPref(_higestScore);
-                              replacePlayersInfo();
+                              savePlayersInfoToFirebase();
                               Navigator.pop(context);
                             },
                           ),
@@ -397,7 +395,9 @@ class _MultiplicationPageState extends State<MultiplicationPage> {
 
   void _rollTheDice() {
     // _fetchUserInfo();
-
+    if (_score > _higestScore) {
+      _higestScore = _score;
+    }
     // if (_score > _higestScore) {
     //   _higestScore = _score;
     //   if (_score > 5) {
@@ -504,11 +504,13 @@ class _MultiplicationPageState extends State<MultiplicationPage> {
               const SizedBox(width: 10,),
               GestureDetector(child: Image.asset("img/no.png",fit: BoxFit.cover,width: 120,),onTap: (){
                 saveHigestScoreToSharedPref(_higestScore);
+                savePlayersInfoToFirebase();
                 fToast.removeCustomToast();
                 Navigator.pop(context);
               },),
               GestureDetector(child: Image.asset("img/yes.png",fit: BoxFit.cover,width: 120,),onTap: (){
                 saveHigestScoreToSharedPref(_higestScore);
+                savePlayersInfoToFirebase();
                 fToast.removeCustomToast();
                 setState(() {
                   _score=0;
@@ -554,55 +556,31 @@ class _MultiplicationPageState extends State<MultiplicationPage> {
   }
   Future<int> fetchHigestScoreFromSharedPref() async {
     final prefs = await SharedPreferences.getInstance();
+    playerInfo = prefs.getStringList('info');
     setState(() {
       _higestScore = prefs.getInt("mup")!;
-
     });
     return _higestScore;
   }
 
-  void replacePlayersInfo() async{
-    var now = new DateTime.now();
-    var formatter = DateFormat('MMM-dd / h:mm');
-    formattedDate = formatter.format(now);
 
-    _playerInfoModel=(await _playersPrvider.findPlayersAllInfo())!;
-    if(_playerInfoModel!=null)
-    {
-      savePlayersInfoToFirebase();
-      await _playersPrvider.updateProfileScore(_playerInfoModel,"mup");
-      print("found");
-    }
-    else
-    {
+
+  Future<void> savePlayersInfoToFirebase() async {
+    _playerInfoModel = (await _playersPrvider.findPlayersAllInfo())!;
+    if (_playerInfoModel != null) {
+      if(_playerInfoModel.mup!<_higestScore) {
+        var now = DateTime.now();
+        var formatter = DateFormat('MMM-dd / h:mm');
+        formattedDate = formatter.format(now);
+        _playerInfoModel.mup=_higestScore;
+        _playerInfoModel.time=formattedDate;
+        await _playersPrvider.updateProfileScore(_playerInfoModel, "mup").then((value) {
+          print('firebase saving');
+        });
+
+      }
+    } else {
       print("Not found");
     }
-
-  }
-
-  void savePlayersInfoToFirebase() {
-    var now = DateTime.now();
-    var formatter = DateFormat('MMM-dd / h:mm');
-    formattedDate = formatter.format(now);
-    String? mail;
-    if(FirebaseAuthServices.currentUser==null)
-    {
-      mail="bot@gmail.com";
-    }
-    else
-    {
-      mail=FirebaseAuthServices.currentUser!.email;
-    }
-    _playerInfoModel.name=Value.getString().toString();
-    _playerInfoModel.email=mail;
-    _playerInfoModel.titel=_title;
-    _playerInfoModel.plus=_score;
-    _playerInfoModel.min=_higestScore;
-    _playerInfoModel.mup=_score;
-    _playerInfoModel.div=_score;
-    _playerInfoModel.achivement=_achivement;
-    _playerInfoModel.time=formattedDate;
-    print('firebase saving');
-
   }
 }

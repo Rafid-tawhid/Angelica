@@ -22,6 +22,7 @@ import 'package:random_game_new_version/pages/splash_screen.dart';
 import 'package:random_game_new_version/pages/substract_page.dart';
 import 'package:random_game_new_version/providers/players_info_provider.dart';
 import 'package:random_game_new_version/providers/reg_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'custom_widget/helper class.dart';
 import 'models/players_info_model.dart';
 import 'pages/multiplication_page.dart';
@@ -89,8 +90,9 @@ class _HomePageState extends State<HomePage> {
       _registerProvider.getName();
 
       playersPrvider = Provider.of<PlayersPrvider>(context, listen: false);
-      playersPrvider.findPlayersAllInfo().then((value) {
+      playersPrvider.findPlayersAllInfo().then((value) async {
         playerInfoModel=value;
+        savePlayerInfotoSharedPref(playerInfoModel);
       });
     }
     super.didChangeDependencies();
@@ -168,7 +170,7 @@ class _HomePageState extends State<HomePage> {
                                   onTap: () {
                                     Navigator.pushNamed(
                                         context, PlusPage.routeName);
-                                    sendNametoAnotherPage();
+                                   // sendNametoAnotherPage();
                                     // sendUserScoretoAnotherPage();
                                   },
                                   child: Center(
@@ -184,7 +186,7 @@ class _HomePageState extends State<HomePage> {
                                   onTap: () {
                                     Navigator.pushNamed(
                                         context, SubPage.routeName);
-                                    sendNametoAnotherPage();
+                                  //  sendNametoAnotherPage();
                                   },
                                   child: Center(
                                     child: Image.asset('img/min.png'),
@@ -204,7 +206,7 @@ class _HomePageState extends State<HomePage> {
                                   onTap: () {
                                     Navigator.pushNamed(
                                         context, MultiplicationPage.routeName);
-                                    sendNametoAnotherPage();
+                                  //  sendNametoAnotherPage();
                                   },
                                   child: Center(
                                     child: Image.asset('img/mup.png'),
@@ -219,7 +221,7 @@ class _HomePageState extends State<HomePage> {
                                   onTap: () {
                                     Navigator.pushNamed(
                                         context, DivisorPage.routeName);
-                                    sendNametoAnotherPage();
+                                  //  sendNametoAnotherPage();
                                   },
                                   child: Center(
                                     child: Image.asset('img/div.png'),
@@ -284,6 +286,22 @@ class _HomePageState extends State<HomePage> {
     } else {
       Value.setString(_registerProvider.nameList[0].toString());
     }
+  }
+
+  Future<void> savePlayerInfotoSharedPref(PlayerInfoModel? playerInfoModel) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setStringList('info', <String>[
+      playerInfoModel!.achivement!,
+      playerInfoModel.coin.toString(),
+      playerInfoModel.div.toString(),
+      playerInfoModel.email.toString(),
+      playerInfoModel.id!,
+      playerInfoModel.min.toString(),
+      playerInfoModel.mup.toString(),
+      playerInfoModel.name!,
+      playerInfoModel.plus.toString(),
+      playerInfoModel.titel!,
+    ]);
   }
 
 }

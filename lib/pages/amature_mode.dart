@@ -383,6 +383,9 @@ class _AmatureState extends State<Amature> {
   }
 
   void _rollTheDice() {
+    if (_score > _higestScore) {
+      _higestScore = _score;
+    }
     // _fetchUserInfo();
     // if (_score > _higestScore) {
     //   _higestScore = _score;

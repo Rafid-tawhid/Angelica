@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:random_game_new_version/models/players_info_model.dart';
 import 'package:random_game_new_version/pages/playerslevelpage.dart';
@@ -104,7 +105,9 @@ class _LevelDashboardState extends State<LevelDashboard> {
                                   children: [
                                     Image.asset('img/trophy.png',height: 26,),
                                     SizedBox(width: 5,),
-                                    Text('Ameature',style: TextStyle(fontSize: 16),)
+                                    Text('Ameature',style: GoogleFonts.bubblegumSans(
+                                        fontSize: 18,
+                                        color: Colors.pinkAccent),)
                                   ],
                                 ),
                                  SizedBox(height: 10,),
@@ -126,7 +129,10 @@ class _LevelDashboardState extends State<LevelDashboard> {
                                        children: [
                                          Image.asset('img/title.png',height: 20,),
                                          SizedBox(width: 5,),
-                                         Text('Legend',style: TextStyle(fontSize: 12),)
+                                         Text(playersInfo!.titel!, style: GoogleFonts.bubblegumSans(
+                                             fontSize: 14,
+                                             fontWeight: FontWeight.bold,
+                                             color: Colors.pinkAccent),)
                                        ],
                                      ),
                                    ),
@@ -147,7 +153,10 @@ class _LevelDashboardState extends State<LevelDashboard> {
                                        children: [
                                          Image.asset('img/coin.png',height: 20,),
                                          SizedBox(width: 5,),
-                                         Text('100',style: TextStyle(fontSize: 12),)
+                                         Text(playersInfo!.coin!.toString(),style: GoogleFonts.bubblegumSans(
+                                             fontSize: 14,
+                                             fontWeight: FontWeight.bold,
+                                             color: Colors.pinkAccent),)
                                        ],
                                      ),
                                    ),
@@ -159,7 +168,20 @@ class _LevelDashboardState extends State<LevelDashboard> {
                                   children: [
                                     Image.asset('img/plus.png',height: 25,),
                                     SizedBox(width: 10,),
-                                    Image.asset('img/score_btn2.png',height: 25,),
+                                    Container(
+                                        child: Stack(
+                                          alignment: Alignment.center,
+                                          children: [
+                                            Image.asset('img/score_btn2.png',height: 25,),
+                                            Text(playersInfo!.plus.toString(),
+                                              style: GoogleFonts.bubblegumSans(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.white),
+                                            )
+                                          ],
+                                        )
+                                    ),
 
                                   ],
                                 ),
@@ -169,7 +191,20 @@ class _LevelDashboardState extends State<LevelDashboard> {
                                   children: [
                                     Image.asset('img/min.png',height: 25,),
                                     SizedBox(width: 10,),
-                                    Image.asset('img/score_btn2.png',height: 25,),
+                                    Container(
+                                        child: Stack(
+                                          alignment: Alignment.center,
+                                          children: [
+                                            Image.asset('img/score_btn2.png',height: 25,),
+                                            Text(playersInfo!.min.toString(),
+                                              style: GoogleFonts.bubblegumSans(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.white),
+                                            )
+                                          ],
+                                        )
+                                    ),
 
                                   ],
                                 ),
@@ -179,7 +214,20 @@ class _LevelDashboardState extends State<LevelDashboard> {
                                   children: [
                                     Image.asset('img/mup.png',height: 25,),
                                     SizedBox(width: 10,),
-                                    Image.asset('img/score_btn2.png',height: 25,),
+                                    Container(
+                                        child: Stack(
+                                          alignment: Alignment.center,
+                                          children: [
+                                            Image.asset('img/score_btn2.png',height: 25,),
+                                            Text(playersInfo!.mup.toString(),
+                                              style: GoogleFonts.bubblegumSans(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.white),
+                                            )
+                                          ],
+                                        )
+                                    ),
 
                                   ],
                                 ),
@@ -189,7 +237,20 @@ class _LevelDashboardState extends State<LevelDashboard> {
                                   children: [
                                     Image.asset('img/div.png',height: 25,),
                                     SizedBox(width: 10,),
-                                    Image.asset('img/score_btn2.png',height: 25,),
+                                    Container(
+                                        child: Stack(
+                                          alignment: Alignment.center,
+                                          children: [
+                                            Image.asset('img/score_btn2.png',height: 25,),
+                                            Text(playersInfo!.div.toString(),
+                                              style: GoogleFonts.bubblegumSans(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.white),
+                                            )
+                                          ],
+                                        )
+                                    ),
 
                                   ],
                                 )
