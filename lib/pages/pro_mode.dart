@@ -16,6 +16,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
 import 'package:art_sweetalert/art_sweetalert.dart';
 
+import '../custom_widget/name_widget.dart';
 import '../models/players_info_model.dart';
 
 class ProfessionalMode extends StatefulWidget {
@@ -41,6 +42,7 @@ class _ProfessionalModeState extends State<ProfessionalMode> {
   var c = 0;
   var d = 0;
   static bool showMsg = false;
+  List<String>? playerInfo;
   bool hideNumber = true;
   String _title = 'Noob';
   var _achivement = 'Beginner';
@@ -235,12 +237,7 @@ class _ProfessionalModeState extends State<ProfessionalMode> {
                                         alignment: Alignment.center,
                                         width: 80,
                                         child: FittedBox(
-                                          child: Text(
-                                            Value.getString().toString(),
-                                            style: GoogleFonts.bubblegumSans(
-                                                fontSize: 20,
-                                                color: Colors.pinkAccent),
-                                          ),
+                                          child: ShowName(playerInfo),
                                         ),
                                       ),
                                     ],
@@ -648,6 +645,7 @@ class _ProfessionalModeState extends State<ProfessionalMode> {
   }
   Future<int> fetchHigestScoreFromSharedPref() async {
     final prefs = await SharedPreferences.getInstance();
+    playerInfo = prefs.getStringList('info');
     setState(() {
       _higestScore = prefs.getInt("mode2")!;
 
@@ -780,18 +778,18 @@ class _ProfessionalModeState extends State<ProfessionalMode> {
 
     if(higest>20&&higest<40){
         profile!.coin=profile.coin!+10;
-        profile.titel=getTitelByCoin(profile!.coin);
+        profile.titel=getTitelByCoin(profile.coin);
         provider.updateProfileScore(profile, 'pro');
       }
 
     if(higest>40&&higest<60){
       profile!.coin=profile.coin!+20;
-      profile.titel=getTitelByCoin(profile!.coin);
+      profile.titel=getTitelByCoin(profile.coin);
       provider.updateProfileScore(profile, 'pro');
     }
     if(higest>60){
       profile!.coin=profile.coin!+30;
-      profile.titel=getTitelByCoin(profile!.coin);
+      profile.titel=getTitelByCoin(profile.coin);
       provider.updateProfileScore(profile, 'pro');
     }
   }

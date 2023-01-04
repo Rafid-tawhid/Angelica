@@ -13,6 +13,8 @@ import 'package:random_game_new_version/models/players_info_model.dart';
 import 'package:random_game_new_version/providers/players_info_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../custom_widget/name_widget.dart';
+
 class Amature extends StatefulWidget {
 
   static const String routeName='/amature';
@@ -35,6 +37,7 @@ class _AmatureState extends State<Amature> {
   var b = 0;
   var c = 0;
   var d = 0;
+  List<String>? playerInfo;
   bool showMsg = false;
   bool hideNumber = true;
   String? _title;
@@ -141,12 +144,7 @@ class _AmatureState extends State<Amature> {
                                       alignment: Alignment.center,
                                       width: 80,
                                       child: FittedBox(
-                                        child: Text(
-                                          Value.getString().toString(),
-                                          style: GoogleFonts.bubblegumSans(
-                                              fontSize: 20,
-                                              color: Colors.pinkAccent),
-                                        ),
+                                        child: ShowName(playerInfo),
                                       ),
                                     ),
                                   ],
@@ -564,6 +562,7 @@ class _AmatureState extends State<Amature> {
   }
   Future<int> fetchHigestScoreFromSharedPref() async {
     final prefs = await SharedPreferences.getInstance();
+    playerInfo = prefs.getStringList('info');
     setState(() {
       _higestScore = prefs.getInt("mode1")!;
 

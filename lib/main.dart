@@ -118,8 +118,6 @@ class _HomePageState extends State<HomePage> {
       ),
       home: SafeArea(
         child: Scaffold(
-          drawer: Drawer(),
-
           body: GestureDetector(
             onTap: () {
               fToast.removeCustomToast();

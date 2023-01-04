@@ -57,4 +57,13 @@ class ProfileInfo {
     _playerInfoModel.time=formattedDate;
 
   }
+
+  static bool isLoggedIn(){
+    if(FirebaseAuthServices.currentUser==null){
+      return false;
+    }
+    else {
+      return true;
+    }
+  }
 }

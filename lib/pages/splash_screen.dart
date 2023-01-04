@@ -126,7 +126,7 @@ class _SplashScreenState extends State<SplashScreen> {
                         ),
                       ),
                     ),
-                    if(showTxt)Padding(
+                    HelperClass.isLoggedIn()?Text(''):Padding(
                       padding: const EdgeInsets.only(top: 0.0,bottom: 10),
                       child: Center(
                         child: Align(
